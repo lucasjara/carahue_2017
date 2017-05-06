@@ -1,5 +1,7 @@
 package vista;
 
+import java.awt.Dimension;
+
 public class Marco extends javax.swing.JFrame {
 
     public Marco() {
@@ -193,12 +195,6 @@ public class Marco extends javax.swing.JFrame {
         jMenuBar1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         Slider1.setText("Ventas");
-        Slider1.setEnabled(false);
-        Slider1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Slider1ActionPerformed(evt);
-            }
-        });
 
         llama_interfaz_principal.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_V, java.awt.event.InputEvent.CTRL_MASK));
         llama_interfaz_principal.setText("Generar Venta Boleta");
@@ -211,11 +207,6 @@ public class Marco extends javax.swing.JFrame {
 
         jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItem1.setText("Generar Venta Factura");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
-            }
-        });
         Slider1.add(jMenuItem1);
 
         jMenuBar1.add(Slider1);
@@ -225,57 +216,27 @@ public class Marco extends javax.swing.JFrame {
 
         llamaLibreria.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_1, java.awt.event.InputEvent.CTRL_MASK));
         llamaLibreria.setText("Inventario Libreria");
-        llamaLibreria.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                llamaLibreriaActionPerformed(evt);
-            }
-        });
         Slider2.add(llamaLibreria);
 
         llamaVestuario.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_2, java.awt.event.InputEvent.CTRL_MASK));
         llamaVestuario.setText("Inventario Vestuario");
-        llamaVestuario.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                llamaVestuarioActionPerformed(evt);
-            }
-        });
         Slider2.add(llamaVestuario);
 
         llamaCasayPesca.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_3, java.awt.event.InputEvent.CTRL_MASK));
         llamaCasayPesca.setText("Inventario Casa y Pesca");
-        llamaCasayPesca.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                llamaCasayPescaActionPerformed(evt);
-            }
-        });
         Slider2.add(llamaCasayPesca);
 
         jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_4, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItem2.setText("Administracion Inventario");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
-            }
-        });
         Slider2.add(jMenuItem2);
 
         jMenuBar1.add(Slider2);
 
         Slider3.setText("Usuarios");
         Slider3.setEnabled(false);
-        Slider3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Slider3ActionPerformed(evt);
-            }
-        });
 
         llamaUsuarios.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.CTRL_MASK));
         llamaUsuarios.setText("Usuario");
-        llamaUsuarios.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                llamaUsuariosActionPerformed(evt);
-            }
-        });
         Slider3.add(llamaUsuarios);
 
         jMenuBar1.add(Slider3);
@@ -285,30 +246,15 @@ public class Marco extends javax.swing.JFrame {
 
         llama_interfaz_informes.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.CTRL_MASK));
         llama_interfaz_informes.setText("Reportes Venta");
-        llama_interfaz_informes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                llama_interfaz_informesActionPerformed(evt);
-            }
-        });
         Slider4.add(llama_interfaz_informes);
 
         jMenuBar1.add(Slider4);
 
         Slider5.setText("Linea de Credito");
         Slider5.setEnabled(false);
-        Slider5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Slider5ActionPerformed(evt);
-            }
-        });
 
         llama_interfaz_linea_credito.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_1, java.awt.event.InputEvent.ALT_MASK));
         llama_interfaz_linea_credito.setText("Linea de Credito");
-        llama_interfaz_linea_credito.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                llama_interfaz_linea_creditoActionPerformed(evt);
-            }
-        });
         Slider5.add(llama_interfaz_linea_credito);
 
         jMenuBar1.add(Slider5);
@@ -317,11 +263,6 @@ public class Marco extends javax.swing.JFrame {
         Slider6.setEnabled(false);
 
         jMenuItem3.setText("CAJA");
-        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem3ActionPerformed(evt);
-            }
-        });
         Slider6.add(jMenuItem3);
 
         jMenuBar1.add(Slider6);
@@ -351,161 +292,28 @@ public class Marco extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void llama_interfaz_principalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_llama_interfaz_principalActionPerformed
-//        interfaz_ventab Form = new interfaz_ventab();
-//        Form.setVisible(true);
-//        if(lbCARGO.getText().equals("LIBRERIA"))
-//        {
-//            Form.cboCategoria.setSelectedIndex(0);
-//            Form.cboCategoria.setEnabled(false);
-//        }else if(lbCARGO.getText().equals("VESTUARIO"))
-//        {
-//            Form.cboCategoria.setSelectedIndex(1);
-//            Form.cboCategoria.setEnabled(false);
-//        }else if(lbCARGO.getText().equals("CASA Y PESCA"))
-//        {
-//            Form.cboCategoria.setSelectedIndex(2);
-//            Form.cboCategoria.setEnabled(false);
-//        }
-//        this.add(Form);
-//        Dimension desktopSize = this.getSize();
-//        Dimension FrameSize = Form.getSize();
-//        Form.setLocation((desktopSize.width - FrameSize.width) / 2, ((desktopSize.height - FrameSize.height) / 2) - 50);
-//        Contenedor.removeAll();
-//        Contenedor.updateUI();
-//        Contenedor.add(Form);
+        Venta_b Form = new Venta_b();
+        Form.setVisible(true);
+        String cargo = lbCARGO.getText();
+        switch (cargo) {
+            case "LIBRERIA":
+
+                break;
+            case "VESTUARIO":
+
+                break;
+            case "CASA Y PESCA":
+
+                break;
+        }
+        this.add(Form);
+        Dimension desktopSize = this.getSize();
+        Dimension FrameSize = Form.getSize();
+        Form.setLocation((desktopSize.width - FrameSize.width) / 2, ((desktopSize.height - FrameSize.height) / 2) - 50);
+        Contenedor.removeAll();
+        Contenedor.updateUI();
+        Contenedor.add(Form);
     }//GEN-LAST:event_llama_interfaz_principalActionPerformed
-
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-//        interfaz_ventaf Form = new interfaz_ventaf();
-//        Form.setVisible(true);
-//        this.add(Form);
-//        Dimension desktopSize = this.getSize();
-//        Dimension FrameSize = Form.getSize();
-//        Form.setLocation((desktopSize.width - FrameSize.width) / 2, ((desktopSize.height - FrameSize.height) / 2) - 50);
-//        Contenedor.removeAll();
-//        Contenedor.updateUI();
-//        Contenedor.add(Form);
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
-
-    private void Slider1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Slider1ActionPerformed
-//        interfaz_ventab il = new interfaz_ventab();
-//        il.setVisible(true);
-//        Contenedor.removeAll();
-//        Contenedor.updateUI();
-//        Contenedor.add(il);
-    }//GEN-LAST:event_Slider1ActionPerformed
-
-    private void llamaLibreriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_llamaLibreriaActionPerformed
-//        interfaz_inventario1 Form = new interfaz_inventario1();
-//        Form.CargarTablas(2, "LIBRERIA");
-//        Form.categoria = "LIBRERIA";
-//
-//        this.add(Form);
-//        Dimension desktopSize = this.getSize();
-//        Dimension FrameSize = Form.getSize();
-//        Form.setLocation((desktopSize.width - FrameSize.width) / 2, ((desktopSize.height - FrameSize.height) / 2) - 50);
-//        Form.setVisible(true);
-//        Contenedor.removeAll();
-//        Contenedor.updateUI();
-//        Contenedor.add(Form);
-    }//GEN-LAST:event_llamaLibreriaActionPerformed
-
-    private void llamaVestuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_llamaVestuarioActionPerformed
-//        interfaz_inventario1 Form = new interfaz_inventario1();
-//        Form.CargarTablas(2, "VESTUARIO");
-//        Form.categoria = "VESTUARIO";
-//        Form.setVisible(true);
-//        this.add(Form);
-//        Dimension desktopSize = this.getSize();
-//        Dimension FrameSize = Form.getSize();
-//        Form.setLocation((desktopSize.width - FrameSize.width) / 2, ((desktopSize.height - FrameSize.height) / 2) - 50);
-//        Contenedor.removeAll();
-//        Contenedor.updateUI();
-//        Contenedor.add(Form);
-    }//GEN-LAST:event_llamaVestuarioActionPerformed
-
-    private void llamaCasayPescaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_llamaCasayPescaActionPerformed
-//        interfaz_inventario1 Form = new interfaz_inventario1();
-//        Form.CargarTablas(2, "CASA Y PESCA");
-//        Form.categoria = "CASA Y PESCA";
-//        Form.setVisible(true);
-//        this.add(Form);
-//        Dimension desktopSize = this.getSize();
-//        Dimension FrameSize = Form.getSize();
-//        Form.setLocation((desktopSize.width - FrameSize.width) / 2, ((desktopSize.height - FrameSize.height) / 2) - 50);
-//        Contenedor.removeAll();
-//        Contenedor.updateUI();
-//        Contenedor.add(Form);
-    }//GEN-LAST:event_llamaCasayPescaActionPerformed
-
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-//        interfaz_inventario_administracion Form = new interfaz_inventario_administracion();
-//        Form.CargarTablas(1, "");
-//        Form.setVisible(true);
-//        this.add(Form);
-//        Dimension desktopSize = this.getSize();
-//        Dimension FrameSize = Form.getSize();
-//        Form.setLocation((desktopSize.width - FrameSize.width) / 2, ((desktopSize.height - FrameSize.height) / 2) - 50);
-//        Contenedor.removeAll();
-//        Contenedor.updateUI();
-//        Contenedor.add(Form);
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
-
-    private void llamaUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_llamaUsuariosActionPerformed
-//        interfaz_usuarios2 Form = new interfaz_usuarios2();
-//        Form.setVisible(true);
-//        this.add(Form);
-//        Dimension desktopSize = this.getSize();
-//        Dimension FrameSize = Form.getSize();
-//        Form.setLocation((desktopSize.width - FrameSize.width) / 2, ((desktopSize.height - FrameSize.height) / 2) - 50);
-//        Contenedor.removeAll();
-//        Contenedor.updateUI();
-//        Contenedor.add(Form);
-    }//GEN-LAST:event_llamaUsuariosActionPerformed
-
-    private void Slider3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Slider3ActionPerformed
-
-    }//GEN-LAST:event_Slider3ActionPerformed
-
-    private void llama_interfaz_informesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_llama_interfaz_informesActionPerformed
-//        interfaz_reportes Form = new interfaz_reportes();
-//        Form.setVisible(true);
-//        this.add(Form);
-//        Dimension desktopSize = this.getSize();
-//        Dimension FrameSize = Form.getSize();
-//        Form.setLocation((desktopSize.width - FrameSize.width) / 2, ((desktopSize.height - FrameSize.height) / 2) - 50);
-//        Contenedor.removeAll();
-//        Contenedor.updateUI();
-//        Contenedor.add(Form);
-    }//GEN-LAST:event_llama_interfaz_informesActionPerformed
-
-    private void llama_interfaz_linea_creditoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_llama_interfaz_linea_creditoActionPerformed
-//        interfaz_credito Form = new interfaz_credito();
-//        Form.setVisible(true);
-//        this.add(Form);
-//        Dimension desktopSize = this.getSize();
-//        Dimension FrameSize = Form.getSize();
-//        Form.setLocation((desktopSize.width - FrameSize.width) / 2, ((desktopSize.height - FrameSize.height) / 2) - 50);
-//        Contenedor.removeAll();
-//        Contenedor.updateUI();
-//        Contenedor.add(Form);
-    }//GEN-LAST:event_llama_interfaz_linea_creditoActionPerformed
-
-    private void Slider5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Slider5ActionPerformed
-
-    }//GEN-LAST:event_Slider5ActionPerformed
-
-    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-//        interfaz_administracion Form = new interfaz_administracion();
-//        Form.setVisible(true);
-//        this.add(Form);
-//        Dimension desktopSize = this.getSize();
-//        Dimension FrameSize = Form.getSize();
-//        Form.setLocation((desktopSize.width - FrameSize.width) / 2, ((desktopSize.height - FrameSize.height) / 2)-50);
-//        Contenedor.removeAll();
-//        Contenedor.updateUI();
-//        Contenedor.add(Form);
-    }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void menu_salirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menu_salirMouseClicked
 //        interfaz_login il = new interfaz_login();
@@ -529,8 +337,7 @@ public class Marco extends javax.swing.JFrame {
 //        Main.Slider5.setEnabled(false);
     }//GEN-LAST:event_menu_salirMouseClicked
     
-    
-    
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
