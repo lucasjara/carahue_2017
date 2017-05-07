@@ -38,15 +38,10 @@ public class ConsultasSQL_Venta {
                 break;
         }
         try {
-//            if (numero == 3) {
-//                String[] datos = new String[2];
-//                Statement st = this.cn.createStatement();
-//                ResultSet rs = st.executeQuery(CadSql);
-//                while (rs.next()) {
-//                    guardarRecuperacion(rs.getString(1), rs.getString(2));
-//                }
-//
-//            } else {
+            /*
+            Debemos agregar una condicional aca si agregamos
+            la tabla recuperacion de carahue 1.0
+            */
             String[] datos = new String[5];
             Statement st = this.cn.createStatement();
             ResultSet rs = st.executeQuery(CadSql);
@@ -58,7 +53,6 @@ public class ConsultasSQL_Venta {
                 datos[4] = rs.getString(5);
                 modelo.addRow(datos);
             }
-//            }
             Venta_b.tbproductosListado.setModel(modelo);
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, ex);
@@ -159,8 +153,6 @@ public class ConsultasSQL_Venta {
         }
         return Integer.parseInt(codigo);
     }
-    conectar cc = new conectar();
-    Connection cn = this.cc.conexion();
 
     public void LimpiarVenta(){
         DefaultTableModel modelo = (DefaultTableModel) Venta_b.tbventa.getModel();
@@ -210,5 +202,6 @@ public class ConsultasSQL_Venta {
             JOptionPane.showMessageDialog(null, ex);
         }
     }
-         
+    conectar cc = new conectar();
+    Connection cn = this.cc.conexion();
 }

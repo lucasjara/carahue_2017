@@ -31,7 +31,6 @@ public class Marco extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         Slider1 = new javax.swing.JMenu();
         llama_interfaz_principal = new javax.swing.JMenuItem();
-        jMenuItem1 = new javax.swing.JMenuItem();
         Slider2 = new javax.swing.JMenu();
         llamaLibreria = new javax.swing.JMenuItem();
         llamaVestuario = new javax.swing.JMenuItem();
@@ -205,10 +204,6 @@ public class Marco extends javax.swing.JFrame {
         });
         Slider1.add(llama_interfaz_principal);
 
-        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem1.setText("Generar Venta Factura");
-        Slider1.add(jMenuItem1);
-
         jMenuBar1.add(Slider1);
 
         Slider2.setText("Inventario");
@@ -233,10 +228,14 @@ public class Marco extends javax.swing.JFrame {
         jMenuBar1.add(Slider2);
 
         Slider3.setText("Usuarios");
-        Slider3.setEnabled(false);
 
         llamaUsuarios.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.CTRL_MASK));
         llamaUsuarios.setText("Usuario");
+        llamaUsuarios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                llamaUsuariosActionPerformed(evt);
+            }
+        });
         Slider3.add(llamaUsuarios);
 
         jMenuBar1.add(Slider3);
@@ -336,6 +335,30 @@ public class Marco extends javax.swing.JFrame {
 //        Main.Slider4.setEnabled(false);
 //        Main.Slider5.setEnabled(false);
     }//GEN-LAST:event_menu_salirMouseClicked
+
+    private void llamaUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_llamaUsuariosActionPerformed
+        Usuarios Form = new Usuarios();
+        Form.setVisible(true);
+        String cargo = lbCARGO.getText();
+        switch (cargo) {
+            case "LIBRERIA":
+
+                break;
+            case "VESTUARIO":
+
+                break;
+            case "CASA Y PESCA":
+
+                break;
+        }
+        this.add(Form);
+        Dimension desktopSize = this.getSize();
+        Dimension FrameSize = Form.getSize();
+        Form.setLocation((desktopSize.width - FrameSize.width) / 2, ((desktopSize.height - FrameSize.height) / 2) - 50);
+        Contenedor.removeAll();
+        Contenedor.updateUI();
+        Contenedor.add(Form);
+    }//GEN-LAST:event_llamaUsuariosActionPerformed
     
 
     public static void main(String args[]) {
@@ -387,7 +410,6 @@ public class Marco extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JPanel jPanel1;
