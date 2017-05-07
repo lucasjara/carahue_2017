@@ -102,7 +102,7 @@ public class ConsultasSQL_Venta {
         }
     }
 
-    public void NuevaVenta(int cod_venta,int cantidad,Double precio,String estado, int id_producto, int id_usuario) {
+    public void NuevaVenta(int cod_venta,int cantidad,Double precio,String estado, int id_producto, int id_usuario,int cantidad2) {
         try {
              /*
                 cod venta|cantidad|precio|fecha|estado|id_producto|id_usuario
@@ -119,8 +119,13 @@ public class ConsultasSQL_Venta {
             pst.setInt(6, id_producto);
             pst.setInt(7, id_usuario);
             pst.executeUpdate();
-            //GuardarOrdenVenta(cod_venta, cod_producto, precio);
-            //StockProductos(cod_producto, cantidad2, categoria);
+            //id_producto | cantidad
+            if(estado.equals("RESERVADO")){
+                
+            }else{
+                DescontarInventario(id_producto,cantidad2);
+            }
+            
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
@@ -157,7 +162,53 @@ public class ConsultasSQL_Venta {
     conectar cc = new conectar();
     Connection cn = this.cc.conexion();
 
-    public void NuevaVenta(int cod_venta_reservado, int i, double d, Date valueOf) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void LimpiarVenta(){
+        DefaultTableModel modelo = (DefaultTableModel) Venta_b.tbventa.getModel();
+        int filas = Venta_b.tbventa.getRowCount();
+        for (int i = 0; filas > i; i++) {
+            modelo.removeRow(0);
+        }
     }
+    public void DevolverStock_Parte1(){
+                try {
+            DefaultTableModel modelo = (DefaultTableModel) Venta_b.tbventa.getModel();
+            int filas = Venta_b.tbventa.getRowCount();
+            for (int i = 0; filas > i; i++) {
+                DevolverStock_Parte2(Integer.parseInt(Venta_b.tbventa.getValueAt(0, 2).toString()), Venta_b.tbventa.getValueAt(0, 0).toString(), Venta_b.tbventa.getValueAt(0, 1).toString());
+                modelo.removeRow(0);
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, ex);
+        }
+    }
+    public void DevolverStock_Parte2(int cantidad,String nombre,String descripcion){
+        try {
+            PreparedStatement pst = this.cn.prepareStatement("UPDATE productos SET cantidad=cantidad+? WHERE nombre=? AND descripcion=?;");
+            pst.setInt(1, cantidad);
+            pst.setString(2, nombre);
+            pst.setString(3, descripcion);
+            pst.executeUpdate();
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, ex);
+        }
+    }
+    public void CancelarVenta(int valor){
+        try {
+            PreparedStatement pst = this.cn.prepareStatement("DELETE FROM ventas WHERE  cod_venta='" + valor + "'");
+            pst.executeUpdate();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
+    public void DescontarInventario(int id_producto, int cantidad){
+        try {
+            PreparedStatement pst = this.cn.prepareStatement("UPDATE productos SET cantidad=? WHERE id=?;");
+            pst.setInt(1, cantidad);
+            pst.setInt(2, id_producto);
+            pst.executeUpdate();
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, ex);
+        }
+    }
+         
 }

@@ -489,15 +489,6 @@ public class Venta_b extends javax.swing.JInternalFrame {
     private void BtnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAceptarActionPerformed
         if (cbocantidad.getSelectedItem() == null) {
         }else {
-            /*
-                fila = fila que seleccionamos.
-                cantidad = cantidad que compraran.
-                stock = que existe.
-                precio_individual = valor venta.
-                cantidad 2 = stock - cantidad que llevaremos.
-                precio = total del costo del producto
-                cod_producto = codigo de producto a ingresar
-            */
             int fila = this.tbproductosListado.getSelectedRow();
             int cantidad = Integer.parseInt(cbocantidad.getSelectedItem().toString());
             int stock = Integer.parseInt(tbproductosListado.getValueAt(fila, 3).toString());
@@ -506,20 +497,19 @@ public class Venta_b extends javax.swing.JInternalFrame {
             int precio = cantidad * precio_individual;
             String cod_producto = (tbproductosListado.getValueAt(fila, 0).toString());
             
-            NuevaVenta(cod_producto, cantidad, precio);
+            NuevaVenta(cod_producto, cantidad, precio,cantidad2);
             DesplegarTablas(1, "");
             DesplegarTablas_Venta(1, txtcodigo.getText());
             
-//            sql.CargarTablaCompra(1, txtcodigo.getText());
-//
-//            monto_neto = Double.parseDouble(txtMontoNeto.getText()) + precio;
-//            txtMontoNeto.setText(String.valueOf(monto_neto));
-//
-//            monto_iva = 0;
-//            txtIVA.setText(String.valueOf(monto_iva));
-//            total = monto_neto + monto_iva;
-//            txtTotal.setText(String.valueOf(total));
-            //remover y limpiar
+            //DESPLEGAR DATOS NUMERICOS TOTAL
+            Double monto_neto = Double.parseDouble(txtMontoNeto.getText()) + precio;
+            txtMontoNeto.setText(String.valueOf(monto_neto));
+            int monto_iva = 0;
+            txtIVA.setText(String.valueOf(monto_iva));
+            Double total = monto_neto + monto_iva;
+            txtTotal.setText(String.valueOf(total));
+            
+            //REMOVER Y LIMPIAR
             cbocantidad.removeAllItems();
             cbocantidad.setEnabled(false);
             BtnGuardar.setEnabled(true);
@@ -534,12 +524,12 @@ public class Venta_b extends javax.swing.JInternalFrame {
 
     private void BtnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCerrarActionPerformed
         try {
-//            if (tbventa.getValueAt(0, 0).toString() == "") {
-//                dispose();
-//            } else {
-//                volver();
-//                dispose();
-//            }
+            if (tbventa.getValueAt(0, 0).toString() == "") {
+                dispose();
+            } else {
+                Devolver();
+                dispose();
+            }
             dispose();
         } catch (Exception ex) {
             dispose();
@@ -568,48 +558,39 @@ public class Venta_b extends javax.swing.JInternalFrame {
 
     private void BtnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnSalirActionPerformed
         try {
-//            if (tbventa.getValueAt(0, 0).toString() == "") {
-//                dispose();
-//            } else {
-//
-//                volver();
+            if (tbventa.getValueAt(0, 0).toString() == "") {
                 dispose();
-//            }
+            } else {
+                Devolver();
+                dispose();
+            }
         } catch (Exception ex) {
             dispose();
         }
     }//GEN-LAST:event_BtnSalirActionPerformed
 
     private void BtnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnLimpiarActionPerformed
-//        BtnGuardar.setEnabled(false);
-//        BtnLimpiar.setEnabled(false);
+        BtnGuardar.setEnabled(false);
+        BtnLimpiar.setEnabled(false);
 //        if (Main.lbCARGO.getText().equals("Ventas")) {
 //            cboCategoria.setEnabled(true);
 //        } else if (Main.lbCARGO.getText().equals("Administrador")) {
 //            cboCategoria.setEnabled(true);
 //        }
-//        txtMontoNeto.setText("0");
-//        txtIVA.setText("0");
-//        txtImpuestoAdicional.setText("0");
-//        txtTotal.setText("0");
-//        volver();
+        LimpiarTotal();
+        Devolver();
     }//GEN-LAST:event_BtnLimpiarActionPerformed
 
     private void BtnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnGuardarActionPerformed
-//
+//-------------DEBEMOS IMPRIMIR Y GUARDAR GANANCIA PARA REPORTE-------------
 //        imprimirFacturaPruebaMenorEscala();
-//
 //        sql.GuardarGanancia(Integer.parseInt(txtcodigo.getText()), Double.parseDouble(txtMontoNeto.getText()), Double.parseDouble(txtIVA.getText()), Double.parseDouble(txtImpuestoAdicional.getText()), Double.parseDouble(txtTotal.getText()));
-//
-//        int numero = Integer.parseInt(txtcodigo.getText()) + 1;
-//        txtcodigo.setText(String.valueOf(numero));
-//        BtnGuardar.setEnabled(false);
-//        txtMontoNeto.setText("0");
-//        txtIVA.setText("0");
-//        txtImpuestoAdicional.setText("0");
-//        txtTotal.setText("0");
-//        BtnLimpiar.setEnabled(false);
-//        LimpiarVenta();
+//--------------------------------------------------------
+        ReservarCodigo();
+        BtnGuardar.setEnabled(false);
+        BtnLimpiar.setEnabled(false);
+        LimpiarTotal();
+        LimpiarVenta();
     }//GEN-LAST:event_BtnGuardarActionPerformed
 
     private void txtNombreKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyReleased
@@ -626,21 +607,30 @@ public class Venta_b extends javax.swing.JInternalFrame {
         txtNombre.setText("");
         DesplegarTablas(4, txtCodigoBusqueda.getText());
     }//GEN-LAST:event_txtCodigoBusquedaKeyReleased
+     private void Devolver() {
+        sql.DevolverStock_Parte1();
+        DesplegarTablas(1, "");
+        sql.CancelarVenta(Integer.parseInt(txtcodigo.getText()));
+    }
+    private void LimpiarTotal(){
+        txtMontoNeto.setText("0");
+        txtIVA.setText("0");
+        txtImpuestoAdicional.setText("0");
+        txtTotal.setText("0");
+    }
+    private void LimpiarVenta() {
+        sql.LimpiarVenta();
+    }
     private void ReservarCodigo(){
         int cod_venta_reservado= sql.ReservarCodigoVenta()+1;
         txtcodigo.setText(Integer.toString(cod_venta_reservado));
-        //Reservamos nuestro codigo
-        sql.NuevaVenta(cod_venta_reservado,0,0.0,"RESERVADO",3,1);
+        sql.NuevaVenta(cod_venta_reservado,0,0.0,"RESERVADO",3,1,0);
     }
-    private void NuevaVenta(String codigo,int cantidad, double precio){
-        //ConsultasSQL_Venta sql = new ConsultasSQL_Venta();
-        /*
-            cod venta|cantidad|precio|fecha|estado|id_producto|id_usuario
-        */
+    private void NuevaVenta(String codigo,int cantidad, double precio,int cantidad2){
         int cod_venta = Integer.parseInt(txtcodigo.getText());
         int id_producto=sql.Id_producto(codigo);
         int id_usuario=1;
-        sql.NuevaVenta(cod_venta,cantidad,precio,"INACTIVO",id_producto,id_usuario);
+        sql.NuevaVenta(cod_venta,cantidad,precio,"INACTIVO",id_producto,id_usuario,cantidad2);
         
     }
     private void DesplegarTablas(int numero,String campo){
