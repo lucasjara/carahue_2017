@@ -2,9 +2,12 @@ package vista;
 
 import consultas.ConsultasSQL_Usuarios;
 import java.awt.BorderLayout;
+import javax.swing.JOptionPane;
 import paneles.usuarios.JPanelModUsuarios;
+import static paneles.usuarios.JPanelModUsuarios.txtNombres;
+import static paneles.usuarios.JPanelModUsuarios.txtUsuario;
+import static paneles.usuarios.JPanelModUsuarios.txtpass;
 import paneles.usuarios.JPanelNuevoUsuarios;
-
 
 public class Usuarios extends javax.swing.JInternalFrame {
 
@@ -58,7 +61,7 @@ public class Usuarios extends javax.swing.JInternalFrame {
             }
         });
 
-        btnEliminar.setText("DESABILITAR");
+        btnEliminar.setText("DESABILITAR/HABILITAR");
         btnEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEliminarActionPerformed(evt);
@@ -193,6 +196,11 @@ public class Usuarios extends javax.swing.JInternalFrame {
                 "Codigo", "Usuario", "Contraseña", "Nombre", "Tipo", "Estado"
             }
         ));
+        tbUsuarios.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbUsuariosMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(tbUsuarios);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -254,45 +262,63 @@ public class Usuarios extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnEliminar1ActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-//        try {
-//            int fila = this.tbUsuarios.getSelectedRow();
-//            String cod = this.tbUsuarios.getValueAt(fila, 0).toString();
-//            if (fila != -1) {
-//                int resp = JOptionPane.showConfirmDialog(null, "Esta seguro que desea eliminar el Cliente?");
-//                if (JOptionPane.OK_OPTION == resp) {
-//                    sql.EliminarUsuario(cod);
-//                    JOptionPane.showMessageDialog(null, "Cliente eliminado Correctamente");
-//                }
-//            }else
-//            {
-//                JOptionPane.showMessageDialog(null, "Seleccione un elemento de la tabla");
-//            }
-//        } catch (Exception ex) {
-//            JOptionPane.showMessageDialog(null, "Seleccione un elemento de la tabla");
-//        }
+        try {
+            int fila = tbUsuarios.getSelectedRow();
+            String cod = tbUsuarios.getValueAt(fila, 0).toString();
+            String estado = tbUsuarios.getValueAt(fila, 5).toString();
+            if (fila != -1) {
+                int resp = JOptionPane.showConfirmDialog(null, "Esta seguro que desea Habilitar/Desabilitar el Usuario?");
+                if (JOptionPane.OK_OPTION == resp) {
+                    switch (estado) {
+                        case "ACTIVO":
+                            estado= "INACTIVO";
+                            break;
+                        case "INACTIVO":
+                            estado ="ACTIVO";
+                            break;
+                    }
+                    Eliminar_Usuario(Integer.parseInt(cod),estado);
+                    Desplegar_Tabla(1, "");
+                }
+            }else
+            {
+                JOptionPane.showMessageDialog(null, "Seleccione un elemento de la tabla");
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, ex);
+        }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void BtnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnModificarActionPerformed
-        JPanelModUsuarios mod=new JPanelModUsuarios();
-        mod.setSize(500,250);
-        mod.setLocation(5,5);
-        PanelCambianteUsuarios.removeAll();
-        PanelCambianteUsuarios.add(mod,BorderLayout.CENTER);
-        PanelCambianteUsuarios.revalidate();
-        PanelCambianteUsuarios.repaint();
-        DesabilitarMod();
-
+        try {
+            JPanelModUsuarios mod = new JPanelModUsuarios();
+            mod.setSize(500, 250);
+            mod.setLocation(5, 5);
+            PanelCambianteUsuarios.removeAll();
+            PanelCambianteUsuarios.add(mod, BorderLayout.CENTER);
+            PanelCambianteUsuarios.revalidate();
+            PanelCambianteUsuarios.repaint();
+            DesabilitarMod();
+            tbUsuarios.clearSelection();
+        } catch (Exception e) {
+            
+        }
     }//GEN-LAST:event_BtnModificarActionPerformed
 
     private void BtnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnNuevoActionPerformed
-        JPanelNuevoUsuarios nu = new JPanelNuevoUsuarios();
-        nu.setSize(500, 250);
-        nu.setLocation(5, 5);
-        PanelCambianteUsuarios.removeAll();
-        PanelCambianteUsuarios.add(nu, BorderLayout.CENTER);
-        PanelCambianteUsuarios.revalidate();
-        PanelCambianteUsuarios.repaint();
-        DesabilitarNuevo();
+
+        try {
+            JPanelNuevoUsuarios nu = new JPanelNuevoUsuarios();
+            nu.setSize(500, 250);
+            nu.setLocation(5, 5);
+            PanelCambianteUsuarios.removeAll();
+            PanelCambianteUsuarios.add(nu, BorderLayout.CENTER);
+            PanelCambianteUsuarios.revalidate();
+            PanelCambianteUsuarios.repaint();
+            DesabilitarNuevo();
+            tbUsuarios.clearSelection();
+        } catch (Exception e) {
+        }
     }//GEN-LAST:event_BtnNuevoActionPerformed
 
     private void BtnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnLimpiarActionPerformed
@@ -309,10 +335,24 @@ public class Usuarios extends javax.swing.JInternalFrame {
         }
         Desplegar_Tabla(3, txtNombre.getText());
     }//GEN-LAST:event_txtNombreKeyReleased
+
+    private void tbUsuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbUsuariosMouseClicked
+        int fila = this.tbUsuarios.getSelectedRow();
+        String cod = this.tbUsuarios.getValueAt(fila, 0).toString();
+        try {
+            txtUsuario.setText(this.tbUsuarios.getValueAt(fila, 1).toString());
+            txtpass.setText(this.tbUsuarios.getValueAt(fila, 2).toString());
+            txtNombres.setText(this.tbUsuarios.getValueAt(fila, 3).toString());
+        } catch (Exception ex) {
+
+        }
+    }//GEN-LAST:event_tbUsuariosMouseClicked
     private void Desplegar_Tabla(int numero, String campo) {
         sql.Tabla_Usuarios(numero, campo);
     }
-
+    private void Eliminar_Usuario(int id, String estado){
+        sql.EditarEstadoUsuarios(id, estado);
+    }
     private void DesabilitarNuevo() {
         BtnModificar.setEnabled(false);
         btnEliminar.setEnabled(false);

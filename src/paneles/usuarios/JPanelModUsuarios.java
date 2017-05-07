@@ -5,7 +5,6 @@
  */
 package paneles.usuarios;
 
-
 import consultas.ConsultasSQL_Usuarios;
 import java.awt.AWTException;
 import java.awt.Robot;
@@ -182,27 +181,24 @@ public class JPanelModUsuarios extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
-        String nombre = txtNombres.getText(), usuario = txtUsuario.getText(), contrasena = txtpass.getText(), tipo = cboTipo.getSelectedItem().toString();
-        
+        String nombre = txtNombres.getText(), usuario = txtUsuario.getText(), contrasena = txtpass.getText();
+
         if (nombre.equals("") || usuario.equals("") || contrasena.equals("")) {
-            //txtRespuesta.setText("Alguno de los campos necesarios se encuentra vacio");
+            JOptionPane.showMessageDialog(null, "Alguno de los campos necesarios se encuentra vacio");
         } else {
-             try {
-            int fila = Usuarios.tbUsuarios.getSelectedRow();
-            String cod = Usuarios.tbUsuarios.getValueAt(fila, 0).toString();
+            try {
+                int fila = Usuarios.tbUsuarios.getSelectedRow();
+                String cod = Usuarios.tbUsuarios.getValueAt(fila, 0).toString();
                 if (fila != -1) {
-                        //sql.ModUsuarios(cod,usuario,contrasena,nombre,tipo);
-                        //txtRespuesta.setText("Usuario Modificado correctamente");
-                        //sql.CargarTablausuarios(1, cod);
-                }else
-                {
-                    
+                    Modificar_Usuarios(Integer.parseInt(cod),nombre,usuario,contrasena);
+                    Desplegar_Tabla(1, "");
+                    JOptionPane.showMessageDialog(null, "Usuario Modificado Correctamente");
                 }
             } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Seleccione en la tabla antes de modificar");
+                JOptionPane.showMessageDialog(null, "Seleccione en la tabla antes de modificar");
+            }
         }
-        }
-       
+
     }//GEN-LAST:event_btnAceptarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
@@ -218,12 +214,18 @@ public class JPanelModUsuarios extends javax.swing.JPanel {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnAceptar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptar1ActionPerformed
-    txtNombres.setText("");
-    txtUsuario.setText("");
-    txtpass.setText("");
-    txtNombres.isFocusable();
+        txtNombres.setText("");
+        txtUsuario.setText("");
+        txtpass.setText("");
+        txtNombres.isFocusable();
     }//GEN-LAST:event_btnAceptar1ActionPerformed
-
+    private void Desplegar_Tabla(int numero, String campo) {
+        sql.Tabla_Usuarios(numero, campo);
+    }
+    private void Modificar_Usuarios(int id,String nombre, String usuario,String contrasena){
+        sql.ModificarUsuarios(id, nombre, usuario, contrasena, cboTipo.getSelectedIndex()+1);
+        Desplegar_Tabla(1, "");
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAceptar;

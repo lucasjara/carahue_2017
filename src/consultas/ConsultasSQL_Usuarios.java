@@ -51,7 +51,7 @@ public class ConsultasSQL_Usuarios {
         }
     }
 
-    public void GuardarUsuario(String nombre, String usuario, String contraseña,int id_perfil) { //revisado
+    public void GuardarUsuario(String nombre, String usuario, String contraseña, int id_perfil) { //revisado
         try {
             PreparedStatement pst = this.cn.prepareStatement("INSERT INTO usuarios(nombre,usuario,password,estado,id_perfil) VALUES (?,?,?,?,?)");
             pst.setString(1, nombre);
@@ -66,20 +66,48 @@ public class ConsultasSQL_Usuarios {
             JOptionPane.showMessageDialog(null, e);
         }
     }
+
     public String ConsultarNombre(String usuario) {
-            try {
-                CadSql = "select usuario from usuarios where usuario='" + usuario + "';";
-                Statement st = this.cn.createStatement();
-                ResultSet rs = st.executeQuery(CadSql);
-                while (rs.next()) {
-                    usuario = rs.getString(1);
-                }
-            } catch (Exception ex) {
-                JOptionPane.showMessageDialog(null, ex);
-                usuario="";
+        String nombre = "";
+        try {
+            CadSql = "select usuario from usuarios where usuario='" + usuario + "';";
+            Statement st = this.cn.createStatement();
+            ResultSet rs = st.executeQuery(CadSql);
+            while (rs.next()) {
+                nombre = rs.getString(1);
             }
-            return usuario;
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, ex);
+            nombre = "";
         }
+        return nombre;
+    }
+
+    public void ModificarUsuarios(int id, String nombre, String usuario, String contrasena, int id_perfil) {
+        try {
+            PreparedStatement pst = this.cn.prepareStatement("UPDATE usuarios SET id=?, nombre=?, usuario=?, password=?, id_perfil=? WHERE id=?;");
+            pst.setInt(1, id);
+            pst.setString(2, nombre);
+            pst.setString(3, usuario);
+            pst.setString(4, contrasena);
+            pst.setInt(5, id_perfil);
+            pst.setInt(6, id);
+            pst.executeUpdate();
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, ex);
+        }
+    }
+
+    public void EditarEstadoUsuarios(int id,String estado) {
+        try {
+            PreparedStatement pst = this.cn.prepareStatement("UPDATE usuarios SET estado=? WHERE id=?;");
+            pst.setString(1, estado);
+            pst.setInt(2, id);
+            pst.executeUpdate();
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, ex);
+        }
+    }
     conectar cc = new conectar();
     Connection cn = this.cc.conexion();
 }
