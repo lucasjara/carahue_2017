@@ -343,6 +343,27 @@ public class Usuarios extends javax.swing.JInternalFrame {
             txtUsuario.setText(this.tbUsuarios.getValueAt(fila, 1).toString());
             txtpass.setText(this.tbUsuarios.getValueAt(fila, 2).toString());
             txtNombres.setText(this.tbUsuarios.getValueAt(fila, 3).toString());
+            String valor = this.tbUsuarios.getValueAt(fila, 4).toString();
+            switch(valor){
+                case "ADMINISTRADOR":
+                    JPanelModUsuarios.cboTipo.setSelectedIndex(0);
+                    break;
+                case "GERENTE":
+                    JPanelModUsuarios.cboTipo.setSelectedIndex(1);
+                    break;
+                case "VENDEDOR":
+                    JPanelModUsuarios.cboTipo.setSelectedIndex(2);
+                    break;
+                case "LIBRERIA":
+                    JPanelModUsuarios.cboTipo.setSelectedIndex(3);
+                    break;
+                case "VESTUARIO":
+                    JPanelModUsuarios.cboTipo.setSelectedIndex(4);
+                    break;
+                case "CASA Y PESCA":
+                    JPanelModUsuarios.cboTipo.setSelectedIndex(5);
+                    break;
+            }
         } catch (Exception ex) {
 
         }

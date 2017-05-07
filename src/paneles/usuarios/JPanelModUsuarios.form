@@ -160,17 +160,19 @@
         <Component class="javax.swing.JComboBox" name="cboTipo">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="5">
-                <StringItem index="0" value="VENTAS"/>
-                <StringItem index="1" value="ADMINISTRADOR"/>
-                <StringItem index="2" value="LIBRERIA"/>
-                <StringItem index="3" value="VESTUARIO"/>
-                <StringItem index="4" value="CASA Y PESCA"/>
+              <StringArray count="6">
+                <StringItem index="0" value="ADMINISTRADOR"/>
+                <StringItem index="1" value="GERENTE"/>
+                <StringItem index="2" value="VENDEDOR"/>
+                <StringItem index="3" value="LIBRERIA"/>
+                <StringItem index="4" value="VESTUARIO"/>
+                <StringItem index="5" value="CASA Y PESCA"/>
               </StringArray>
             </Property>
           </Properties>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
           </AuxValues>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel5">

@@ -259,9 +259,13 @@ public class Marco extends javax.swing.JFrame {
         jMenuBar1.add(Slider5);
 
         Slider6.setText("CAJA");
-        Slider6.setEnabled(false);
 
         jMenuItem3.setText("CAJA");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
         Slider6.add(jMenuItem3);
 
         jMenuBar1.add(Slider6);
@@ -359,6 +363,30 @@ public class Marco extends javax.swing.JFrame {
         Contenedor.updateUI();
         Contenedor.add(Form);
     }//GEN-LAST:event_llamaUsuariosActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        Caja Form = new Caja();
+        Form.setVisible(true);
+        String cargo = lbCARGO.getText();
+        switch (cargo) {
+            case "LIBRERIA":
+
+                break;
+            case "VESTUARIO":
+
+                break;
+            case "CASA Y PESCA":
+
+                break;
+        }
+        this.add(Form);
+        Dimension desktopSize = this.getSize();
+        Dimension FrameSize = Form.getSize();
+        Form.setLocation((desktopSize.width - FrameSize.width) / 2, ((desktopSize.height - FrameSize.height) / 2) - 50);
+        Contenedor.removeAll();
+        Contenedor.updateUI();
+        Contenedor.add(Form);
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
     
 
     public static void main(String args[]) {
