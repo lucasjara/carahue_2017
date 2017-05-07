@@ -10,8 +10,6 @@ public class Carahue_2017 {
     
     public static void main(String[] args) {
         try {
-            
-            
             JFrame.setDefaultLookAndFeelDecorated(true);
             JDialog.setDefaultLookAndFeelDecorated(true);
             UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");

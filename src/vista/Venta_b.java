@@ -1,13 +1,20 @@
 package vista;
 
 import consultas.ConsultasSQL_Venta;
+import java.time.Instant;
+import java.sql.Date;
+import java.time.LocalDate;
+import java.util.Calendar;
+import javax.swing.JOptionPane;
 
 public class Venta_b extends javax.swing.JInternalFrame {
 
     public Venta_b() {
         initComponents();
-        DesplegarTablas();
+        ReservarCodigo();
+        DesplegarTablas(1,"");
     }
+    ConsultasSQL_Venta sql = new ConsultasSQL_Venta();
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -71,8 +78,8 @@ public class Venta_b extends javax.swing.JInternalFrame {
         jLabel3.setText("NOMBRE:");
 
         txtNombre.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtNombreKeyTyped(evt);
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtNombreKeyReleased(evt);
             }
         });
 
@@ -108,8 +115,8 @@ public class Venta_b extends javax.swing.JInternalFrame {
         jLabel5.setText("CODIGO:");
 
         txtCodigoBusqueda.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtCodigoBusquedaKeyTyped(evt);
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtCodigoBusquedaKeyReleased(evt);
             }
         });
 
@@ -475,42 +482,34 @@ public class Venta_b extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cboCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboCategoriaActionPerformed
-//        sql.CargarTablaListadoProductos(1, cboCategoria.getSelectedItem().toString(), "");
-//        txtNombre.setText("");
-//        cbocantidad.removeAllItems();
-//        cbocantidad.setEnabled(false);
+        DesplegarTablas(1, "");
+        Limpiar();
     }//GEN-LAST:event_cboCategoriaActionPerformed
 
-    private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
-//        char c = evt.getKeyChar();
-//        sql.CargarTablaListadoProductos(2, txtNombre.getText(), cboCategoria.getSelectedItem().toString());
-//        txtCodigoBusqueda.setText("");
-//        if (Character.isDigit(c)) {
-//            getToolkit().beep();
-//            evt.consume();
-//            //ingrese solo letras
-//        }
-    }//GEN-LAST:event_txtNombreKeyTyped
-
     private void BtnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAceptarActionPerformed
-//        if (this.txtNombre.getText().equals("")) {
-//            JOptionPane.showMessageDialog(null, "Nombre vacio");
-//        } else if (cbocantidad.getSelectedItem() == null) {
-//
-//        } else {
-//            int fila = this.tbproductosListado.getSelectedRow();
-//            int cantidad = Integer.parseInt(cbocantidad.getSelectedItem().toString());
-//            int stock = Integer.parseInt(tbproductosListado.getValueAt(fila, 3).toString());
-//            int precio_individual = Integer.parseInt(tbproductosListado.getValueAt(fila, 4).toString());
-//            int cantidad2 = stock - cantidad;
-//            int precio = cantidad * precio_individual;
-//            String cod_producto = (tbproductosListado.getValueAt(fila, 0).toString());
-//            nombre();
-//
-//            sql.NuevaVenta(Integer.parseInt(txtcodigo.getText()), cod_producto, cantidad, precio_individual, precio, nombre, cboCategoria.getSelectedItem().toString(), cantidad2);
-//
-//            sql.CargarTablaListadoProductos(1, cboCategoria.getSelectedItem().toString(), "");
-//
+        if (cbocantidad.getSelectedItem() == null) {
+        }else {
+            /*
+                fila = fila que seleccionamos.
+                cantidad = cantidad que compraran.
+                stock = que existe.
+                precio_individual = valor venta.
+                cantidad 2 = stock - cantidad que llevaremos.
+                precio = total del costo del producto
+                cod_producto = codigo de producto a ingresar
+            */
+            int fila = this.tbproductosListado.getSelectedRow();
+            int cantidad = Integer.parseInt(cbocantidad.getSelectedItem().toString());
+            int stock = Integer.parseInt(tbproductosListado.getValueAt(fila, 3).toString());
+            int precio_individual = Integer.parseInt(tbproductosListado.getValueAt(fila, 4).toString());
+            int cantidad2 = stock - cantidad;
+            int precio = cantidad * precio_individual;
+            String cod_producto = (tbproductosListado.getValueAt(fila, 0).toString());
+            
+            NuevaVenta(cod_producto, cantidad, precio);
+            DesplegarTablas(1, "");
+            DesplegarTablas_Venta(1, txtcodigo.getText());
+            
 //            sql.CargarTablaCompra(1, txtcodigo.getText());
 //
 //            monto_neto = Double.parseDouble(txtMontoNeto.getText()) + precio;
@@ -520,19 +519,17 @@ public class Venta_b extends javax.swing.JInternalFrame {
 //            txtIVA.setText(String.valueOf(monto_iva));
 //            total = monto_neto + monto_iva;
 //            txtTotal.setText(String.valueOf(total));
-//            //remover y limpiar
-//            cbocantidad.removeAllItems();
-//            cbocantidad.setEnabled(false);
-//            BtnGuardar.setEnabled(true);
-//            BtnLimpiar.setEnabled(true);
-//        }
+            //remover y limpiar
+            cbocantidad.removeAllItems();
+            cbocantidad.setEnabled(false);
+            BtnGuardar.setEnabled(true);
+            BtnLimpiar.setEnabled(true);
+        }
+        
     }//GEN-LAST:event_BtnAceptarActionPerformed
 
     private void BtnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCancelarActionPerformed
-        txtNombre.setText("");
-        cbocantidad.removeAllItems();
-        cbocantidad.setEnabled(false);
-        txtCodigoBusqueda.setText("");
+        Limpiar();
     }//GEN-LAST:event_BtnCancelarActionPerformed
 
     private void BtnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCerrarActionPerformed
@@ -549,44 +546,38 @@ public class Venta_b extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_BtnCerrarActionPerformed
 
-    private void txtCodigoBusquedaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoBusquedaKeyTyped
-//        sql.CargarTablaListadoProductos(4, txtCodigoBusqueda.getText(), cboCategoria.getSelectedItem().toString());
-//        txtNombre.setText("");
-    }//GEN-LAST:event_txtCodigoBusquedaKeyTyped
-
     private void tbproductosListadoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbproductosListadoMouseClicked
-//        try {
-//            cbocantidad.removeAllItems();
-//            int fila = this.tbproductosListado.getSelectedRow();
-//            int numero = Integer.parseInt(tbproductosListado.getValueAt(fila, 3).toString());
-//            if (numero == 0) {
-//                txtNombre.setText("");
-//                cbocantidad.setEnabled(false);
-//            } else {
-//                for (int i = 1; i < numero + 1; i++) {
-//                    cbocantidad.addItem("" + i);
-//                }
-//                cbocantidad.setEnabled(true);
-//                txtNombre.setText(tbproductosListado.getValueAt(fila, 1).toString());
-//            }
-//
-//        } catch (Exception ex) {
-//
-//        }
+        try {
+            cbocantidad.removeAllItems();
+            int fila = this.tbproductosListado.getSelectedRow();
+            int numero = Integer.parseInt(tbproductosListado.getValueAt(fila, 3).toString());
+            if (numero == 0) {
+                txtNombre.setText("");
+                cbocantidad.setEnabled(false);
+            } else {
+                for (int i = 1; i < numero + 1; i++) {
+                    cbocantidad.addItem("" + i);
+                }
+                cbocantidad.setEnabled(true);
+                txtNombre.setText(tbproductosListado.getValueAt(fila, 1).toString());
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, ex);
+        }
     }//GEN-LAST:event_tbproductosListadoMouseClicked
 
     private void BtnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnSalirActionPerformed
-//        try {
+        try {
 //            if (tbventa.getValueAt(0, 0).toString() == "") {
 //                dispose();
 //            } else {
 //
 //                volver();
-//                dispose();
+                dispose();
 //            }
-//        } catch (Exception ex) {
-//            dispose();
-//        }
+        } catch (Exception ex) {
+            dispose();
+        }
     }//GEN-LAST:event_BtnSalirActionPerformed
 
     private void BtnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnLimpiarActionPerformed
@@ -620,10 +611,49 @@ public class Venta_b extends javax.swing.JInternalFrame {
 //        BtnLimpiar.setEnabled(false);
 //        LimpiarVenta();
     }//GEN-LAST:event_BtnGuardarActionPerformed
-    private void DesplegarTablas(){
-        ConsultasSQL_Venta sql = new ConsultasSQL_Venta();
-        sql.Tabla_Productos(1, "", cboCategoria.getSelectedItem().toString());
+
+    private void txtNombreKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyReleased
+        txtCodigoBusqueda.setText("");
+        char c = evt.getKeyChar();
+        DesplegarTablas(2,txtNombre.getText());
+        if (Character.isDigit(c)) {
+            getToolkit().beep();
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtNombreKeyReleased
+
+    private void txtCodigoBusquedaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoBusquedaKeyReleased
+        txtNombre.setText("");
+        DesplegarTablas(4, txtCodigoBusqueda.getText());
+    }//GEN-LAST:event_txtCodigoBusquedaKeyReleased
+    private void ReservarCodigo(){
+        int cod_venta_reservado= sql.ReservarCodigoVenta()+1;
+        txtcodigo.setText(Integer.toString(cod_venta_reservado));
+        //Reservamos nuestro codigo
+        sql.NuevaVenta(cod_venta_reservado,0,0.0,"RESERVADO",3,1);
+    }
+    private void NuevaVenta(String codigo,int cantidad, double precio){
+        //ConsultasSQL_Venta sql = new ConsultasSQL_Venta();
+        /*
+            cod venta|cantidad|precio|fecha|estado|id_producto|id_usuario
+        */
+        int cod_venta = Integer.parseInt(txtcodigo.getText());
+        int id_producto=sql.Id_producto(codigo);
+        int id_usuario=1;
+        sql.NuevaVenta(cod_venta,cantidad,precio,"INACTIVO",id_producto,id_usuario);
         
+    }
+    private void DesplegarTablas(int numero,String campo){
+        sql.Tabla_Productos(numero, campo, cboCategoria.getSelectedItem().toString());
+    }
+    private void DesplegarTablas_Venta(int numero,String campo){
+        sql.Tabla_Compra(numero, campo);
+    }
+    private void Limpiar(){
+        txtNombre.setText("");
+        cbocantidad.removeAllItems();
+        cbocantidad.setEnabled(false);
+        txtCodigoBusqueda.setText("");
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -665,6 +695,7 @@ public class Venta_b extends javax.swing.JInternalFrame {
     private javax.swing.JLabel txtMontoNeto;
     public javax.swing.JTextField txtNombre;
     private javax.swing.JLabel txtTotal;
-    private javax.swing.JLabel txtcodigo;
+    public javax.swing.JLabel txtcodigo;
     // End of variables declaration//GEN-END:variables
 }
+
