@@ -237,6 +237,11 @@ public class Marco extends javax.swing.JFrame {
 
         jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_4, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItem2.setText("Administracion Inventario");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
         Slider2.add(jMenuItem2);
 
         jMenuBar1.add(Slider2);
@@ -404,19 +409,19 @@ public class Marco extends javax.swing.JFrame {
 
     private void llamaLibreriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_llamaLibreriaActionPerformed
         Inventario Form = new Inventario();
-        Form.sql.Tabla_Inventario(1, "LIBRERIA","");
-        Form.categoria="LIBRERIA";
+        Form.sql.Tabla_Inventario(1, "LIBRERIA", "");
+        Form.categoria = "LIBRERIA";
         Form.setVisible(true);
         String cargo = lbCARGO.getText();
         switch (cargo) {
             case "LIBRERIA":
-                
+
                 break;
             case "VESTUARIO":
-                
+
                 break;
             case "CASA Y PESCA":
-                
+
                 break;
         }
         this.add(Form);
@@ -430,19 +435,19 @@ public class Marco extends javax.swing.JFrame {
 
     private void llamaVestuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_llamaVestuarioActionPerformed
         Inventario Form = new Inventario();
-        Form.sql.Tabla_Inventario(1, "VESTUARIO","");
-        Form.categoria="VESTUARIO";
+        Form.sql.Tabla_Inventario(1, "VESTUARIO", "");
+        Form.categoria = "VESTUARIO";
         Form.setVisible(true);
         String cargo = lbCARGO.getText();
         switch (cargo) {
             case "LIBRERIA":
-                
+
                 break;
             case "VESTUARIO":
-                
+
                 break;
             case "CASA Y PESCA":
-                
+
                 break;
         }
         this.add(Form);
@@ -456,19 +461,19 @@ public class Marco extends javax.swing.JFrame {
 
     private void llamaCasayPescaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_llamaCasayPescaActionPerformed
         Inventario Form = new Inventario();
-        Form.sql.Tabla_Inventario(1, "CASA Y PESCA","");
-        Form.categoria="CASA Y PESCA";
+        Form.sql.Tabla_Inventario(1, "CASA Y PESCA", "");
+        Form.categoria = "CASA Y PESCA";
         Form.setVisible(true);
         String cargo = lbCARGO.getText();
         switch (cargo) {
             case "LIBRERIA":
-                
+
                 break;
             case "VESTUARIO":
-                
+
                 break;
             case "CASA Y PESCA":
-                
+
                 break;
         }
         this.add(Form);
@@ -479,7 +484,31 @@ public class Marco extends javax.swing.JFrame {
         Contenedor.updateUI();
         Contenedor.add(Form);
     }//GEN-LAST:event_llamaCasayPescaActionPerformed
-    
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        Inventario_Administracion Form = new Inventario_Administracion();
+        Form.sql.Tabla_Inventario(1, "", "");
+        Form.setVisible(true);
+        String cargo = lbCARGO.getText();
+        switch (cargo) {
+            case "LIBRERIA":
+
+                break;
+            case "VESTUARIO":
+
+                break;
+            case "CASA Y PESCA":
+
+                break;
+        }
+        this.add(Form);
+        Dimension desktopSize = this.getSize();
+        Dimension FrameSize = Form.getSize();
+        Form.setLocation((desktopSize.width - FrameSize.width) / 2, ((desktopSize.height - FrameSize.height) / 2) - 50);
+        Contenedor.removeAll();
+        Contenedor.updateUI();
+        Contenedor.add(Form);
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
