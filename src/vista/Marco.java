@@ -207,18 +207,32 @@ public class Marco extends javax.swing.JFrame {
         jMenuBar1.add(Slider1);
 
         Slider2.setText("Inventario");
-        Slider2.setEnabled(false);
 
         llamaLibreria.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_1, java.awt.event.InputEvent.CTRL_MASK));
         llamaLibreria.setText("Inventario Libreria");
+        llamaLibreria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                llamaLibreriaActionPerformed(evt);
+            }
+        });
         Slider2.add(llamaLibreria);
 
         llamaVestuario.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_2, java.awt.event.InputEvent.CTRL_MASK));
         llamaVestuario.setText("Inventario Vestuario");
+        llamaVestuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                llamaVestuarioActionPerformed(evt);
+            }
+        });
         Slider2.add(llamaVestuario);
 
         llamaCasayPesca.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_3, java.awt.event.InputEvent.CTRL_MASK));
         llamaCasayPesca.setText("Inventario Casa y Pesca");
+        llamaCasayPesca.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                llamaCasayPescaActionPerformed(evt);
+            }
+        });
         Slider2.add(llamaCasayPesca);
 
         jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_4, java.awt.event.InputEvent.CTRL_MASK));
@@ -387,6 +401,84 @@ public class Marco extends javax.swing.JFrame {
         Contenedor.updateUI();
         Contenedor.add(Form);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void llamaLibreriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_llamaLibreriaActionPerformed
+        Inventario Form = new Inventario();
+        Form.sql.Tabla_Inventario(1, "LIBRERIA","");
+        Form.categoria="LIBRERIA";
+        Form.setVisible(true);
+        String cargo = lbCARGO.getText();
+        switch (cargo) {
+            case "LIBRERIA":
+                
+                break;
+            case "VESTUARIO":
+                
+                break;
+            case "CASA Y PESCA":
+                
+                break;
+        }
+        this.add(Form);
+        Dimension desktopSize = this.getSize();
+        Dimension FrameSize = Form.getSize();
+        Form.setLocation((desktopSize.width - FrameSize.width) / 2, ((desktopSize.height - FrameSize.height) / 2) - 50);
+        Contenedor.removeAll();
+        Contenedor.updateUI();
+        Contenedor.add(Form);
+    }//GEN-LAST:event_llamaLibreriaActionPerformed
+
+    private void llamaVestuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_llamaVestuarioActionPerformed
+        Inventario Form = new Inventario();
+        Form.sql.Tabla_Inventario(1, "VESTUARIO","");
+        Form.categoria="VESTUARIO";
+        Form.setVisible(true);
+        String cargo = lbCARGO.getText();
+        switch (cargo) {
+            case "LIBRERIA":
+                
+                break;
+            case "VESTUARIO":
+                
+                break;
+            case "CASA Y PESCA":
+                
+                break;
+        }
+        this.add(Form);
+        Dimension desktopSize = this.getSize();
+        Dimension FrameSize = Form.getSize();
+        Form.setLocation((desktopSize.width - FrameSize.width) / 2, ((desktopSize.height - FrameSize.height) / 2) - 50);
+        Contenedor.removeAll();
+        Contenedor.updateUI();
+        Contenedor.add(Form);
+    }//GEN-LAST:event_llamaVestuarioActionPerformed
+
+    private void llamaCasayPescaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_llamaCasayPescaActionPerformed
+        Inventario Form = new Inventario();
+        Form.sql.Tabla_Inventario(1, "CASA Y PESCA","");
+        Form.categoria="CASA Y PESCA";
+        Form.setVisible(true);
+        String cargo = lbCARGO.getText();
+        switch (cargo) {
+            case "LIBRERIA":
+                
+                break;
+            case "VESTUARIO":
+                
+                break;
+            case "CASA Y PESCA":
+                
+                break;
+        }
+        this.add(Form);
+        Dimension desktopSize = this.getSize();
+        Dimension FrameSize = Form.getSize();
+        Form.setLocation((desktopSize.width - FrameSize.width) / 2, ((desktopSize.height - FrameSize.height) / 2) - 50);
+        Contenedor.removeAll();
+        Contenedor.updateUI();
+        Contenedor.add(Form);
+    }//GEN-LAST:event_llamaCasayPescaActionPerformed
     
 
     public static void main(String args[]) {

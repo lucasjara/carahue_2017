@@ -33,7 +33,6 @@
         <Menu class="javax.swing.JMenu" name="Slider2">
           <Properties>
             <Property name="text" type="java.lang.String" value="Inventario"/>
-            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
@@ -46,6 +45,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Inventario Libreria"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="llamaLibreriaActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="llamaVestuario">
               <Properties>
@@ -54,6 +56,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Inventario Vestuario"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="llamaVestuarioActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="llamaCasayPesca">
               <Properties>
@@ -62,6 +67,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Inventario Casa y Pesca"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="llamaCasayPescaActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItem2">
               <Properties>
