@@ -104,6 +104,50 @@ public class ConsultasSQL_Inventario_Administracion {
             JOptionPane.showMessageDialog(null, e);
         }
     }
+    public void ModificarProductos(String codigo_producto,String nombre,String descripcion,String categoria,int cantidad,String nombre_proveedor,int valor_compra,int valor_venta, Date dia, int numero_factura){
+        try {
+            PreparedStatement pst = this.cn.prepareStatement("UPDATE productos SET nombre=?, descripcion=?, cantidad=?, nom_proveedor=?, valor_compra=?, valor_venta=?,dia_llegada=?, numero_factura=? WHERE cod_inventario=? AND categoria=?;");
+            pst.setString(1, nombre);
+            pst.setString(2, descripcion);
+            pst.setInt(3, cantidad);
+            pst.setString(4, nombre_proveedor);
+            pst.setInt(5, valor_compra);
+            pst.setInt(6, valor_venta);
+            pst.setDate(7, dia);
+            pst.setInt(8, numero_factura);
+            pst.setString(9, codigo_producto);
+            pst.setString(10, categoria);
+            pst.executeUpdate();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
+    
+    public String[] SetearCampos(String codigo,String categoria){
+        String[] datos = new String[10];
+        try {
+            CadSql = "SELECT p.cod_inventario, p.nombre,p.descripcion, p.categoria,p.cantidad,p.nom_proveedor,p.valor_compra,p.valor_venta,p.dia_llegada, p.numero_factura FROM `productos` p WHERE p.categoria='" + categoria + "' AND p.cod_inventario ='" + codigo + "';";
+            Statement st = this.cn.createStatement();
+            ResultSet rs = st.executeQuery(CadSql);
+            while (rs.next()) {
+                datos[0] = rs.getString(1);
+                datos[1] = rs.getString(2);
+                datos[2] = rs.getString(3);
+                datos[3] = rs.getString(4);
+                datos[4] = rs.getString(5);
+                datos[5] = rs.getString(6);
+                datos[6] = rs.getString(7);
+                datos[7] = rs.getString(8);
+                datos[8] = rs.getString(9);
+                datos[9] = rs.getString(10);
+                break;
+            }
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+        return datos;
+    }
     conectar cc = new conectar();
     Connection cn = this.cc.conexion();
 

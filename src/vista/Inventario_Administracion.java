@@ -2,6 +2,7 @@ package vista;
 
 import consultas.ConsultasSQL_Inventario_Administracion;
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import javax.swing.JOptionPane;
 
@@ -578,6 +579,11 @@ public class Inventario_Administracion extends javax.swing.JInternalFrame {
                 "Codigo", "Nombre", "Categoria", "Cantidad", "Valor Compra", "Valor Venta", "Dia llegada"
             }
         ));
+        tbproductos_administracion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbproductos_administracionMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tbproductos_administracion);
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
@@ -692,9 +698,9 @@ public class Inventario_Administracion extends javax.swing.JInternalFrame {
 
     private void txtCantidadKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCantidadKeyTyped
         char c = evt.getKeyChar();
-        if(((c < '0') ||(c > '9')) && (c != '\b' /*corresponde a BACK_SPACE*/)){
-         getToolkit().beep(); 
-         evt.consume();  // ignorar el evento de teclado
+        if (((c < '0') || (c > '9')) && (c != '\b' /*corresponde a BACK_SPACE*/)) {
+            getToolkit().beep();
+            evt.consume();  // ignorar el evento de teclado
         }
     }//GEN-LAST:event_txtCantidadKeyTyped
 
@@ -715,9 +721,9 @@ public class Inventario_Administracion extends javax.swing.JInternalFrame {
 
     private void txtPrecioCompraKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPrecioCompraKeyTyped
         char c = evt.getKeyChar();
-        if(((c < '0') ||(c > '9')) && (c != '\b' /*corresponde a BACK_SPACE*/)){
-         getToolkit().beep(); 
-         evt.consume();  // ignorar el evento de teclado
+        if (((c < '0') || (c > '9')) && (c != '\b' /*corresponde a BACK_SPACE*/)) {
+            getToolkit().beep();
+            evt.consume();  // ignorar el evento de teclado
         }
     }//GEN-LAST:event_txtPrecioCompraKeyTyped
 
@@ -733,15 +739,15 @@ public class Inventario_Administracion extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtPrecioIndividualFocusLost
 
     private void txtPrecioIndividualKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPrecioIndividualKeyTyped
-    char c = evt.getKeyChar();
-        if(((c < '0') ||(c > '9')) && (c != '\b' /*corresponde a BACK_SPACE*/)){
-         getToolkit().beep(); 
-         evt.consume();  // ignorar el evento de teclado
+        char c = evt.getKeyChar();
+        if (((c < '0') || (c > '9')) && (c != '\b' /*corresponde a BACK_SPACE*/)) {
+            getToolkit().beep();
+            evt.consume();  // ignorar el evento de teclado
         }
     }//GEN-LAST:event_txtPrecioIndividualKeyTyped
 
     private void txtNombreProveedorFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNombreProveedorFocusLost
-        
+
 //        if (txtNombreProveedor.getText().equals("")) {
 //        } else {
 //            String t = txtNombreProveedor.getText().toUpperCase();
@@ -774,21 +780,22 @@ public class Inventario_Administracion extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtCodigoProductoKeyTyped
 
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
-        if(ValidarCamposVacios()){
-        }else if(CompararPrecios()){
-        }else if(Disponibilidad_Codigo()){
+        if (ValidarCamposVacios()) {
+        } else if (CompararPrecios()) {
+        } else if (Disponibilidad_Codigo()) {
+            JOptionPane.showMessageDialog(null, "CODIGO DE PRODUCTO OCUPADO");
             txtCodigoProducto.setText("");
             txtCodigoProducto.requestFocus();
-        }else{
-            String codigo=txtCodigoProducto.getText(),nombre=txtNombre.getText(),descripcion=txtDescripcion.getText(),
-            categoria=cboCategoria.getSelectedItem().toString(),nombre_proveedor=txtNombreProveedor.getText();
-            int cantidad=Integer.parseInt(txtCantidad.getText());
-            int valor_compra=Integer.parseInt(txtPrecioCompra.getText());
-            int valor_venta=Integer.parseInt(txtPrecioIndividual.getText());
-            int numero_factura=Integer.parseInt(txtNumFactura.getText());
+        } else {
+            String codigo = txtCodigoProducto.getText(), nombre = txtNombre.getText(), descripcion = txtDescripcion.getText(),
+                    categoria = cboCategoria.getSelectedItem().toString(), nombre_proveedor = txtNombreProveedor.getText();
+            int cantidad = Integer.parseInt(txtCantidad.getText());
+            int valor_compra = Integer.parseInt(txtPrecioCompra.getText());
+            int valor_venta = Integer.parseInt(txtPrecioIndividual.getText());
+            int numero_factura = Integer.parseInt(txtNumFactura.getText());
             java.sql.Date sqldate = new java.sql.Date(DateChooser.getDate().getTime());
-            sql.GuardarProductos(codigo, nombre, descripcion,categoria,cantidad, nombre_proveedor, valor_compra,valor_venta,sqldate,numero_factura);
-            sql.Tabla_Inventario(4, categoria,"");
+            sql.GuardarProductos(codigo, nombre, descripcion, categoria, cantidad, nombre_proveedor, valor_compra, valor_venta, sqldate, numero_factura);
+            sql.Tabla_Inventario(1, "", "");
         }
     }//GEN-LAST:event_btnIngresarActionPerformed
 
@@ -801,6 +808,19 @@ public class Inventario_Administracion extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
+        if (ValidarCamposVacios()) {
+        } else if (CompararPrecios()) {
+        } else if (Disponibilidad_Codigo()) {
+            String codigo = txtCodigoProducto.getText(), nombre = txtNombre.getText(), descripcion = txtDescripcion.getText(),
+                    categoria = cboCategoria.getSelectedItem().toString(), nombre_proveedor = txtNombreProveedor.getText();
+            int cantidad = Integer.parseInt(txtCantidad.getText());
+            int valor_compra = Integer.parseInt(txtPrecioCompra.getText());
+            int valor_venta = Integer.parseInt(txtPrecioIndividual.getText());
+            int numero_factura = Integer.parseInt(txtNumFactura.getText());
+            java.sql.Date sqldate = new java.sql.Date(DateChooser.getDate().getTime());
+            sql.ModificarProductos(codigo, nombre, descripcion, categoria, cantidad, nombre_proveedor, valor_compra, valor_venta, sqldate, numero_factura);
+            sql.Tabla_Inventario(1, "", "");
+        }
 //        if (ValidarVacios()) {
 //            JOptionPane.showMessageDialog(null, "Alguno de los campos se encuentra vacio");
 //        } else if (CompararPrecios()) {
@@ -849,29 +869,41 @@ public class Inventario_Administracion extends javax.swing.JInternalFrame {
             CargarTablas(5, categoria, codigo);
         }
     }//GEN-LAST:event_txtCodigoBusquedaKeyReleased
-    private boolean ValidarCamposVacios(){
-        boolean respuesta=false;
-        if(txtNombre.getText().equals("")){
+
+    private void tbproductos_administracionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbproductos_administracionMouseClicked
+        try {
+            int fila = this.tbproductos_administracion.getSelectedRow();
+            String codigo = tbproductos_administracion.getValueAt(fila, 0).toString();
+            String categoria = tbproductos_administracion.getValueAt(fila, 3).toString();
+            SetearCampos(codigo, categoria);
+        } catch (Exception ex) {
+
+        }
+    }//GEN-LAST:event_tbproductos_administracionMouseClicked
+    private boolean ValidarCamposVacios() {
+        boolean respuesta = false;
+        if (txtNombre.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Nombre Vacio");
-            respuesta=true;
-        }else if(txtCantidad.getText().equals("0") || txtCantidad.getText().equals("")){
+            respuesta = true;
+        } else if (txtCantidad.getText().equals("0") || txtCantidad.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Cantidad No valida");
-            respuesta=true;
-        }else if(DateChooser.getDate()== null){
+            respuesta = true;
+        } else if (DateChooser.getDate() == null) {
             JOptionPane.showMessageDialog(null, "Seleccione una fecha");
-            respuesta=true;
-        }else if (txtPrecioIndividual.getText().equals("0") || txtPrecioIndividual.getText().equals("")){
+            respuesta = true;
+        } else if (txtPrecioIndividual.getText().equals("0") || txtPrecioIndividual.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Precio Venta No valido");
-            respuesta=true;
-        }else if (txtCodigoProducto.getText().equals("")){
+            respuesta = true;
+        } else if (txtCodigoProducto.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Codigo de Producto Vacio");
-            respuesta=true;
-        }else if (txtNumFactura.getText().equals("")){
+            respuesta = true;
+        } else if (txtNumFactura.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Ingrese Numero de Factura");
-            respuesta=true;
+            respuesta = true;
         }
         return respuesta;
     }
+
     private void Limpiar() {
         txtNombre.setText("");
         txtCantidad.setText("");
@@ -881,28 +913,63 @@ public class Inventario_Administracion extends javax.swing.JInternalFrame {
         txtCodigoProducto.setText("");
         txtNumFactura.setText("");
     }
-    private boolean CompararPrecios(){
-        boolean respuesta =false;
+
+    private boolean CompararPrecios() {
+        boolean respuesta = false;
         int precio_compra = Integer.parseInt(txtCosto.getText());
         int precio_venta = Integer.parseInt(txtPrecioIndividual.getText());
-        if(precio_venta < precio_compra){
-            respuesta=true;
+        if (precio_venta < precio_compra) {
+            respuesta = true;
             JOptionPane.showMessageDialog(null, "El precio de Venta No debe ser menor al precio de compra");
         }
         return respuesta;
     }
+
     private void CargarTablas(int numero, String categoria, String nombre) {
         sql.Tabla_Inventario(numero, categoria, nombre);
     }
-    private boolean Disponibilidad_Codigo(){
-        boolean respuesta=false;
-        String nombre = sql.Disponibilidad_Cod_Producto(txtCodigoProducto.getText(),cboCategoria.getSelectedItem().toString());
-        if(nombre.equals("")){
-        }else{
-            JOptionPane.showMessageDialog(null, "CODIGO DE PRODUCTO OCUPADO");
-            respuesta=true;
+
+    private boolean Disponibilidad_Codigo() {
+        boolean respuesta = false;
+        String nombre = sql.Disponibilidad_Cod_Producto(txtCodigoProducto.getText(), cboCategoria.getSelectedItem().toString());
+        if (nombre.equals("")) {
+        } else {
+            respuesta = true;
         }
         return respuesta;
+    }
+
+    private void SetearCampos(String codigo, String categoria) {
+        String datos[] = sql.SetearCampos(codigo, categoria);
+        /*
+         datos[0] = rs.getString(1); cod
+         datos[1] = rs.getString(2); nombre
+         datos[2] = rs.getString(3); descripcion
+         datos[3] = rs.getString(4); categoria
+         datos[4] = rs.getString(5); cantidad
+         datos[5] = rs.getString(6); nombre proveedor
+         datos[6] = rs.getString(7); valor_compra
+         datos[7] = rs.getString(8); valor_venta
+         datos[8] = rs.getString(9); dia llegada
+         datos[9] = rs.getString(10); numero
+         */
+        txtCodigoProducto.setText(datos[0]);
+        txtNombre.setText(datos[1]);
+        txtDescripcion.setText(datos[2]);
+        switch (datos[3]) {
+            case "LIBRERIA": cboCategoria.setSelectedIndex(0);
+                break;
+            case "VESTUARIO": cboCategoria.setSelectedIndex(1);
+                break;
+            case "CASA Y PESCA":cboCategoria.setSelectedIndex(2);
+                break;
+        }
+        txtCantidad.setText(datos[4]);
+        txtNombreProveedor.setText(datos[5]);
+        txtPrecioCompra.setText(datos[6]);
+        txtPrecioIndividual.setText(datos[7]);
+        DateChooser.setDate(Date.valueOf(datos[8]));
+        txtNumFactura.setText(datos[9]);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
