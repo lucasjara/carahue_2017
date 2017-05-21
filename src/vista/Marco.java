@@ -260,10 +260,14 @@ public class Marco extends javax.swing.JFrame {
         jMenuBar1.add(Slider3);
 
         Slider4.setText("Reportes");
-        Slider4.setEnabled(false);
 
         llama_interfaz_informes.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.CTRL_MASK));
         llama_interfaz_informes.setText("Reportes Venta");
+        llama_interfaz_informes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                llama_interfaz_informesActionPerformed(evt);
+            }
+        });
         Slider4.add(llama_interfaz_informes);
 
         jMenuBar1.add(Slider4);
@@ -509,6 +513,30 @@ public class Marco extends javax.swing.JFrame {
         Contenedor.updateUI();
         Contenedor.add(Form);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void llama_interfaz_informesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_llama_interfaz_informesActionPerformed
+        Reportes Form = new Reportes();
+        Form.setVisible(true);
+        String cargo = lbCARGO.getText();
+        switch (cargo) {
+            case "LIBRERIA":
+
+                break;
+            case "VESTUARIO":
+
+                break;
+            case "CASA Y PESCA":
+
+                break;
+        }
+        this.add(Form);
+        Dimension desktopSize = this.getSize();
+        Dimension FrameSize = Form.getSize();
+        Form.setLocation((desktopSize.width - FrameSize.width) / 2, ((desktopSize.height - FrameSize.height) / 2) - 50);
+        Contenedor.removeAll();
+        Contenedor.updateUI();
+        Contenedor.add(Form);
+    }//GEN-LAST:event_llama_interfaz_informesActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */

@@ -662,6 +662,7 @@ public class Inventario_Administracion extends javax.swing.JInternalFrame {
                 CargarTablas(5, categoria, codigo);
             }
         }
+        Limpiar();
     }//GEN-LAST:event_cboCategoriaBusquedaActionPerformed
 
     private void txtNombreFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNombreFocusLost

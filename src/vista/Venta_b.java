@@ -624,13 +624,13 @@ public class Venta_b extends javax.swing.JInternalFrame {
     private void ReservarCodigo(){
         int cod_venta_reservado= sql.ReservarCodigoVenta()+1;
         txtcodigo.setText(Integer.toString(cod_venta_reservado));
-        sql.NuevaVenta(cod_venta_reservado,0,0.0,"RESERVADO",3,1,0);
+        sql.NuevaVenta(cod_venta_reservado,0,0.0,"RESERVADO","BOLETA",3,1,0);
     }
     private void NuevaVenta(String codigo,int cantidad, double precio,int cantidad2){
         int cod_venta = Integer.parseInt(txtcodigo.getText());
         int id_producto=sql.Id_producto(codigo);
         int id_usuario=1;
-        sql.NuevaVenta(cod_venta,cantidad,precio,"INACTIVO",id_producto,id_usuario,cantidad2);
+        sql.NuevaVenta(cod_venta,cantidad,precio,"INACTIVO","BOLETA",id_producto,id_usuario,cantidad2);
         
     }
     private void DesplegarTablas(int numero,String campo){

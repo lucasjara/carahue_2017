@@ -21,7 +21,7 @@ public class ConsultasSQL_Inventario_Administracion {
          Campo = Condicional Consulta.
          */
         DefaultTableModel modelo = new DefaultTableModel();
-        String[] cabeceras = new String[]{"Codigo", "Nombre","Descripcion","Categoria", "Cantidad", "Nombre Proveedor","Dia de LLegada", "Num_Fac."};
+        String[] cabeceras = new String[]{"Codigo", "Nombre", "Descripcion", "Categoria", "Cantidad", "Nombre Proveedor", "Dia de LLegada", "Num_Fac."};
         modelo.setColumnIdentifiers(cabeceras);
         switch (numero) {
             case 1:
@@ -75,17 +75,17 @@ public class ConsultasSQL_Inventario_Administracion {
             CadSql = "SELECT p.cod_inventario FROM `productos` p WHERE p.cod_inventario!='LALA' AND p.cod_inventario='" + Nombre + "' AND p.categoria='" + Categoria + "';";
             Statement st = this.cn.createStatement();
             ResultSet rs = st.executeQuery(CadSql);
-             while (rs.next()) {
-                 valor=rs.getString(1);
-                 break;
-             }
+            while (rs.next()) {
+                valor = rs.getString(1);
+                break;
+            }
         } catch (Exception ex) {
 
         }
         return valor;
     }
-    
-    public void GuardarProductos(String codigo_producto,String nombre,String descripcion,String categoria,int cantidad,String nombre_proveedor,int valor_compra,int valor_venta, Date dia, int numero_factura){
+
+    public void GuardarProductos(String codigo_producto, String nombre, String descripcion, String categoria, int cantidad, String nombre_proveedor, int valor_compra, int valor_venta, Date dia, int numero_factura) {
         //ID, COD_INVENTARIO,NOMBRE,DESCRIPCION,CATEGORIA,CANTIDAD,NOM_PROVEEDOR,VALOR COMPRA,VALOR VENTA,DIA LLEGADA,NUM_FACTURA
         try {
             PreparedStatement pst = this.cn.prepareStatement("INSERT INTO productos(cod_inventario,nombre,descripcion,categoria,cantidad,nom_proveedor,valor_compra,valor_venta,dia_llegada,numero_factura) VALUES (?,?,?,?,?,?,?,?,?,?)");
@@ -104,7 +104,8 @@ public class ConsultasSQL_Inventario_Administracion {
             JOptionPane.showMessageDialog(null, e);
         }
     }
-    public void ModificarProductos(String codigo_producto,String nombre,String descripcion,String categoria,int cantidad,String nombre_proveedor,int valor_compra,int valor_venta, Date dia, int numero_factura){
+
+    public void ModificarProductos(String codigo_producto, String nombre, String descripcion, String categoria, int cantidad, String nombre_proveedor, int valor_compra, int valor_venta, Date dia, int numero_factura) {
         try {
             PreparedStatement pst = this.cn.prepareStatement("UPDATE productos SET nombre=?, descripcion=?, cantidad=?, nom_proveedor=?, valor_compra=?, valor_venta=?,dia_llegada=?, numero_factura=? WHERE cod_inventario=? AND categoria=?;");
             pst.setString(1, nombre);
@@ -122,8 +123,8 @@ public class ConsultasSQL_Inventario_Administracion {
             JOptionPane.showMessageDialog(null, e);
         }
     }
-    
-    public String[] SetearCampos(String codigo,String categoria){
+
+    public String[] SetearCampos(String codigo, String categoria) {
         String[] datos = new String[10];
         try {
             CadSql = "SELECT p.cod_inventario, p.nombre,p.descripcion, p.categoria,p.cantidad,p.nom_proveedor,p.valor_compra,p.valor_venta,p.dia_llegada, p.numero_factura FROM `productos` p WHERE p.categoria='" + categoria + "' AND p.cod_inventario ='" + codigo + "';";
@@ -142,7 +143,6 @@ public class ConsultasSQL_Inventario_Administracion {
                 datos[9] = rs.getString(10);
                 break;
             }
-            
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }

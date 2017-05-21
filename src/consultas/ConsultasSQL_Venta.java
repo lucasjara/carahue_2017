@@ -100,7 +100,7 @@ public class ConsultasSQL_Venta {
         }
     }
 
-    public void NuevaVenta(int cod_venta, int cantidad, Double precio, String estado, int id_producto, int id_usuario, int cantidad2) {
+    public void NuevaVenta(int cod_venta, int cantidad, Double precio, String estado,String tipo, int id_producto, int id_usuario, int cantidad2) {
         try {
             /*
              cod venta|cantidad|precio|fecha|estado|id_producto|id_usuario
@@ -108,14 +108,15 @@ public class ConsultasSQL_Venta {
             java.util.Date utilDate = new java.util.Date();
             java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
 
-            PreparedStatement pst = this.cn.prepareStatement("INSERT INTO ventas(cod_venta,cantidad,precio,fecha,estado,id_producto,id_usuario) VALUES (?,?,?,?,?,?,?)");
+            PreparedStatement pst = this.cn.prepareStatement("INSERT INTO ventas(cod_venta,cantidad,precio,fecha,estado,tipo,id_producto,id_usuario) VALUES (?,?,?,?,?,?,?,?)");
             pst.setInt(1, cod_venta);
             pst.setInt(2, cantidad);
             pst.setDouble(3, precio);
             pst.setDate(4, sqlDate);
             pst.setString(5, estado);
-            pst.setInt(6, id_producto);
-            pst.setInt(7, id_usuario);
+            pst.setString(6, tipo);
+            pst.setInt(7, id_producto);
+            pst.setInt(8, id_usuario);
             pst.executeUpdate();
             //id_producto | cantidad
             if (estado.equals("RESERVADO")) {
