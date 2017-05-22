@@ -98,46 +98,73 @@ public class ConsultasSQL_Inventario_Administracion {
 
         }
     }
-
-    public void GuardarProductos(String codigo_producto, String nombre, String descripcion, String categoria, int cantidad, String nombre_proveedor, int valor_compra, int valor_venta, Date dia, int numero_factura) {
-        //ID, COD_INVENTARIO,NOMBRE,DESCRIPCION,CATEGORIA,CANTIDAD,NOM_PROVEEDOR,VALOR COMPRA,VALOR VENTA,DIA LLEGADA,NUM_FACTURA
+    private int DevolverIdProveedor(String nombre){
+        int numero=0;
         try {
-            PreparedStatement pst = this.cn.prepareStatement("INSERT INTO productos(cod_inventario,nombre,descripcion,categoria,cantidad,id_proveedor,valor_compra,valor_venta,dia_llegada,numero_factura) VALUES (?,?,?,?,?,?,?,?,?,?)");
+            CadSql = "SELECT id FROM proveedores WHERE nombre='"+nombre+"';";
+            Statement st = this.cn.createStatement();
+            ResultSet rs = st.executeQuery(CadSql);
+            while (rs.next()) {
+                numero = Integer.parseInt(rs.getString(1));
+                break;
+            }
+        } catch (Exception ex) {
+
+        }
+        return numero;
+    }
+    public void GuardarProductos(String codigo_producto, String nombre, String descripcion, String categoria, int cantidad,int descuento, String nombre_proveedor, int valor_compra, int valor_venta, Date dia, int numero_factura) {
+        //ID, COD_INVENTARIO,NOMBRE,DESCRIPCION,CATEGORIA,CANTIDAD,NOM_PROVEEDOR,VALOR COMPRA,VALOR VENTA,DIA LLEGADA,NUM_FACTURA
+        
+        try {
+            PreparedStatement pst = this.cn.prepareStatement("INSERT INTO productos(cod_inventario,nombre,descripcion,categoria,cantidad,descuento,valor_compra,valor_venta,dia_llegada,numero_factura,id_proveedor) VALUES (?,?,?,?,?,?,?,?,?,?,?)");
+            //cod_inventario|nombre|descripcion|categoria|cantidad|descuento|valor_C|valor_v|dia_llegada|n*factura|id_proveedor
             pst.setString(1, codigo_producto);
             pst.setString(2, nombre);
             pst.setString(3, descripcion);
             pst.setString(4, categoria);
             pst.setInt(5, cantidad);
-            pst.setString(6, nombre_proveedor);
+            pst.setInt(6, descuento);
             pst.setInt(7, valor_compra);
             pst.setInt(8, valor_venta);
             pst.setDate(9, dia);
             pst.setInt(10, numero_factura);
+            int id_proveedor = DevolverIdProveedor(nombre_proveedor);
+            pst.setInt(11, id_proveedor);
             pst.executeUpdate();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
     }
 
-    public void ModificarProductos(String codigo_producto, String nombre, String descripcion, String categoria, int cantidad, String nombre_proveedor, int valor_compra, int valor_venta, Date dia, int numero_factura) {
+    public void ModificarProductos(String codigo_producto, String nombre, String descripcion, String categoria, int cantidad,int descuento, String nombre_proveedor, int valor_compra, int valor_venta, Date dia, int numero_factura) {
         try {
-            PreparedStatement pst = this.cn.prepareStatement("UPDATE productos SET nombre=?, descripcion=?, cantidad=?, nom_proveedor=?, valor_compra=?, valor_venta=?,dia_llegada=?, numero_factura=? WHERE cod_inventario=? AND categoria=?;");
+            PreparedStatement pst = this.cn.prepareStatement("UPDATE productos SET nombre=?, descripcion=?, cantidad=?, descuento=?, valor_compra=?, valor_venta=?,dia_llegada=?, numero_factura=?, id_proveedor=? WHERE cod_inventario=? AND categoria=?;");
             pst.setString(1, nombre);
             pst.setString(2, descripcion);
             pst.setInt(3, cantidad);
-            pst.setString(4, nombre_proveedor);
+            pst.setInt(4, descuento);
             pst.setInt(5, valor_compra);
             pst.setInt(6, valor_venta);
             pst.setDate(7, dia);
             pst.setInt(8, numero_factura);
-            pst.setString(9, codigo_producto);
-            pst.setString(10, categoria);
+            int id_proveedor = DevolverIdProveedor(nombre_proveedor);
+            pst.setInt(9, id_proveedor);
+            pst.setString(10, codigo_producto);
+            pst.setString(11, categoria);
             pst.executeUpdate();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
     }
-
+    public void EliminarProducto(String codigo,String categoria){
+        try {
+            PreparedStatement pst = this.cn.prepareStatement("DELETE FROM productos WHERE  cod_inventario='" + codigo + "' AND categoria='"+categoria+"'");
+            pst.executeUpdate();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
     public String[] SetearCampos(String codigo, String categoria) {
         String[] datos = new String[10];
         try {

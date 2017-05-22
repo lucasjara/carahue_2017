@@ -44,7 +44,7 @@ public class Inventario_Administracion extends javax.swing.JInternalFrame {
         cboCategoria = new javax.swing.JComboBox<String>();
         txtPrecioCompra = new javax.swing.JTextField();
         txtPrecioIndividual = new javax.swing.JTextField();
-        txtPrecioTotal = new javax.swing.JTextField();
+        txtDescuento = new javax.swing.JTextField();
         txtNumFactura = new javax.swing.JTextField();
         jLabel19 = new javax.swing.JLabel();
         txtCodigoProducto = new javax.swing.JTextField();
@@ -236,8 +236,8 @@ public class Inventario_Administracion extends javax.swing.JInternalFrame {
             }
         });
 
-        txtPrecioTotal.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        txtPrecioTotal.setText("0");
+        txtDescuento.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtDescuento.setText("0");
 
         txtNumFactura.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txtNumFactura.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -445,7 +445,7 @@ public class Inventario_Administracion extends javax.swing.JInternalFrame {
                                         .addGap(18, 18, 18)
                                         .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtPrecioTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(txtDescuento, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(18, 18, 18)
                                         .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(jPanel6Layout.createSequentialGroup()
@@ -476,7 +476,7 @@ public class Inventario_Administracion extends javax.swing.JInternalFrame {
                     .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtPrecioCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtPrecioTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtDescuento, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -797,9 +797,12 @@ public class Inventario_Administracion extends javax.swing.JInternalFrame {
             int valor_compra = Integer.parseInt(txtPrecioCompra.getText());
             int valor_venta = Integer.parseInt(txtPrecioIndividual.getText());
             int numero_factura = Integer.parseInt(txtNumFactura.getText());
+            int descuento = Integer.parseInt(txtDescuento.getText());
             java.sql.Date sqldate = new java.sql.Date(DateChooser.getDate().getTime());
-            sql.GuardarProductos(codigo, nombre, descripcion, categoria, cantidad, nombre_proveedor, valor_compra, valor_venta, sqldate, numero_factura);
+            //cod_inventario|nombre|descripcion|categoria|cantidad|descuento|valor_C|valor_v|dia_llegada|n*factura|id_proveedor
+            sql.GuardarProductos(codigo, nombre, descripcion, categoria, cantidad,descuento, nombre_proveedor, valor_compra, valor_venta, sqldate, numero_factura);
             sql.Tabla_Inventario(1, "", "");
+            JOptionPane.showMessageDialog(null, "Producto Ingresado Correctamente");
         }
     }//GEN-LAST:event_btnIngresarActionPerformed
 
@@ -821,42 +824,35 @@ public class Inventario_Administracion extends javax.swing.JInternalFrame {
             int valor_compra = Integer.parseInt(txtPrecioCompra.getText());
             int valor_venta = Integer.parseInt(txtPrecioIndividual.getText());
             int numero_factura = Integer.parseInt(txtNumFactura.getText());
+            int descuento= Integer.parseInt(txtDescuento.getText());
             java.sql.Date sqldate = new java.sql.Date(DateChooser.getDate().getTime());
-            sql.ModificarProductos(codigo, nombre, descripcion, categoria, cantidad, nombre_proveedor, valor_compra, valor_venta, sqldate, numero_factura);
+            sql.ModificarProductos(codigo, nombre, descripcion, categoria, cantidad,descuento, nombre_proveedor, valor_compra, valor_venta, sqldate, numero_factura);
             sql.Tabla_Inventario(1, "", "");
+            JOptionPane.showMessageDialog(null, "Producto Modificado Correctamente");
         }
-//        if (ValidarVacios()) {
-//            JOptionPane.showMessageDialog(null, "Alguno de los campos se encuentra vacio");
-//        } else if (CompararPrecios()) {
-//            JOptionPane.showMessageDialog(null, "El costo debe ser menor al precio venta");
-//        } else if (sql.validarproducto(txtCodigoProducto.getText(), cboCategoria.getSelectedItem().toString())) {
-//            sql.ModInventario(txtNombre.getText(), txtCantidad.getText(), txtCostoIndividual.getText(), txtPrecioTotal.getText(), txtDescripcion.getText(), txtNombreProveedor.getText(), txtNumFactura.getText(), cboCategoria.getSelectedItem().toString());
-//            CargarTablas(1, "");
-//        } else {
-//            JOptionPane.showMessageDialog(null, "El producto no se encuentra registrado");
-//        }
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-//        try {
-//            int fila = this.tbproductos1.getSelectedRow();
-//            String nombre = this.tbproductos1.getValueAt(fila, 1).toString();
-//            String categoria = this.tbproductos1.getValueAt(fila, 3).toString();
-//            if (fila != -1) {
-//                int resp = JOptionPane.showConfirmDialog(null, "Esta seguro que desea eliminar el producto?");
-//                if (JOptionPane.OK_OPTION == resp) {
-//                    sql.EliminarProducto(nombre, categoria);
-//                    JOptionPane.showMessageDialog(null, "Producto eliminado Correctamente");
-//                    CargarTablas(1, "");
-//                    Limpiar();
-//                    cboCategoria.setEnabled(true);
-//                }
-//            } else {
-//                JOptionPane.showMessageDialog(null, "Seleccione un elemento de la tabla");
-//            }
-//        } catch (Exception ex) {
-//            JOptionPane.showMessageDialog(null, "Seleccione un elemento de la tabla");
-//        }
+        try {
+            int fila = this.tbproductos_administracion.getSelectedRow();
+            String codigo = this.tbproductos_administracion.getValueAt(fila, 0).toString();
+            String categoria = this.tbproductos_administracion.getValueAt(fila, 3).toString();
+            
+            if (fila != -1) {
+                int resp = JOptionPane.showConfirmDialog(null, "Esta seguro que desea eliminar el producto?");
+                if (JOptionPane.OK_OPTION == resp) {
+                    sql.EliminarProducto(codigo, categoria);
+                    JOptionPane.showMessageDialog(null, "Producto eliminado Correctamente");
+                    sql.Tabla_Inventario(1, "", "");
+                    Limpiar();
+                    cboCategoria.setEnabled(true);
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Seleccione un elemento de la tabla");
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Seleccione un elemento de la tabla");
+        }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
@@ -918,6 +914,7 @@ public class Inventario_Administracion extends javax.swing.JInternalFrame {
         txtPrecioCompra.setText("0");
         txtPrecioIndividual.setText("0");
         //txtNombreProveedor.setText("");
+        txtDescripcion.setText("");
         txtCodigoProducto.setText("");
         txtNumFactura.setText("");
     }
@@ -1027,12 +1024,12 @@ public class Inventario_Administracion extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtCodigoBusqueda;
     private javax.swing.JTextField txtCodigoProducto;
     private javax.swing.JTextArea txtDescripcion;
+    private javax.swing.JTextField txtDescuento;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtNombreBusqueda;
     private javax.swing.JTextField txtNumFactura;
     private javax.swing.JTextField txtPrecioCompra;
     private javax.swing.JTextField txtPrecioIndividual;
-    private javax.swing.JTextField txtPrecioTotal;
     private javax.swing.JTextField txtPrecioTotal1;
     // End of variables declaration//GEN-END:variables
 }
