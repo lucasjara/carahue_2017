@@ -882,7 +882,9 @@ public class Inventario_Administracion extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_tbproductos_administracionMouseClicked
 
     private void btnIngresar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresar1ActionPerformed
-        // TODO add your handling code here:
+        Proveedores p = new Proveedores();
+        p.setLocationRelativeTo(null);
+        p.setVisible(true);
     }//GEN-LAST:event_btnIngresar1ActionPerformed
     private boolean ValidarCamposVacios() {
         boolean respuesta = false;
