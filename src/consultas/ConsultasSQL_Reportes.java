@@ -7,11 +7,15 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import static paneles.reportes.JPanelDiax.tbVentasDiaX;
+import static paneles.reportes.JPanelDiax.tbVentasDiaXDetalles;
 import static paneles.reportes.JPanelVentasHoy.tbVentasHoy;
 import static paneles.reportes.JPanelVentasHoy.tbVentasHoyDetalles;
 import static paneles.reportes.JPanelVentasMensual.tbVentasMes;
+import static paneles.reportes.JPanelVentasMensual.tbVentasMesDetalles;
 import paneles.reportes.JPanelVentasSemanal;
 import static paneles.reportes.JPanelVentasSemanal.tbVentasSemana;
+import static paneles.reportes.JPanelVentasSemanal.tbVentasSemanaDetalles;
 
 public class ConsultasSQL_Reportes {
 
@@ -31,6 +35,8 @@ public class ConsultasSQL_Reportes {
                 break;
             case 3:
                 CadSql = "SELECT DISTINCT cod_venta,fecha,tipo from ventas WHERE fecha BETWEEN '" + fecha + "' AND '" + fecha2 + "' AND estado='VENDIDO';";
+                break;
+            case 4:CadSql = "SELECT DISTINCT cod_venta,fecha,tipo from ventas WHERE fecha='" + fecha + "' AND estado='VENDIDO';";
                 break;
         }
         try {
@@ -53,13 +59,15 @@ public class ConsultasSQL_Reportes {
                 case 3:
                     tbVentasMes.setModel(modelo);
                     break;
+                case 4:tbVentasDiaX.setModel(modelo);
+                    break;
             }
         } catch (Exception ex) {
             //JOptionPane.showMessageDialog(null, ex);
         }
     }
 
-    public int DetalleVenta(int cod_venta) {
+    public int DetalleVenta(int numero,int cod_venta) {
         int total = 0;
         DefaultTableModel modelo = new DefaultTableModel();
         modelo.addColumn("IdProducto");
@@ -79,7 +87,16 @@ public class ConsultasSQL_Reportes {
                 datos[3] = rs.getString(4);
                 modelo.addRow(datos);
             }
-            tbVentasHoyDetalles.setModel(modelo);
+            switch(numero){
+                case 1:tbVentasHoyDetalles.setModel(modelo);
+                    break;
+                case 2:tbVentasSemanaDetalles.setModel(modelo);
+                    break;
+                case 3:tbVentasMesDetalles.setModel(modelo);
+                    break;
+                case 4:tbVentasDiaXDetalles.setModel(modelo);
+                    break;
+            }
             //Inventario_Administracion.tbproductos_administracion.setModel(modelo);
         } catch (Exception ex) {
             //JOptionPane.showMessageDialog(null, ex);

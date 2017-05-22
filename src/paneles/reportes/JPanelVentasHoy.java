@@ -212,7 +212,7 @@ public class JPanelVentasHoy extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_tbVentasHoyMouseClicked
 private void DetalleVenta(int codigo_venta){
-    int total =sql.DetalleVenta(codigo_venta);
+    int total =sql.DetalleVenta(1,codigo_venta);
     txtTOTAL.setText(Integer.toString(total));
 }
 

@@ -9,6 +9,7 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Calendar;
 import javax.swing.JOptionPane;
+import paneles.reportes.JPanelDiax;
 import paneles.reportes.JPanelVentasHoy;
 import paneles.reportes.JPanelVentasMensual;
 import paneles.reportes.JPanelVentasSemanal;
@@ -228,7 +229,6 @@ public class Reportes extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnEliminar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminar1ActionPerformed
-        JOptionPane.showMessageDialog(null, getPrimerDiaDelMes());
         JPanelVentasMensual nu=new JPanelVentasMensual();
         LocalDate fecha1 = getPrimerDiaDelMes();
         LocalDate fecha2 = getUltimoDiaDelMes();
@@ -271,13 +271,13 @@ public class Reportes extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnEliminar2ActionPerformed
 
     private void btnEliminar3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminar3ActionPerformed
-//        JPanelDiax nu=new JPanelDiax();
-//        nu.setSize(713,487);
-//        nu.setLocation(1,1);
-//        PanelCambianteUsuarios.removeAll();
-//        PanelCambianteUsuarios.add(nu,BorderLayout.CENTER);
-//        PanelCambianteUsuarios.revalidate();
-//        PanelCambianteUsuarios.repaint();
+        JPanelDiax nu=new JPanelDiax();
+        nu.setSize(713,487);
+        nu.setLocation(1,1);
+        PanelCambianteUsuarios.removeAll();
+        PanelCambianteUsuarios.add(nu,BorderLayout.CENTER);
+        PanelCambianteUsuarios.revalidate();
+        PanelCambianteUsuarios.repaint();
     }//GEN-LAST:event_btnEliminar3ActionPerformed
     private static LocalDate getPrimerDiaDeLaSemana() {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
