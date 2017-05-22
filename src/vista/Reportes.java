@@ -3,10 +3,15 @@ package vista;
 import consultas.ConsultasSQL_Reportes;
 import java.awt.BorderLayout;
 import java.sql.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Calendar;
 import javax.swing.JOptionPane;
 import paneles.reportes.JPanelVentasHoy;
+import paneles.reportes.JPanelVentasMensual;
+import paneles.reportes.JPanelVentasSemanal;
 
 public class Reportes extends javax.swing.JInternalFrame {
 
@@ -17,6 +22,7 @@ public class Reportes extends javax.swing.JInternalFrame {
         initComponents();
     }
     ConsultasSQL_Reportes sql = new ConsultasSQL_Reportes();
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -222,115 +228,42 @@ public class Reportes extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnEliminar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminar1ActionPerformed
-//        JPanelVentasMensual nu=new JPanelVentasMensual();
-//        sql.CargarTabalasVentasMensuales((cal.get(cal.MONTH)+1), cal.get(cal.YEAR));
-//
-//        nu.setSize(713,487);
-//        nu.setLocation(1,1);
-//        PanelCambianteUsuarios.removeAll();
-//        PanelCambianteUsuarios.add(nu,BorderLayout.CENTER);
-//        PanelCambianteUsuarios.revalidate();
-//        PanelCambianteUsuarios.repaint();
-    }//GEN-LAST:event_btnEliminar1ActionPerformed
-
-    private void BtnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnModificarActionPerformed
-        JPanelVentasHoy nu=new JPanelVentasHoy();
-        LocalDate fecha = LocalDate.now();
-        CargarTablas(1,fecha);
+        JOptionPane.showMessageDialog(null, getPrimerDiaDelMes());
+        JPanelVentasMensual nu=new JPanelVentasMensual();
+        LocalDate fecha1 = getPrimerDiaDelMes();
+        LocalDate fecha2 = getUltimoDiaDelMes();
+        CargarTablas(3, fecha1, fecha2);
         nu.setSize(713,487);
         nu.setLocation(1,1);
         PanelCambianteUsuarios.removeAll();
         PanelCambianteUsuarios.add(nu,BorderLayout.CENTER);
         PanelCambianteUsuarios.revalidate();
         PanelCambianteUsuarios.repaint();
+    }//GEN-LAST:event_btnEliminar1ActionPerformed
+
+    private void BtnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnModificarActionPerformed
+        JPanelVentasHoy nu = new JPanelVentasHoy();
+        LocalDate fecha = LocalDate.now();
+        CargarTablas(1, fecha,fecha);
+        nu.setSize(713, 487);
+        nu.setLocation(1, 1);
+        PanelCambianteUsuarios.removeAll();
+        PanelCambianteUsuarios.add(nu, BorderLayout.CENTER);
+        PanelCambianteUsuarios.revalidate();
+        PanelCambianteUsuarios.repaint();
     }//GEN-LAST:event_BtnModificarActionPerformed
 
     private void BtnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnNuevoActionPerformed
-//        int numero=cal.get(cal.DATE);// dia actual
-//        String[] strDays = new String[]{"Domingo","Lunes","Martes","Miercoles","Jueves","Viernes","Sabado"};
-//        String[] Meses = new String[]{"NoDebedartecero","Ene","Feb","Mar","abril","may","jun","jul","ago","sep","octo","nov","dic"};
-//
-//        switch(strDays[cal.get(Calendar.DAY_OF_WEEK)-1])
-//        {
-//            case "Domingo":numero=numero-6;
-//            break;
-//            case "Lunes":numero=numero;
-//            break;
-//            case "Martes":numero=numero-1;
-//            break;
-//            case "Miercoles":numero=numero-2;
-//            break;
-//            case "Jueves":numero=numero-3;
-//            break;
-//            case "Viernes":numero=numero-4;
-//            break;
-//            case "Sabado":numero=numero-5;
-//            break;
-//        }
-//        if(numero<=0)
-//        {
-//            int mes_anterior=cal.get(Calendar.MONTH);
-//
-//            int ultimodia=0;
-//            switch(mes_anterior)
-//            {
-//                case 1:ultimodia=31;
-//                break;
-//                case 2:ultimodia=28;
-//                break;
-//                case 3:ultimodia=31;
-//                break;
-//                case 4:ultimodia=30;
-//                break;
-//                case 5:ultimodia=31;
-//                break;
-//                case 6:ultimodia=30;
-//                break;
-//                case 7:ultimodia=31;
-//                break;
-//                case 8:ultimodia=31;
-//                break;
-//                case 9:ultimodia=30;
-//                break;
-//                case 10:ultimodia=31;
-//                break;
-//                case 11:ultimodia=30;
-//                break;
-//                case 12:ultimodia=31;
-//                break;
-//            }
-//            int dialunes=ultimodia+(numero);
-//            JPanelVentasSemanal nu=new JPanelVentasSemanal();
-//            switch(dialunes)
-//            {
-//                case 28:sql.CargarTablaVentasSemana(dialunes, dialunes+1, dialunes+2, dialunes+3, cal.get(cal.DATE));
-//                break;
-//                case 29:sql.CargarTablaVentasSemana(dialunes, dialunes+1, dialunes+2, (cal.get(cal.DATE)), (cal.get(cal.DATE)+1));
-//                break;
-//                case 30:sql.CargarTablaVentasSemana(dialunes, dialunes, (cal.get(cal.DATE)), (cal.get(cal.DATE)+1), (cal.get(cal.DATE)+2));
-//                break;
-//                case 31:sql.CargarTablaVentasSemana(dialunes,(cal.get(cal.DATE)),(cal.get(cal.DATE)+1),(cal.get(cal.DATE)+2), (cal.get(cal.DATE)+3));
-//                break;
-//            }
-//
-//            nu.setSize(713,487);
-//            nu.setLocation(1,1);
-//            PanelCambianteUsuarios.removeAll();
-//            PanelCambianteUsuarios.add(nu,BorderLayout.CENTER);
-//            PanelCambianteUsuarios.revalidate();
-//            PanelCambianteUsuarios.repaint();
-//
-//        }else
-//        {
-//            JPanelVentasSemanal nu=new JPanelVentasSemanal();
-//            sql.CargarTablaVentasSemana(numero, numero+1, numero+2, numero+3, numero+4);
-//            nu.setSize(713,487);
-//            nu.setLocation(1,1);
-//            PanelCambianteUsuarios.removeAll();
-//            PanelCambianteUsuarios.add(nu,BorderLayout.CENTER);
-//            PanelCambianteUsuarios.revalidate();
-//            PanelCambianteUsuarios.repaint();
-//        }
+        JPanelVentasSemanal nu = new JPanelVentasSemanal();
+        LocalDate fecha1 = getPrimerDiaDeLaSemana();
+        LocalDate fecha2 = getUltimoDiaDeLaSemana();
+        CargarTablas(2, fecha1,fecha2);
+        nu.setSize(713,487);
+        nu.setLocation(1,1);
+        PanelCambianteUsuarios.removeAll();
+        PanelCambianteUsuarios.add(nu,BorderLayout.CENTER);
+        PanelCambianteUsuarios.revalidate();
+        PanelCambianteUsuarios.repaint();
     }//GEN-LAST:event_BtnNuevoActionPerformed
 
     private void btnEliminar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminar2ActionPerformed
@@ -346,10 +279,39 @@ public class Reportes extends javax.swing.JInternalFrame {
 //        PanelCambianteUsuarios.revalidate();
 //        PanelCambianteUsuarios.repaint();
     }//GEN-LAST:event_btnEliminar3ActionPerformed
-  private void CargarTablas(int numero,LocalDate fechas)
-    {
+    private static LocalDate getPrimerDiaDeLaSemana() {
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.DAY_OF_WEEK, cal.getFirstDayOfWeek());
+        LocalDate fechaInicio = cal.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        return fechaInicio;
+    }
+    private static LocalDate getUltimoDiaDeLaSemana() {
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.DAY_OF_WEEK, cal.getFirstDayOfWeek()+6);
+        LocalDate fechaInicio = cal.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        return fechaInicio;
+    }
+    private static LocalDate getPrimerDiaDelMes() {
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.DAY_OF_MONTH, cal.getFirstDayOfWeek()-1);
+        LocalDate fechaInicio = cal.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        return fechaInicio;
+    }
+    private static LocalDate getUltimoDiaDelMes() {
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Calendar cal = Calendar.getInstance();
+        int ultimo_dia=LocalDate.now().lengthOfMonth()-2;
+        cal.set(Calendar.DAY_OF_MONTH, cal.getFirstDayOfWeek()+ultimo_dia);
+        LocalDate fechaInicio = cal.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        return fechaInicio;
+    }
+    private void CargarTablas(int numero, LocalDate fechas, LocalDate fechas2) {
         Date fecha = java.sql.Date.valueOf(fechas);
-        sql.VentasHoy(numero, fecha);
+        Date fecha2 = java.sql.Date.valueOf(fechas2);
+        sql.VentasHoy(numero, fecha,fecha2);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

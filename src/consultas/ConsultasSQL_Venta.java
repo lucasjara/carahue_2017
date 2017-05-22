@@ -74,7 +74,7 @@ public class ConsultasSQL_Venta {
                 CadSql = "SELECT p.nombre, p.descripcion, v.cantidad, p.valor_venta, v.precio FROM productos p, ventas v WHERE v.id_producto=p.id AND v.cod_venta='" + campo + "' AND v.estado='INACTIVO';";
                 break;
             case 2:
-                CadSql = "SELECT p.nombre, p.descripcion, v.cantidad, p.valor_venta, v.precio FROM productos p, ventas v WHERE v.id_producto=p.id AND v.cod_venta='" + campo + "' AND v.estado='INACTIVO';";
+                CadSql = "SELECT p.nombre, p.descripcion, v.cantidad, p.valor_venta, v.precio FROM productos p, ventas v WHERE v.id_producto=p.id AND v.cod_venta='" + campo + "';";
                 break;
         }
         try {

@@ -33,15 +33,15 @@ public class JPanelVentasMensual extends javax.swing.JPanel {
 
         PanelCambianteUsuarios2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tbVentasHoy = new javax.swing.JTable();
+        tbVentasMes = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
-        tbVentasHoyDetalles = new javax.swing.JTable();
+        tbVentasMesDetalles = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
 
         PanelCambianteUsuarios2.setBackground(new java.awt.Color(88, 147, 191));
 
-        tbVentasHoy.setModel(new javax.swing.table.DefaultTableModel(
+        tbVentasMes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
                 {null, null, null},
@@ -68,14 +68,14 @@ public class JPanelVentasMensual extends javax.swing.JPanel {
                 "CodigoVenta", "Fecha", "TOTAL"
             }
         ));
-        tbVentasHoy.addMouseListener(new java.awt.event.MouseAdapter() {
+        tbVentasMes.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tbVentasHoyMouseClicked(evt);
+                tbVentasMesMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(tbVentasHoy);
+        jScrollPane1.setViewportView(tbVentasMes);
 
-        tbVentasHoyDetalles.setModel(new javax.swing.table.DefaultTableModel(
+        tbVentasMesDetalles.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -102,7 +102,7 @@ public class JPanelVentasMensual extends javax.swing.JPanel {
                 "CodProducto", "Producto", "Cantidad", "Valor"
             }
         ));
-        jScrollPane2.setViewportView(tbVentasHoyDetalles);
+        jScrollPane2.setViewportView(tbVentasMesDetalles);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -156,7 +156,7 @@ public class JPanelVentasMensual extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void tbVentasHoyMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbVentasHoyMouseClicked
+    private void tbVentasMesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbVentasMesMouseClicked
 //        try {
 //            int fila = tbVentasHoy.getSelectedRow();
 //            String cod = tbVentasHoy.getValueAt(fila, 0).toString();
@@ -168,7 +168,7 @@ public class JPanelVentasMensual extends javax.swing.JPanel {
 //        } catch (Exception ex) {
 //            JOptionPane.showMessageDialog(null, "Seleccione en la tabla antes de modificar");
 //        }
-    }//GEN-LAST:event_tbVentasHoyMouseClicked
+    }//GEN-LAST:event_tbVentasMesMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -177,7 +177,7 @@ public class JPanelVentasMensual extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    public static javax.swing.JTable tbVentasHoy;
-    public static javax.swing.JTable tbVentasHoyDetalles;
+    public static javax.swing.JTable tbVentasMes;
+    public static javax.swing.JTable tbVentasMesDetalles;
     // End of variables declaration//GEN-END:variables
 }
