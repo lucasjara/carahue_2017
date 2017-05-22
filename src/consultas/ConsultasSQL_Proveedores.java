@@ -16,7 +16,7 @@ public class ConsultasSQL_Proveedores {
         DefaultTableModel modelo = new DefaultTableModel();
         String[] cabeceras = new String[]{"ID", "RUT", "NOMBRE", "TELEFONO"};
         modelo.setColumnIdentifiers(cabeceras);
-        CadSql = "SELECT * FROM proveedores WHERE 1;";
+        CadSql = "SELECT * FROM proveedores WHERE 1 ORDER BY id DESC;";
 
         try {
             String[] datos = new String[4];

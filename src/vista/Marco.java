@@ -273,10 +273,14 @@ public class Marco extends javax.swing.JFrame {
         jMenuBar1.add(Slider4);
 
         Slider5.setText("Linea de Credito");
-        Slider5.setEnabled(false);
 
         llama_interfaz_linea_credito.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_1, java.awt.event.InputEvent.ALT_MASK));
         llama_interfaz_linea_credito.setText("Linea de Credito");
+        llama_interfaz_linea_credito.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                llama_interfaz_linea_creditoActionPerformed(evt);
+            }
+        });
         Slider5.add(llama_interfaz_linea_credito);
 
         jMenuBar1.add(Slider5);
@@ -537,6 +541,30 @@ public class Marco extends javax.swing.JFrame {
         Contenedor.updateUI();
         Contenedor.add(Form);
     }//GEN-LAST:event_llama_interfaz_informesActionPerformed
+
+    private void llama_interfaz_linea_creditoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_llama_interfaz_linea_creditoActionPerformed
+        LineaCredito Form = new LineaCredito();
+        Form.setVisible(true);
+        String cargo = lbCARGO.getText();
+        switch (cargo) {
+            case "LIBRERIA":
+
+                break;
+            case "VESTUARIO":
+
+                break;
+            case "CASA Y PESCA":
+
+                break;
+        }
+        this.add(Form);
+        Dimension desktopSize = this.getSize();
+        Dimension FrameSize = Form.getSize();
+        Form.setLocation((desktopSize.width - FrameSize.width) / 2, ((desktopSize.height - FrameSize.height) / 2) - 50);
+        Contenedor.removeAll();
+        Contenedor.updateUI();
+        Contenedor.add(Form);
+    }//GEN-LAST:event_llama_interfaz_linea_creditoActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */

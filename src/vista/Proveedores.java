@@ -58,6 +58,11 @@ public class Proveedores extends javax.swing.JFrame {
         });
 
         btnLimpiar.setText("LIMPIAR");
+        btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimpiarActionPerformed(evt);
+            }
+        });
 
         btnEliminar.setText("ELIMINAR");
         btnEliminar.addActionListener(new java.awt.event.ActionListener() {
@@ -83,12 +88,6 @@ public class Proveedores extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(tbproveedores);
-
-        txtTelefono.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtTelefonoActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -220,9 +219,20 @@ public class Proveedores extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnModificarActionPerformed
 
-    private void txtTelefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTelefonoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtTelefonoActionPerformed
+    private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
+        Limpiar();
+    }//GEN-LAST:event_btnLimpiarActionPerformed
+    private void Limpiar(){
+        txtNombre.setText("");
+        txtRut.setText("");
+        txtTelefono.setText("");
+        try {
+            int fila = this.tbproveedores.getSelectedRow();
+            fila = -1;
+            this.tbproveedores.setSelectionMode(fila);
+        } catch (Exception e) {
+        }
+    }
     private boolean ValidarVacios() {
         boolean verificar = true;
         if (txtRut.getText().equals("")) {

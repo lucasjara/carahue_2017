@@ -129,7 +129,6 @@
         <Menu class="javax.swing.JMenu" name="Slider5">
           <Properties>
             <Property name="text" type="java.lang.String" value="Linea de Credito"/>
-            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
@@ -142,6 +141,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Linea de Credito"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="llama_interfaz_linea_creditoActionPerformed"/>
+              </Events>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
               </AuxValues>
