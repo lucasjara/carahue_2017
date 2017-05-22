@@ -140,7 +140,14 @@ public class ConsultasSQL_Venta {
             JOptionPane.showMessageDialog(null, ex);
         }
     }
-
+    public void EliminarReservaCodigoVenta(int cod_venta){
+        try {
+            PreparedStatement pst = this.cn.prepareStatement("DELETE FROM ventas WHERE  cod_venta='" + cod_venta + "' AND id_producto=3");
+            pst.executeUpdate();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
     public int ReservarCodigoVenta() {
         int cod_venta = 0;
         try {

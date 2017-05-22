@@ -586,6 +586,7 @@ public class Venta_b extends javax.swing.JInternalFrame {
 //        imprimirFacturaPruebaMenorEscala();
 //        sql.GuardarGanancia(Integer.parseInt(txtcodigo.getText()), Double.parseDouble(txtMontoNeto.getText()), Double.parseDouble(txtIVA.getText()), Double.parseDouble(txtImpuestoAdicional.getText()), Double.parseDouble(txtTotal.getText()));
 //--------------------------------------------------------
+        BorrarReserva(Integer.parseInt(txtcodigo.getText()));
         ReservarCodigo();
         BtnGuardar.setEnabled(false);
         BtnLimpiar.setEnabled(false);
@@ -624,12 +625,15 @@ public class Venta_b extends javax.swing.JInternalFrame {
     private void ReservarCodigo(){
         int cod_venta_reservado= sql.ReservarCodigoVenta()+1;
         txtcodigo.setText(Integer.toString(cod_venta_reservado));
-        sql.NuevaVenta(cod_venta_reservado,0,0.0,"RESERVADO","BOLETA",3,1,0);
+        sql.NuevaVenta(cod_venta_reservado,0,0.0,"RESERVADO","BOLETA",3,4,0);
+    }
+    private void BorrarReserva(int cod_venta){
+        sql.EliminarReservaCodigoVenta(cod_venta);
     }
     private void NuevaVenta(String codigo,int cantidad, double precio,int cantidad2){
         int cod_venta = Integer.parseInt(txtcodigo.getText());
         int id_producto=sql.Id_producto(codigo);
-        int id_usuario=1;
+        int id_usuario=4;
         sql.NuevaVenta(cod_venta,cantidad,precio,"INACTIVO","BOLETA",id_producto,id_usuario,cantidad2);
         
     }

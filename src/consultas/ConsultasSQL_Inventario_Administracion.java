@@ -10,6 +10,7 @@ import java.sql.Statement;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import vista.Inventario_Administracion;
+import static vista.Inventario_Administracion.CboNombreProveedor;
 
 public class ConsultasSQL_Inventario_Administracion {
 
@@ -26,26 +27,26 @@ public class ConsultasSQL_Inventario_Administracion {
         switch (numero) {
             case 1:
                 //MOSTRAR TODOS LOS PRODUCTOS
-                CadSql = "SELECT p.cod_inventario, p.nombre,p.descripcion, p.categoria,p.cantidad,p.nom_proveedor,p.dia_llegada, p.numero_factura FROM productos p WHERE p.cod_inventario!='LALA';";
+                CadSql = "SELECT p.cod_inventario, p.nombre,p.descripcion, p.categoria,p.cantidad,pe.nombre,p.dia_llegada, p.numero_factura FROM productos p, proveedores pe WHERE p.cod_inventario!='LALA' AND pe.id=p.id_proveedor;";
                 break;
             case 2:
                 //BUSQUEDA CON NOMBRE SOLAMENTE
-                CadSql = "SELECT p.cod_inventario, p.nombre,p.descripcion, p.categoria,p.cantidad,p.nom_proveedor,p.dia_llegada, p.numero_factura FROM `productos` p WHERE p.cod_inventario!='LALA' AND p.nombre like'%" + nombre + "%';";
+                CadSql = "SELECT p.cod_inventario, p.nombre,p.descripcion, p.categoria,p.cantidad,pe.nombre,p.dia_llegada, p.numero_factura FROM `productos` p, proveedores pe WHERE p.cod_inventario!='LALA' AND p.nombre like'%" + nombre + "%' AND pe.id=p.id_proveedor;";
                 break;
             case 3:
                 //BUSQUEDA NOMBRE Y CATEGORIA
-                CadSql = "SELECT p.cod_inventario, p.nombre,p.descripcion, p.categoria,p.cantidad,p.nom_proveedor,p.dia_llegada, p.numero_factura FROM `productos` p WHERE p.categoria='" + categoria + "' AND p.nombre like'%" + nombre + "%';";
+                CadSql = "SELECT p.cod_inventario, p.nombre,p.descripcion, p.categoria,p.cantidad,pe.nombre,p.dia_llegada, p.numero_factura FROM `productos` p, proveedores pe WHERE p.categoria='" + categoria + "' AND p.nombre like'%" + nombre + "%' AND pe.id=p.id_proveedor;";
                 break;
             case 4:
                 //BUSQUEDA CON CATEGORIA
-                CadSql = "SELECT p.cod_inventario, p.nombre,p.descripcion, p.categoria,p.cantidad,p.nom_proveedor,p.dia_llegada, p.numero_factura FROM `productos` p WHERE p.categoria='" + categoria + "';";
+                CadSql = "SELECT p.cod_inventario, p.nombre,p.descripcion, p.categoria,p.cantidad,pe.nombre,p.dia_llegada, p.numero_factura FROM `productos` p, proveedores pe WHERE p.categoria='" + categoria + "' AND pe.id=p.id_proveedor;";
                 break;
             case 5:
                 //BUSQUEDA CON CATEGORIA Y CODIGO
-                CadSql = "SELECT p.cod_inventario, p.nombre,p.descripcion, p.categoria,p.cantidad,p.nom_proveedor,p.dia_llegada, p.numero_factura FROM `productos` p WHERE p.categoria='" + categoria + "' AND p.cod_inventario like'%" + nombre + "%';";
+                CadSql = "SELECT p.cod_inventario, p.nombre,p.descripcion, p.categoria,p.cantidad,pe.nombre,p.dia_llegada, p.numero_factura FROM `productos` p, proveedores pe WHERE p.categoria='" + categoria + "' AND p.cod_inventario like'%" + nombre + "%' AND pe.id=p.id_proveedor;";
                 break;
             case 6:
-                CadSql = "SELECT p.cod_inventario, p.nombre,p.descripcion, p.categoria,p.cantidad,p.dia_llegada, p.numero_factura FROM `productos` p WHERE p.cod_inventario!='LALA' AND p.cod_inventario like'%" + nombre + "%';";
+                CadSql = "SELECT p.cod_inventario, p.nombre,p.descripcion, p.categoria,p.cantidad,pe.nombre,p.dia_llegada, p.numero_factura FROM `productos` p, proveedores pe WHERE p.cod_inventario!='LALA' AND p.cod_inventario like'%" + nombre + "%' AND pe.id=p.id_proveedor;";
                 break;
         }
         try {
@@ -84,11 +85,24 @@ public class ConsultasSQL_Inventario_Administracion {
         }
         return valor;
     }
+    public void SetearProveedores(){
+        try {
+            CadSql = "SELECT nombre FROM proveedores WHERE 1;";
+            Statement st = this.cn.createStatement();
+            ResultSet rs = st.executeQuery(CadSql);
+            while (rs.next()) {
+            String valor = rs.getString(1);
+                CboNombreProveedor.addItem(valor);
+            }
+        } catch (Exception ex) {
+
+        }
+    }
 
     public void GuardarProductos(String codigo_producto, String nombre, String descripcion, String categoria, int cantidad, String nombre_proveedor, int valor_compra, int valor_venta, Date dia, int numero_factura) {
         //ID, COD_INVENTARIO,NOMBRE,DESCRIPCION,CATEGORIA,CANTIDAD,NOM_PROVEEDOR,VALOR COMPRA,VALOR VENTA,DIA LLEGADA,NUM_FACTURA
         try {
-            PreparedStatement pst = this.cn.prepareStatement("INSERT INTO productos(cod_inventario,nombre,descripcion,categoria,cantidad,nom_proveedor,valor_compra,valor_venta,dia_llegada,numero_factura) VALUES (?,?,?,?,?,?,?,?,?,?)");
+            PreparedStatement pst = this.cn.prepareStatement("INSERT INTO productos(cod_inventario,nombre,descripcion,categoria,cantidad,id_proveedor,valor_compra,valor_venta,dia_llegada,numero_factura) VALUES (?,?,?,?,?,?,?,?,?,?)");
             pst.setString(1, codigo_producto);
             pst.setString(2, nombre);
             pst.setString(3, descripcion);
@@ -127,7 +141,7 @@ public class ConsultasSQL_Inventario_Administracion {
     public String[] SetearCampos(String codigo, String categoria) {
         String[] datos = new String[10];
         try {
-            CadSql = "SELECT p.cod_inventario, p.nombre,p.descripcion, p.categoria,p.cantidad,p.nom_proveedor,p.valor_compra,p.valor_venta,p.dia_llegada, p.numero_factura FROM `productos` p WHERE p.categoria='" + categoria + "' AND p.cod_inventario ='" + codigo + "';";
+            CadSql = "SELECT p.cod_inventario, p.nombre,p.descripcion, p.categoria,p.cantidad,pe.nombre,p.valor_compra,p.valor_venta,p.dia_llegada, p.numero_factura FROM `productos` p, proveedores pe WHERE p.categoria='" + categoria + "' AND p.cod_inventario ='" + codigo + "' AND pe.id=p.id_proveedor;";
             Statement st = this.cn.createStatement();
             ResultSet rs = st.executeQuery(CadSql);
             while (rs.next()) {

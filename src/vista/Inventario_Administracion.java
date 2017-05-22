@@ -13,8 +13,10 @@ public class Inventario_Administracion extends javax.swing.JInternalFrame {
      */
     public Inventario_Administracion() {
         initComponents();
+        SetearCbo();
     }
     ConsultasSQL_Inventario_Administracion sql = new ConsultasSQL_Inventario_Administracion();
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -41,10 +43,8 @@ public class Inventario_Administracion extends javax.swing.JInternalFrame {
         txtCantidad = new javax.swing.JTextField();
         cboCategoria = new javax.swing.JComboBox<String>();
         txtPrecioCompra = new javax.swing.JTextField();
-        txtCosto = new javax.swing.JTextField();
         txtPrecioIndividual = new javax.swing.JTextField();
         txtPrecioTotal = new javax.swing.JTextField();
-        txtNombreProveedor = new javax.swing.JTextField();
         txtNumFactura = new javax.swing.JTextField();
         jLabel19 = new javax.swing.JLabel();
         txtCodigoProducto = new javax.swing.JTextField();
@@ -56,7 +56,6 @@ public class Inventario_Administracion extends javax.swing.JInternalFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -67,6 +66,11 @@ public class Inventario_Administracion extends javax.swing.JInternalFrame {
         btnEliminar = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
         DateChooser = new com.toedter.calendar.JDateChooser();
+        btnIngresar1 = new javax.swing.JButton();
+        CboNombreProveedor = new javax.swing.JComboBox();
+        jLabel20 = new javax.swing.JLabel();
+        jLabel21 = new javax.swing.JLabel();
+        txtPrecioTotal1 = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -219,10 +223,6 @@ public class Inventario_Administracion extends javax.swing.JInternalFrame {
             }
         });
 
-        txtCosto.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        txtCosto.setText("0");
-        txtCosto.setEnabled(false);
-
         txtPrecioIndividual.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txtPrecioIndividual.setText("0");
         txtPrecioIndividual.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -238,19 +238,6 @@ public class Inventario_Administracion extends javax.swing.JInternalFrame {
 
         txtPrecioTotal.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txtPrecioTotal.setText("0");
-        txtPrecioTotal.setEnabled(false);
-
-        txtNombreProveedor.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        txtNombreProveedor.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtNombreProveedorFocusLost(evt);
-            }
-        });
-        txtNombreProveedor.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtNombreProveedorKeyTyped(evt);
-            }
-        });
 
         txtNumFactura.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txtNumFactura.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -312,13 +299,9 @@ public class Inventario_Administracion extends javax.swing.JInternalFrame {
         jLabel12.setForeground(new java.awt.Color(255, 255, 255));
         jLabel12.setText("FECHA LLEGADA");
 
-        jLabel13.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel13.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel13.setText("COSTO:");
-
-        jLabel15.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel15.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel15.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel15.setText("PRECIO TOTAL:");
+        jLabel15.setText("%");
 
         jLabel18.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel18.setForeground(new java.awt.Color(255, 255, 255));
@@ -372,6 +355,26 @@ public class Inventario_Administracion extends javax.swing.JInternalFrame {
         DateChooser.setDateFormatString("yyyy-MM-dd");
         DateChooser.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
+        btnIngresar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/agregar.png"))); // NOI18N
+        btnIngresar1.setText("+");
+        btnIngresar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnIngresar1ActionPerformed(evt);
+            }
+        });
+
+        jLabel20.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel20.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel20.setText("DESCUENTO:");
+
+        jLabel21.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel21.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel21.setText("VALOR CON DESCUENTO:  $");
+
+        txtPrecioTotal1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtPrecioTotal1.setText("0");
+        txtPrecioTotal1.setEnabled(false);
+
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
@@ -389,7 +392,7 @@ public class Inventario_Administracion extends javax.swing.JInternalFrame {
                         .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(16, Short.MAX_VALUE))
+                        .addContainerGap(17, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel6Layout.createSequentialGroup()
@@ -403,7 +406,9 @@ public class Inventario_Administracion extends javax.swing.JInternalFrame {
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel6Layout.createSequentialGroup()
                                 .addComponent(jLabel16)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtNombreProveedor))
+                                .addComponent(CboNombreProveedor, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnIngresar1, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel6Layout.createSequentialGroup()
                                 .addComponent(jLabel18)
                                 .addGap(18, 18, 18)
@@ -436,17 +441,19 @@ public class Inventario_Administracion extends javax.swing.JInternalFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel6Layout.createSequentialGroup()
-                                        .addComponent(txtPrecioIndividual, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtPrecioTotal))
-                                    .addGroup(jPanel6Layout.createSequentialGroup()
                                         .addComponent(txtPrecioCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(18, 18, 18)
-                                        .addComponent(jLabel13)
+                                        .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtCosto)))))
+                                        .addComponent(txtPrecioTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel6Layout.createSequentialGroup()
+                                        .addComponent(txtPrecioIndividual, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jLabel21, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addGap(2, 2, 2)
+                                        .addComponent(txtPrecioTotal1, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                         .addGap(8, 8, 8))))
         );
         jPanel6Layout.setVerticalGroup(
@@ -468,18 +475,27 @@ public class Inventario_Administracion extends javax.swing.JInternalFrame {
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtPrecioCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtCosto, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtPrecioTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtPrecioIndividual, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtPrecioTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(8, 8, 8)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtNombreProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtPrecioIndividual, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtPrecioTotal1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnIngresar1, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE))
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGap(8, 8, 8)
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(CboNombreProveedor)
+                            .addComponent(jLabel16, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -520,7 +536,7 @@ public class Inventario_Administracion extends javax.swing.JInternalFrame {
                 .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 3, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -747,19 +763,6 @@ public class Inventario_Administracion extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_txtPrecioIndividualKeyTyped
 
-    private void txtNombreProveedorFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNombreProveedorFocusLost
-
-//        if (txtNombreProveedor.getText().equals("")) {
-//        } else {
-//            String t = txtNombreProveedor.getText().toUpperCase();
-//            txtNombreProveedor.setText(t);
-//        }
-    }//GEN-LAST:event_txtNombreProveedorFocusLost
-
-    private void txtNombreProveedorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreProveedorKeyTyped
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtNombreProveedorKeyTyped
-
     private void txtNumFacturaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNumFacturaFocusLost
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNumFacturaFocusLost
@@ -789,7 +792,7 @@ public class Inventario_Administracion extends javax.swing.JInternalFrame {
             txtCodigoProducto.requestFocus();
         } else {
             String codigo = txtCodigoProducto.getText(), nombre = txtNombre.getText(), descripcion = txtDescripcion.getText(),
-                    categoria = cboCategoria.getSelectedItem().toString(), nombre_proveedor = txtNombreProveedor.getText();
+                    categoria = cboCategoria.getSelectedItem().toString(), nombre_proveedor = CboNombreProveedor.getSelectedItem().toString();
             int cantidad = Integer.parseInt(txtCantidad.getText());
             int valor_compra = Integer.parseInt(txtPrecioCompra.getText());
             int valor_venta = Integer.parseInt(txtPrecioIndividual.getText());
@@ -813,7 +816,7 @@ public class Inventario_Administracion extends javax.swing.JInternalFrame {
         } else if (CompararPrecios()) {
         } else if (Disponibilidad_Codigo()) {
             String codigo = txtCodigoProducto.getText(), nombre = txtNombre.getText(), descripcion = txtDescripcion.getText(),
-                    categoria = cboCategoria.getSelectedItem().toString(), nombre_proveedor = txtNombreProveedor.getText();
+                    categoria = cboCategoria.getSelectedItem().toString(), nombre_proveedor = CboNombreProveedor.getSelectedItem().toString();
             int cantidad = Integer.parseInt(txtCantidad.getText());
             int valor_compra = Integer.parseInt(txtPrecioCompra.getText());
             int valor_venta = Integer.parseInt(txtPrecioIndividual.getText());
@@ -881,6 +884,10 @@ public class Inventario_Administracion extends javax.swing.JInternalFrame {
 
         }
     }//GEN-LAST:event_tbproductos_administracionMouseClicked
+
+    private void btnIngresar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresar1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnIngresar1ActionPerformed
     private boolean ValidarCamposVacios() {
         boolean respuesta = false;
         if (txtNombre.getText().equals("")) {
@@ -910,19 +917,19 @@ public class Inventario_Administracion extends javax.swing.JInternalFrame {
         txtCantidad.setText("");
         txtPrecioCompra.setText("0");
         txtPrecioIndividual.setText("0");
-        txtNombreProveedor.setText("");
+        //txtNombreProveedor.setText("");
         txtCodigoProducto.setText("");
         txtNumFactura.setText("");
     }
 
     private boolean CompararPrecios() {
         boolean respuesta = false;
-        int precio_compra = Integer.parseInt(txtCosto.getText());
-        int precio_venta = Integer.parseInt(txtPrecioIndividual.getText());
-        if (precio_venta < precio_compra) {
-            respuesta = true;
-            JOptionPane.showMessageDialog(null, "El precio de Venta No debe ser menor al precio de compra");
-        }
+        //int precio_compra = Integer.parseInt(txtCosto.getText());
+//        int precio_venta = Integer.parseInt(txtPrecioIndividual.getText());
+//        if (precio_venta < precio_compra) {
+//            respuesta = true;
+//            JOptionPane.showMessageDialog(null, "El precio de Venta No debe ser menor al precio de compra");
+//        }
         return respuesta;
     }
 
@@ -939,7 +946,9 @@ public class Inventario_Administracion extends javax.swing.JInternalFrame {
         }
         return respuesta;
     }
-
+    private void SetearCbo(){
+            sql.SetearProveedores();
+    }
     private void SetearCampos(String codigo, String categoria) {
         String datos[] = sql.SetearCampos(codigo, categoria);
         /*
@@ -966,17 +975,22 @@ public class Inventario_Administracion extends javax.swing.JInternalFrame {
                 break;
         }
         txtCantidad.setText(datos[4]);
-        txtNombreProveedor.setText(datos[5]);
+        String variable =datos[5];
+        CboNombreProveedor.setSelectedItem(variable);
+        //txtNombreProveedor.setText(datos[5]);
         txtPrecioCompra.setText(datos[6]);
         txtPrecioIndividual.setText(datos[7]);
         DateChooser.setDate(Date.valueOf(datos[8]));
         txtNumFactura.setText(datos[9]);
     }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public static javax.swing.JComboBox CboNombreProveedor;
     private com.toedter.calendar.JDateChooser DateChooser;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnIngresar;
+    private javax.swing.JButton btnIngresar1;
     private javax.swing.JButton btnLimpiar;
     private javax.swing.JButton btnModificar;
     private javax.swing.JButton btnSalir;
@@ -985,7 +999,6 @@ public class Inventario_Administracion extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
@@ -993,6 +1006,8 @@ public class Inventario_Administracion extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -1011,14 +1026,13 @@ public class Inventario_Administracion extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtCantidad;
     private javax.swing.JTextField txtCodigoBusqueda;
     private javax.swing.JTextField txtCodigoProducto;
-    private javax.swing.JTextField txtCosto;
     private javax.swing.JTextArea txtDescripcion;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtNombreBusqueda;
-    private javax.swing.JTextField txtNombreProveedor;
     private javax.swing.JTextField txtNumFactura;
     private javax.swing.JTextField txtPrecioCompra;
     private javax.swing.JTextField txtPrecioIndividual;
     private javax.swing.JTextField txtPrecioTotal;
+    private javax.swing.JTextField txtPrecioTotal1;
     // End of variables declaration//GEN-END:variables
 }
