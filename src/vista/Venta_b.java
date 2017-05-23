@@ -123,6 +123,11 @@ public class Venta_b extends javax.swing.JInternalFrame {
         jPanel4.setBackground(new java.awt.Color(88, 147, 191));
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "VENTA", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12), new java.awt.Color(255, 255, 255))); // NOI18N
 
+        tbventa = new javax.swing.JTable(){
+            public boolean isCellEditable(int rowIndex, int colIndex) {
+                return false; //Desabilitar Editable
+            }
+        };
         tbventa.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
@@ -134,6 +139,8 @@ public class Venta_b extends javax.swing.JInternalFrame {
                 "Nombre", "Descripcion", "Cantidad", "Precio", "Valor"
             }
         ));
+        tbventa.getTableHeader().setResizingAllowed(false);
+        tbventa.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setViewportView(tbventa);
 
         jPanel5.setBackground(new java.awt.Color(88, 147, 191));
@@ -347,6 +354,11 @@ public class Venta_b extends javax.swing.JInternalFrame {
         jPanel3.setBackground(new java.awt.Color(88, 147, 191));
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "LISTADO DE PRODUCTOS", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12), new java.awt.Color(255, 255, 255))); // NOI18N
 
+        tbproductosListado = new javax.swing.JTable(){
+            public boolean isCellEditable(int rowIndex, int colIndex) {
+                return false; //Desabilitar Editable
+            }
+        };
         tbproductosListado.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
@@ -358,6 +370,8 @@ public class Venta_b extends javax.swing.JInternalFrame {
                 "Codigo", "Nombre", "Descripcion", "Stock", "Precio"
             }
         ));
+        tbproductosListado.getTableHeader().setResizingAllowed(false);
+        tbproductosListado.getTableHeader().setReorderingAllowed(false);
         tbproductosListado.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tbproductosListadoMouseClicked(evt);

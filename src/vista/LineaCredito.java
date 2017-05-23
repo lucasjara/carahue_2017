@@ -9,8 +9,10 @@ import java.awt.BorderLayout;
 import paneles.JPanelBusquedaCliente;
 import paneles.JPanelIngresoAbonos;
 import paneles.JPanelListadoClienteCredito;
+import paneles.JPanelModAbonos;
 import paneles.JPanelModClienteCredito;
 import paneles.JPanelNuevoClienteCredito;
+import paneles.JPanelUltimosAbonos;
 
 /**
  *
@@ -95,7 +97,7 @@ public class LineaCredito extends javax.swing.JInternalFrame {
         });
 
         BtnUltimosPagos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/last_32.png"))); // NOI18N
-        BtnUltimosPagos.setText("      ULTIMOS PAGOS");
+        BtnUltimosPagos.setText("      ULTIMOS ABONOS");
         BtnUltimosPagos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BtnUltimosPagosActionPerformed(evt);
@@ -297,14 +299,14 @@ public class LineaCredito extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnEliminar2ActionPerformed
 
     private void BtnUltimosPagosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnUltimosPagosActionPerformed
-        //        JPanelListadoClienteCredito nu=new JPanelListadoClienteCredito();
-        //        sql.CargarTablaClientes(4, "");
-        //        nu.setSize(800,600);
-        //        nu.setLocation(5,5);
-        //        JPanelcambianteLineaCredito.removeAll();
-        //        JPanelcambianteLineaCredito.add(nu,BorderLayout.CENTER);
-        //        JPanelcambianteLineaCredito.revalidate();
-        //        JPanelcambianteLineaCredito.repaint();
+                JPanelUltimosAbonos nu=new JPanelUltimosAbonos();
+               // sql.CargarTablaClientes(4, "");
+                nu.setSize(800,600);
+                nu.setLocation(5,5);
+                JPanelcambianteLineaCredito.removeAll();
+                JPanelcambianteLineaCredito.add(nu,BorderLayout.CENTER);
+                JPanelcambianteLineaCredito.revalidate();
+                JPanelcambianteLineaCredito.repaint();
     }//GEN-LAST:event_BtnUltimosPagosActionPerformed
 
     private void BtnBusquedaClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBusquedaClienteActionPerformed
@@ -329,13 +331,13 @@ public class LineaCredito extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnAbonosActionPerformed
 
     private void btnAbonos1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAbonos1ActionPerformed
-        //        JPanelModAbonos nu=new JPanelModAbonos();
-        //        nu.setSize(800,600);
-        //        nu.setLocation(1,1);
-        //        JPanelcambianteLineaCredito.removeAll();
-        //        JPanelcambianteLineaCredito.add(nu,BorderLayout.CENTER);
-        //        JPanelcambianteLineaCredito.revalidate();
-        //        JPanelcambianteLineaCredito.repaint();
+                JPanelModAbonos nu=new JPanelModAbonos();
+                nu.setSize(800,600);
+                nu.setLocation(1,1);
+                JPanelcambianteLineaCredito.removeAll();
+                JPanelcambianteLineaCredito.add(nu,BorderLayout.CENTER);
+                JPanelcambianteLineaCredito.revalidate();
+                JPanelcambianteLineaCredito.repaint();
     }//GEN-LAST:event_btnAbonos1ActionPerformed
 
 
