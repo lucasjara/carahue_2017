@@ -500,7 +500,7 @@ public class Venta_b extends javax.swing.JInternalFrame {
             NuevaVenta(cod_producto, cantidad, precio,cantidad2);
             DesplegarTablas(1, "");
             DesplegarTablas_Venta(1, txtcodigo.getText());
-            
+            sql.EliminarReservaCodigoVenta(Integer.parseInt(txtcodigo.getText()));
             //DESPLEGAR DATOS NUMERICOS TOTAL
             Double monto_neto = Double.parseDouble(txtMontoNeto.getText()) + precio;
             txtMontoNeto.setText(String.valueOf(monto_neto));

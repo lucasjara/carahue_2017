@@ -74,7 +74,7 @@ public class ConsultasSQL_Venta {
                 CadSql = "SELECT p.nombre, p.descripcion, v.cantidad, p.valor_venta, v.precio FROM productos p, ventas v WHERE v.id_producto=p.id AND v.cod_venta='" + campo + "' AND v.estado='INACTIVO';";
                 break;
             case 2:
-                CadSql = "SELECT p.nombre, p.descripcion, v.cantidad, p.valor_venta, v.precio FROM productos p, ventas v WHERE v.id_producto=p.id AND v.cod_venta='" + campo + "';";
+                CadSql = "SELECT p.nombre, p.descripcion, v.cantidad, p.valor_venta, v.precio FROM productos p, ventas v WHERE v.id_producto=p.id AND v.cod_venta='" + campo + "' AND v.estado='INACTIVO';";
                 break;
         }
         try {
@@ -151,7 +151,7 @@ public class ConsultasSQL_Venta {
     public int ReservarCodigoVenta() {
         int cod_venta = 0;
         try {
-            CadSql = "SELECT cod_venta FROM `ventas` ORDER BY cod_venta DESC;";
+            CadSql = "SELECT MAX(cod_venta) as cod_venta FROM `ventas`;";
             Statement st = this.cn.createStatement();
             ResultSet rs = st.executeQuery(CadSql);
             while (rs.next()) {

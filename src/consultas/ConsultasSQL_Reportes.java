@@ -83,7 +83,9 @@ public class ConsultasSQL_Reportes {
                 datos[0] = rs.getString(1);
                 datos[1] = rs.getString(2);
                 datos[2] = rs.getString(3);
-                total = Integer.parseInt(rs.getString(4)) + total;
+                int cantidad = Integer.parseInt(rs.getString(3));
+                int precio = Integer.parseInt(rs.getString(4));
+                total = (cantidad*precio)+ total;
                 datos[3] = rs.getString(4);
                 modelo.addRow(datos);
             }

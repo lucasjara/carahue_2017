@@ -7,6 +7,7 @@ package vista;
 
 import java.awt.BorderLayout;
 import paneles.JPanelBusquedaCliente;
+import paneles.JPanelIngresoAbonos;
 import paneles.JPanelListadoClienteCredito;
 import paneles.JPanelModClienteCredito;
 import paneles.JPanelNuevoClienteCredito;
@@ -318,13 +319,13 @@ public class LineaCredito extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_BtnBusquedaClienteActionPerformed
 
     private void btnAbonosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAbonosActionPerformed
-        //        JPanelIngresoAbonos nu=new JPanelIngresoAbonos();
-        //        nu.setSize(800,600);
-        //        nu.setLocation(1,1);
-        //        JPanelcambianteLineaCredito.removeAll();
-        //        JPanelcambianteLineaCredito.add(nu,BorderLayout.CENTER);
-        //        JPanelcambianteLineaCredito.revalidate();
-        //        JPanelcambianteLineaCredito.repaint();
+                JPanelIngresoAbonos nu=new JPanelIngresoAbonos();
+                nu.setSize(800,600);
+                nu.setLocation(1,1);
+                JPanelcambianteLineaCredito.removeAll();
+                JPanelcambianteLineaCredito.add(nu,BorderLayout.CENTER);
+                JPanelcambianteLineaCredito.revalidate();
+                JPanelcambianteLineaCredito.repaint();
     }//GEN-LAST:event_btnAbonosActionPerformed
 
     private void btnAbonos1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAbonos1ActionPerformed

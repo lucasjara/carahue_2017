@@ -8,12 +8,17 @@ package paneles;
 //import interfaces.Main;
 //import interfaces.interfaz_credito;
 //import interfaces.interfaz_usuarios2;
+import consultas.ConsultasSQL_Abonos;
+import consultas.ConsultasSQL_Clientes;
 import java.awt.AWTException;
 import java.awt.BorderLayout;
 import java.awt.Robot;
 import java.awt.event.KeyEvent;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import jdk.nashorn.internal.objects.NativeFunction;
@@ -25,9 +30,10 @@ import jdk.nashorn.internal.objects.NativeFunction;
  */
 public class JPanelIngresoAbonos extends javax.swing.JPanel {
 
-//    ConsultasSQL sql = new ConsultasSQL();
-    public int tipo = 1; //Solamente busqueda y detalle
-    public ArrayList<String> numeros_venta = new ArrayList<String>();
+    ConsultasSQL_Abonos sql = new ConsultasSQL_Abonos();
+    ConsultasSQL_Clientes sql2 = new ConsultasSQL_Clientes();
+    //public int tipo = 1; //Solamente busqueda y detalle
+    //public ArrayList<String> numeros_venta = new ArrayList<String>();
 
     public JPanelIngresoAbonos() {
         initComponents();
@@ -42,8 +48,6 @@ public class JPanelIngresoAbonos extends javax.swing.JPanel {
         jLabel11 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         txtRutCredito = new javax.swing.JTextField();
-        jLabel7 = new javax.swing.JLabel();
-        txtCreditoDisponible = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         txtMontoVenta = new javax.swing.JTextField();
         txtNumeroVenta = new javax.swing.JTextField();
@@ -54,11 +58,13 @@ public class JPanelIngresoAbonos extends javax.swing.JPanel {
         jLabel17 = new javax.swing.JLabel();
         txtCreditoRestante = new javax.swing.JTextField();
         jLabel18 = new javax.swing.JLabel();
-        txtFechaPlazo = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
         lblCredito = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblistadoclientescredito = new javax.swing.JTable();
+        tbIngresoAbonos = new javax.swing.JTable();
+        Date_fecha_plazo = new com.toedter.calendar.JDateChooser();
+        txtCreditoDisponible = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(88, 147, 191));
 
@@ -88,11 +94,6 @@ public class JPanelIngresoAbonos extends javax.swing.JPanel {
             }
         });
 
-        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel7.setText("CREDITO DISPONIBLE:");
-
-        txtCreditoDisponible.setEnabled(false);
-
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
         jLabel10.setText("MONTO VENTA:");
 
@@ -111,7 +112,7 @@ public class JPanelIngresoAbonos extends javax.swing.JPanel {
         });
 
         jLabel12.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel12.setText("NUMERO VENTA:");
+        jLabel12.setText("CODIGO VENTA:");
 
         jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/limpiar32.png"))); // NOI18N
         jButton4.setText("LIMPIAR");
@@ -145,8 +146,6 @@ public class JPanelIngresoAbonos extends javax.swing.JPanel {
         jLabel18.setForeground(new java.awt.Color(255, 255, 255));
         jLabel18.setText("FECHA PLAZO:");
 
-        txtFechaPlazo.setEnabled(false);
-
         jPanel1.setBackground(new java.awt.Color(88, 147, 191));
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 2));
 
@@ -155,7 +154,7 @@ public class JPanelIngresoAbonos extends javax.swing.JPanel {
         lblCredito.setForeground(new java.awt.Color(255, 255, 255));
         lblCredito.setText("CREDITO DEL CLIENTE");
 
-        tblistadoclientescredito.setModel(new javax.swing.table.DefaultTableModel(
+        tbIngresoAbonos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
                 {null, null, null},
@@ -167,10 +166,10 @@ public class JPanelIngresoAbonos extends javax.swing.JPanel {
                 {null, null, null}
             },
             new String [] {
-                "Numero Venta", "Abonado", "Total"
+                "Cod_Venta", "Abonado", "Total"
             }
         ));
-        jScrollPane1.setViewportView(tblistadoclientescredito);
+        jScrollPane1.setViewportView(tbIngresoAbonos);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -190,6 +189,14 @@ public class JPanelIngresoAbonos extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
+        Date_fecha_plazo.setEnabled(false);
+
+        txtCreditoDisponible.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtCreditoDisponible.setEnabled(false);
+
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel7.setText("CREDITO DISPONIBLE:");
+
         javax.swing.GroupLayout JPanelNuevoCreditoLayout = new javax.swing.GroupLayout(JPanelNuevoCredito);
         JPanelNuevoCredito.setLayout(JPanelNuevoCreditoLayout);
         JPanelNuevoCreditoLayout.setHorizontalGroup(
@@ -205,35 +212,33 @@ public class JPanelIngresoAbonos extends javax.swing.JPanel {
                         .addComponent(btnCerar, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(JPanelNuevoCreditoLayout.createSequentialGroup()
                         .addGroup(JPanelNuevoCreditoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(JPanelNuevoCreditoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(JPanelNuevoCreditoLayout.createSequentialGroup()
+                                    .addComponent(jLabel12)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(txtNumeroVenta))
+                                .addComponent(jLabel11)
+                                .addGroup(JPanelNuevoCreditoLayout.createSequentialGroup()
+                                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(txtRutCredito))
+                                .addGroup(JPanelNuevoCreditoLayout.createSequentialGroup()
+                                    .addComponent(jLabel10)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(txtMontoVenta))
+                                .addGroup(JPanelNuevoCreditoLayout.createSequentialGroup()
+                                    .addComponent(jLabel17)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(txtCreditoRestante))
+                                .addGroup(JPanelNuevoCreditoLayout.createSequentialGroup()
+                                    .addComponent(jLabel18)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(Date_fecha_plazo, javax.swing.GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE)))
                             .addGroup(JPanelNuevoCreditoLayout.createSequentialGroup()
-                                .addGroup(JPanelNuevoCreditoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(JPanelNuevoCreditoLayout.createSequentialGroup()
-                                        .addComponent(jLabel12)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtNumeroVenta))
-                                    .addComponent(jLabel11)
-                                    .addGroup(JPanelNuevoCreditoLayout.createSequentialGroup()
-                                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtRutCredito))
-                                    .addGroup(JPanelNuevoCreditoLayout.createSequentialGroup()
-                                        .addComponent(jLabel7)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtCreditoDisponible, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(JPanelNuevoCreditoLayout.createSequentialGroup()
-                                        .addComponent(jLabel10)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(txtMontoVenta))
-                                    .addGroup(JPanelNuevoCreditoLayout.createSequentialGroup()
-                                        .addComponent(jLabel17)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(txtCreditoRestante)))
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, JPanelNuevoCreditoLayout.createSequentialGroup()
-                                .addComponent(jLabel18)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtFechaPlazo)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel7)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtCreditoDisponible, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
@@ -250,12 +255,12 @@ public class JPanelIngresoAbonos extends javax.swing.JPanel {
                             .addComponent(txtRutCredito, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(JPanelNuevoCreditoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtNumeroVenta, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(JPanelNuevoCreditoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(txtCreditoDisponible, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(11, 11, 11)
+                        .addGroup(JPanelNuevoCreditoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtNumeroVenta, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(JPanelNuevoCreditoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -265,9 +270,9 @@ public class JPanelIngresoAbonos extends javax.swing.JPanel {
                             .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtCreditoRestante, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
-                        .addGroup(JPanelNuevoCreditoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtFechaPlazo, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(JPanelNuevoCreditoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel18, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
+                            .addComponent(Date_fecha_plazo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(11, 11, 11))
                     .addGroup(JPanelNuevoCreditoLayout.createSequentialGroup()
                         .addGap(12, 12, 12)
@@ -294,47 +299,53 @@ public class JPanelIngresoAbonos extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addComponent(JPanelNuevoCredito, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(34, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtRutCreditoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtRutCreditoFocusLost
-//        try {
-//            if (sql.validarRut(txtRutCredito.getText())) {
-//                //cambiar formato rut 00.000.000-0s
-//                String rut = txtRutCredito.getText();
-//                txtRutCredito.setText(sql.formatear(rut));
-//                //consulta existencia rut
-//                if (sql.ConsultarRutCliente(txtRutCredito.getText())) {
-//
-//                    sql.CargarTablaCreditoCliente(txtRutCredito.getText(), 1);
+        try {
+            if (sql2.ValidarRut(txtRutCredito.getText())) {
+                String rut = txtRutCredito.getText();
+                txtRutCredito.setText(sql2.formatear(rut));
+
+                if (sql2.ConsultarRutCliente(txtRutCredito.getText())) {
+                    sql.Tabla_Credito(1, txtRutCredito.getText());
+                    txtNumeroVenta.setEnabled(true);
+                    int total_credito = 500000;
+                    int total_ocupado = 0;
+                    for (int i = 0; i < tbIngresoAbonos.getRowCount(); i++) {
+                        total_ocupado = Integer.parseInt(tbIngresoAbonos.getValueAt(i, 2).toString()) + total_ocupado;
+                    }
+                    int total_disponible = total_credito - total_ocupado;
+                    txtCreditoDisponible.setText(Integer.toString(total_disponible));
 //                    int abonototal = 0;
 //                    int fila = tblistadoclientescredito.getRowCount();
 //                    for (int i = 0; i < fila; i++) {
 //                        abonototal = abonototal + Integer.parseInt(tblistadoclientescredito.getValueAt(i, 2).toString());
 //                        numeros_venta.add(tblistadoclientescredito.getValueAt(i, 0).toString());
 //                    }
-//                    txtNumeroVenta.setEnabled(true);
-//                    txtMontoVenta.setText("");
-//                    sql.ConsultarCreditoDisponible(txtRutCredito.getText(), 1);
-//                    int credito_disponible = Integer.parseInt(txtCreditoDisponible.getText()) - abonototal;
-//                    txtCreditoDisponible.setText(Integer.toString(credito_disponible));
-//                    //mostrar campos
-//                    // sql.SetearCamposModCliente(txtRutMod.getText());
-//                    //  habilitar();
-//                } else {
-//                    JOptionPane.showMessageDialog(null, "El rut del cliente no se encuentra registrado");
-//                    // desabilitar();
-//                }
-//            } else {
-//                
-//                txtRutCredito.setText("");
-//                //desabilitar();
-//
-//            }
-//        } catch (Exception e) {
-//
-//        }
+                    //txtNumeroVenta.setEnabled(true);
+                    //txtMontoVenta.setText("");
+                    //sql.ConsultarCreditoDisponible(txtRutCredito.getText(), 1);
+                    //int credito_disponible = Integer.parseInt(txtCreditoDisponible.getText()) - abonototal;
+                    //txtCreditoDisponible.setText(Integer.toString(credito_disponible));
+                    //mostrar campos
+                    // sql.SetearCamposModCliente(txtRutMod.getText());
+                    //  habilitar();
+                } else {
+                    JOptionPane.showMessageDialog(null, "El rut del cliente no se encuentra registrado");
+                    // desabilitar();
+                }
+            } else {
+
+                txtRutCredito.setText("");
+                //desabilitar();
+
+            }
+        } catch (Exception e) {
+
+        }
     }//GEN-LAST:event_txtRutCreditoFocusLost
 
     private void txtRutCreditoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtRutCreditoActionPerformed
@@ -342,50 +353,57 @@ public class JPanelIngresoAbonos extends javax.swing.JPanel {
     }//GEN-LAST:event_txtRutCreditoActionPerformed
 
     private void txtNumeroVentaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNumeroVentaFocusLost
-//        try {
-//            if (numeros_venta.contains(txtNumeroVenta.getText())) {
-//                JOptionPane.showMessageDialog(null, "El numero de venta ya se encuentra registrado");
-//                txtNumeroVenta.setText("");
-//            } else {
-//                sql.Consultatotalconnum_venta(Integer.parseInt(txtNumeroVenta.getText()));
-//                int credito_restante = Integer.parseInt(txtCreditoDisponible.getText()) - Integer.parseInt(txtMontoVenta.getText());
-//                txtCreditoRestante.setText(Integer.toString(credito_restante));
-//                Calendar cal = Calendar.getInstance();
-//                String fechas = "";
-//                switch (cal.get(Calendar.MONTH) + 4) {
-//                    case 13:
-//                        fechas = cal.get(cal.DATE) + "/" + (cal.get(Calendar.MONTH) + 4 - 12) + "/" + (cal.get(cal.YEAR) + 1);
-//                        break;
-//                    case 14:
-//                        fechas = cal.get(cal.DATE) + "/" + (cal.get(Calendar.MONTH) + 4 - 12) + "/" + (cal.get(cal.YEAR) + 1);
-//                        break;
-//                    case 15:
-//                        fechas = cal.get(cal.DATE) + "/" + (cal.get(Calendar.MONTH) + 4 - 12) + "/" + (cal.get(cal.YEAR) + 1);
-//                        break;
-//                    case 16:
-//                        fechas = cal.get(cal.DATE) + "/" + (cal.get(Calendar.MONTH) + 4 - 12) + "/" + (cal.get(cal.YEAR) + 1);
-//                        break;
-//                    default:
-//                        fechas = cal.get(cal.DATE) + "/" + (cal.get(Calendar.MONTH) + 4) + "/" + cal.get(cal.YEAR);
-//                        break;
-//                }
-//                txtFechaPlazo.setText(fechas);
-//            }
-//        } catch (Exception e) {
-//        }
+        try {
+            String valor = sql.ConsultarCod_Venta(txtNumeroVenta.getText());
+            if (!valor.equals("")) {
+                JOptionPane.showMessageDialog(null, "El numero de venta ya se encuentra asociado a un cliente");
+                txtNumeroVenta.setText("");
+            } else {
+                String valor2 = sql.Cod_VentaRegistrado(txtNumeroVenta.getText());
+                if (valor2.equals("")) {
+                    JOptionPane.showMessageDialog(null, "Codigo No Existe");
+                    txtNumeroVenta.setText("");
+                } else {
+                    int total_credito = 500000;//obtener por SQL
+                    int total_ocupado = 0;
+                    for (int i = 0; i < tbIngresoAbonos.getRowCount(); i++) {
+                        total_ocupado = Integer.parseInt(tbIngresoAbonos.getValueAt(i, 2).toString()) + total_ocupado;
+                    }
+                    int total_disponible = total_credito - total_ocupado;
+                    txtCreditoDisponible.setText(Integer.toString(total_disponible));
+                    int cod_venta = Integer.parseInt(txtNumeroVenta.getText());
+                    int Monto_Venta = sql.Consultar_Valor_Cod_Venta(cod_venta);
+                    txtMontoVenta.setText(Integer.toString(Monto_Venta));
+                    if (Monto_Venta > total_disponible) {
+                        JOptionPane.showMessageDialog(null, "El monto de la Venta Excede el credito Disponible");
+                        txtNumeroVenta.setText("");
+                    } else {
+                        int credito_restante = total_disponible - Monto_Venta;
+                        txtCreditoRestante.setText(Integer.toString(credito_restante));
+                        Date_fecha_plazo.setEnabled(true);
+                    }
+                }
+            }
+        } catch (Exception e) {
+        }
 
     }//GEN-LAST:event_txtNumeroVentaFocusLost
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-//        if (txtRutCredito.getText().equals("") || txtNumeroVenta.getText().equals("")) {
-//            JOptionPane.showMessageDialog(null, "Ingrese todos los campos necesarios");
-//        } else if(Integer.parseInt(txtMontoVenta.getText())>Integer.parseInt(txtCreditoDisponible.getText())) {
-//            JOptionPane.showMessageDialog(null, "Lo sentimos no cuenta con el credito suficiente");
-//        }else
-//        {
-//            sql.GuardarCredito(txtRutCredito.getText(), Integer.parseInt(txtNumeroVenta.getText()), 0, Integer.parseInt(txtMontoVenta.getText()), txtFechaPlazo.getText());
-//            sql.CargarTablaCreditoCliente(txtRutCredito.getText(), 1);
-//        }
+        if (txtRutCredito.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "COMPLETE TODOS LOS CAMPOS");
+        } else {
+            int abono = 0;
+            int total = Integer.parseInt(txtMontoVenta.getText());
+            int cod_venta = Integer.parseInt(txtNumeroVenta.getText());
+            int id_cliente = 1;//retornar basado en el rut
+            int id_usuario = 4;//usuario logeado por mientras administrador
+            Date fecha = Date_fecha_plazo.getDate();
+            LocalDate date = fecha.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            sql.NuevoCredito(abono, total, date, cod_venta, id_cliente, id_usuario);
+            sql.Tabla_Credito(1, txtRutCredito.getText());
+            Limpiar();
+        }
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -409,11 +427,12 @@ public class JPanelIngresoAbonos extends javax.swing.JPanel {
         txtCreditoDisponible.setText("");
         txtMontoVenta.setText("");
         txtCreditoRestante.setText("");
-        txtFechaPlazo.setText("");
         txtNumeroVenta.setEnabled(false);
-        //sql.CargarTablaCreditoCliente("", 1);
+        Date_fecha_plazo.setEnabled(false);
+        sql.Tabla_Credito(1, "");
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public static com.toedter.calendar.JDateChooser Date_fecha_plazo;
     public static javax.swing.JPanel JPanelNuevoCredito;
     public static javax.swing.JButton btnCerar;
     public static javax.swing.JButton jButton4;
@@ -428,10 +447,9 @@ public class JPanelIngresoAbonos extends javax.swing.JPanel {
     public static javax.swing.JPanel jPanel1;
     public static javax.swing.JScrollPane jScrollPane1;
     public static javax.swing.JLabel lblCredito;
-    public static javax.swing.JTable tblistadoclientescredito;
+    public static javax.swing.JTable tbIngresoAbonos;
     public static javax.swing.JTextField txtCreditoDisponible;
     public static javax.swing.JTextField txtCreditoRestante;
-    public static javax.swing.JTextField txtFechaPlazo;
     public static javax.swing.JTextField txtMontoVenta;
     public static javax.swing.JTextField txtNumeroVenta;
     public static javax.swing.JTextField txtRutCredito;
