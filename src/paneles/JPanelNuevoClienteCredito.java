@@ -1,15 +1,8 @@
 package paneles;
 
-import com.toedter.calendar.JDateChooser;
 import consultas.ConsultasSQL_Clientes;
-import java.awt.AWTException;
-import java.awt.Robot;
-import java.awt.event.KeyEvent;
 import java.sql.Date;
-import java.text.DecimalFormat;
 import java.time.LocalDate;
-import java.util.Calendar;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 public class JPanelNuevoClienteCredito extends javax.swing.JPanel {
@@ -92,11 +85,6 @@ public class JPanelNuevoClienteCredito extends javax.swing.JPanel {
         txtCredito.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtCreditoFocusLost(evt);
-            }
-        });
-        txtCredito.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtCreditoActionPerformed(evt);
             }
         });
         txtCredito.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -237,34 +225,18 @@ public class JPanelNuevoClienteCredito extends javax.swing.JPanel {
                 txtRutCliente.setText("");
                 txtRutCliente.setFocusable(true);
             } else {
-                //id	rut	nombre	telefono	fecha_ingreso	cantidad_credito	id_usuario
                 String rut=txtRutCliente.getText();
                 String nombre=txtNombreCliente.getText();
                 String telefono=txtTelefono.getText();
                 int cantidad_credito=Integer.parseInt(txtCredito.getText());
                 Date fechas = java.sql.Date.valueOf(fecha);
-                //id usuario 
                 sql.CrearClientes(rut, nombre, telefono, fechas, cantidad_credito, 4);
                 JOptionPane.showMessageDialog(null, "Cliente Creado Correctamente");
             }
         } else {
             JOptionPane.showMessageDialog(null, "Alguno de los campos se encuentra vacio");
         }
-//        if (txtRutCliente.getText().equals("") || txtNombreCliente.getText().equals("") || txtTelefono.getText().equals("") || txtCredito.getText().equals("") || txtCredito.getText().equals("0")) {
-//            JOptionPane.showMessageDialog(null, "Alguno de los campos se encuentra vacio");
-//        } else if (sql.ConsultarRutCliente(txtRutCliente.getText())) {
-//            JOptionPane.showMessageDialog(null, "El rut ingresado ya se encuentra registrado");
-//            txtRutCliente.setText("");
-//            txtRutCliente.setFocusable(true);
-//
-//        } else {
-//            sql.GuardarCliente(txtNombreCliente.getText(), txtRutCliente.getText(), txtTelefono.getText(), txtFechaCreacionCredito.getText(), Integer.parseInt(txtCredito.getText()));JOptionPane.showMessageDialog(null, "Cliente Ingresado Correctamente");Limpiar();
-//        }
     }//GEN-LAST:event_btnAgregarActionPerformed
-
-    private void txtCreditoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCreditoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtCreditoActionPerformed
 
     private void txtCreditoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCreditoKeyTyped
         char c = evt.getKeyChar();

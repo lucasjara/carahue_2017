@@ -6,6 +6,9 @@
 package vista;
 
 import java.awt.BorderLayout;
+import paneles.JPanelBusquedaCliente;
+import paneles.JPanelListadoClienteCredito;
+import paneles.JPanelModClienteCredito;
 import paneles.JPanelNuevoClienteCredito;
 
 /**
@@ -258,14 +261,14 @@ public class LineaCredito extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnListadoClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListadoClientesActionPerformed
-        //        JPanelListadoClienteCredito nu=new JPanelListadoClienteCredito();
-        //        sql.CargarTablaClientes(4, "");
-        //        nu.setSize(800,600);
-        //        nu.setLocation(5,5);
-        //        JPanelcambianteLineaCredito.removeAll();
-        //        JPanelcambianteLineaCredito.add(nu,BorderLayout.CENTER);
-        //        JPanelcambianteLineaCredito.revalidate();
-        //        JPanelcambianteLineaCredito.repaint();
+                JPanelListadoClienteCredito nu=new JPanelListadoClienteCredito();
+                //sql.CargarTablaClientes(4, "");
+                nu.setSize(800,600);
+                nu.setLocation(5,5);
+                JPanelcambianteLineaCredito.removeAll();
+                JPanelcambianteLineaCredito.add(nu,BorderLayout.CENTER);
+                JPanelcambianteLineaCredito.revalidate();
+                JPanelcambianteLineaCredito.repaint();
     }//GEN-LAST:event_btnListadoClientesActionPerformed
 
     private void BtnRegistroClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnRegistroClientesActionPerformed
@@ -279,13 +282,13 @@ public class LineaCredito extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_BtnRegistroClientesActionPerformed
 
     private void BtnModClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnModClienteActionPerformed
-        //        JPanelModClienteCredito nu=new JPanelModClienteCredito();
-        //        nu.setSize(800,600);
-        //        nu.setLocation(5,5);
-        //        JPanelcambianteLineaCredito.removeAll();
-        //        JPanelcambianteLineaCredito.add(nu,BorderLayout.CENTER);
-        //        JPanelcambianteLineaCredito.revalidate();
-        //        JPanelcambianteLineaCredito.repaint();
+                JPanelModClienteCredito nu=new JPanelModClienteCredito();
+                nu.setSize(800,600);
+                nu.setLocation(5,5);
+                JPanelcambianteLineaCredito.removeAll();
+                JPanelcambianteLineaCredito.add(nu,BorderLayout.CENTER);
+                JPanelcambianteLineaCredito.revalidate();
+                JPanelcambianteLineaCredito.repaint();
     }//GEN-LAST:event_BtnModClienteActionPerformed
 
     private void btnEliminar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminar2ActionPerformed
@@ -304,14 +307,14 @@ public class LineaCredito extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_BtnUltimosPagosActionPerformed
 
     private void BtnBusquedaClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBusquedaClienteActionPerformed
-        //        JPanelBusquedaCliente nu=new JPanelBusquedaCliente();
-        //        nu.setSize(800,600);
-        //        nu.setLocation(5,5);
-        //        JPanelcambianteLineaCredito.removeAll();
-        //        JPanelcambianteLineaCredito.add(nu,BorderLayout.CENTER);
-        //        JPanelcambianteLineaCredito.revalidate();
-        //        JPanelcambianteLineaCredito.repaint();
-        //        sql.CargarTablaClientes(1, "");
+                JPanelBusquedaCliente nu=new JPanelBusquedaCliente();
+                nu.setSize(800,600);
+                nu.setLocation(5,5);
+                JPanelcambianteLineaCredito.removeAll();
+                JPanelcambianteLineaCredito.add(nu,BorderLayout.CENTER);
+                JPanelcambianteLineaCredito.revalidate();
+                JPanelcambianteLineaCredito.repaint();
+                //sql.CargarTablaClientes(1, "");
     }//GEN-LAST:event_BtnBusquedaClienteActionPerformed
 
     private void btnAbonosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAbonosActionPerformed

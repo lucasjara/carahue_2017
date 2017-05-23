@@ -9,7 +9,8 @@ import java.sql.Statement;
 import javax.swing.JOptionPane;
 
 public class ConsultasSQL_Clientes {
-    public boolean ValidarRut(String rut) {  
+
+    public boolean ValidarRut(String rut) {
         int suma = 0;
         String dvR, dvT;
         int[] serie = {2, 3, 4, 5, 6, 7};
@@ -31,6 +32,7 @@ public class ConsultasSQL_Clientes {
             return false;
         }
     }
+
     public String formatear(String rut) {
         int cont = 0;
         String format;
@@ -51,8 +53,9 @@ public class ConsultasSQL_Clientes {
             return format;
         }
     }
-    public boolean ConsultarRutCliente(String rut) {    
-       {
+
+    public boolean ConsultarRutCliente(String rut) {
+        {
             boolean Consulta = false;
             try {
                 String CadSql = "select rut from clientes where rut='" + rut + "';";
@@ -60,7 +63,7 @@ public class ConsultasSQL_Clientes {
                 ResultSet rs = st.executeQuery(CadSql);
                 while (rs.next()) {
                     Consulta = true;
-                
+
                 }
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(null, ex);
@@ -68,7 +71,26 @@ public class ConsultasSQL_Clientes {
             return Consulta;
         }
     }
-    public void CrearClientes(String rut,String nombre, String telefono,Date fecha,int cantidad_credito,int id_usuario) {
+
+    public String[] SetearCamposModCliente(String rut) {
+        String datos[] = new String[4];
+        try {
+            String CadSql = "select nombre,telefono,fecha_ingreso,cantidad_credito from clientes where rut='" + rut + "';";
+            Statement st = this.cn.createStatement();
+            ResultSet rs = st.executeQuery(CadSql);
+            while (rs.next()) {
+                datos[0] = rs.getString(1);
+                datos[1] = rs.getString(2);
+                datos[2] = rs.getString(3);
+                datos[3] = rs.getString(4);
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, ex);
+        }
+        return datos;
+    }
+
+    public void CrearClientes(String rut, String nombre, String telefono, Date fecha, int cantidad_credito, int id_usuario) {
         try {
             PreparedStatement pst = this.cn.prepareStatement("INSERT INTO clientes(rut,nombre,telefono,fecha_ingreso,cantidad_credito,id_usuario) VALUES (?,?,?,?,?,?)");
             pst.setString(1, rut);
@@ -83,5 +105,5 @@ public class ConsultasSQL_Clientes {
         }
     }
     conectar cc = new conectar();
-    Connection cn = this.cc.conexion();    
+    Connection cn = this.cc.conexion();
 }

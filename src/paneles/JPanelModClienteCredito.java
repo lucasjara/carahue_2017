@@ -7,12 +7,12 @@ package paneles;
 
 //import interfaces.Main;
 //import interfaces.interfaz_usuarios2;
+import consultas.ConsultasSQL_Clientes;
 import java.awt.AWTException;
 import java.awt.Robot;
 import java.awt.event.KeyEvent;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-//import metodos.ConsultasSQL;
 
 /**
  *
@@ -20,7 +20,7 @@ import javax.swing.JOptionPane;
  */
 public class JPanelModClienteCredito extends javax.swing.JPanel {
 
-  //  ConsultasSQL sql = new ConsultasSQL();
+    ConsultasSQL_Clientes sql = new ConsultasSQL_Clientes();
 
     public JPanelModClienteCredito() {
         initComponents();
@@ -52,6 +52,7 @@ public class JPanelModClienteCredito extends javax.swing.JPanel {
 
         jPanel2.setBackground(new java.awt.Color(88, 147, 191));
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(""), "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(255, 255, 255))); // NOI18N
+        jPanel2.setPreferredSize(new java.awt.Dimension(429, 213));
 
         btnagregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/adduser.png"))); // NOI18N
         btnagregar.setText("MODIFICAR");
@@ -134,36 +135,36 @@ public class JPanelModClienteCredito extends javax.swing.JPanel {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addComponent(btnagregar)
-                            .addGap(18, 18, 18)
-                            .addComponent(btnlimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(21, 21, 21)
-                            .addComponent(btncancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtCantidadMod, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel6)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtFechaMod))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtRutMod, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtTelefonoMod))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtNombreMod, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addGap(31, 31, 31))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(btnagregar, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnlimpiar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btncancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtCantidadMod, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtFechaMod, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtRutMod, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtTelefonoMod))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtNombreMod)))
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -205,10 +206,10 @@ public class JPanelModClienteCredito extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addGap(50, 50, 50)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(60, 60, 60))
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(51, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -222,29 +223,30 @@ public class JPanelModClienteCredito extends javax.swing.JPanel {
     }//GEN-LAST:event_btnlimpiarActionPerformed
 
     private void txtRutModFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtRutModFocusLost
-//        try {
-//            if (sql.validarRut(txtRutMod.getText())) {
-//                //cambiar formato rut 00.000.000-0
-//                String rut = txtRutMod.getText();
-//                txtRutMod.setText(sql.formatear(rut));
-//                //consulta existencia rut
-//                if (sql.ConsultarRutCliente(txtRutMod.getText())) {
-//                    //mostrar campos
-//                    sql.SetearCamposModCliente(txtRutMod.getText());
-//                    habilitar();
-//                } else {
-//                    JOptionPane.showMessageDialog(null, "El rut del cliente no se encuentra registrado");
-//                    desabilitar();
-//                }
-//            } else {
-//                JOptionPane.showMessageDialog(null, "El Rut ingresado no es valido");
-//                txtRutMod.setText("");
-//                desabilitar();
-//
-//            }
-//        } catch (Exception e) {
-//            txtRutMod.setText("");
-//        }
+        try {
+            if (sql.ValidarRut(txtRutMod.getText())) {
+                String rut = txtRutMod.getText();
+                txtRutMod.setText(sql.formatear(rut));
+                if (sql.ConsultarRutCliente(txtRutMod.getText())) {
+                    String datos[]=sql.SetearCamposModCliente(txtRutMod.getText());
+                    txtNombreMod.setText(datos[0]);
+                    txtTelefonoMod.setText(datos[1]);
+                    txtFechaMod.setText(datos[2]);
+                    txtCantidadMod.setText(datos[3]);
+                    habilitar();
+                } else {
+                    JOptionPane.showMessageDialog(null, "El rut del cliente no se encuentra registrado");
+                    desabilitar();
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "El Rut ingresado no es valido");
+                txtRutMod.setText("");
+                desabilitar();
+
+            }
+        } catch (Exception e) {
+            txtRutMod.setText("");
+        }
     }//GEN-LAST:event_txtRutModFocusLost
 
     private void txtRutModKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRutModKeyTyped
