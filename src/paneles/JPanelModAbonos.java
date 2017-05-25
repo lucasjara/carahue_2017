@@ -7,13 +7,20 @@ package paneles;
 
 //import interfaces.Main;
 //import interfaces.interfaz_usuarios2;
+import consultas.ConsultasSQL_Abonos;
+import consultas.ConsultasSQL_Clientes;
 import java.awt.AWTException;
 import java.awt.BorderLayout;
 import java.awt.Robot;
 import java.awt.event.KeyEvent;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Calendar;
+import java.util.Date;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import vista.HistorialAbonos;
 //import metodos.ConsultasSQL;
 
 /**
@@ -22,12 +29,8 @@ import javax.swing.JOptionPane;
  */
 public class JPanelModAbonos extends javax.swing.JPanel {
 
-  //  ConsultasSQL sql = new ConsultasSQL();
-    public int tipo = 1; //Solamente busqueda y detalle
-    String fecha = "";
-    int año = 0;
-    int mes = 0;
-    int dia = 0;
+    ConsultasSQL_Abonos sql = new ConsultasSQL_Abonos();
+    ConsultasSQL_Clientes sql2 = new ConsultasSQL_Clientes();
 
     public JPanelModAbonos() {
         initComponents();
@@ -57,7 +60,7 @@ public class JPanelModAbonos extends javax.swing.JPanel {
         jLabel16 = new javax.swing.JLabel();
         txtDeuda = new javax.swing.JTextField();
         jLabel17 = new javax.swing.JLabel();
-        txtFechaEntrega = new com.toedter.calendar.JDateChooser();
+        DateChooser = new com.toedter.calendar.JDateChooser();
         jPanel2 = new javax.swing.JPanel();
         lblCredito = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -67,10 +70,12 @@ public class JPanelModAbonos extends javax.swing.JPanel {
         jLabel6 = new javax.swing.JLabel();
         txtRutCredito = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        txtCreditoDisponible = new javax.swing.JTextField();
+        txtTotalCredito = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         txtAbonadoCredito = new javax.swing.JTextField();
-        cbolimpiarrut = new javax.swing.JButton();
+        btnlimpiarrut = new javax.swing.JButton();
+        jLabel12 = new javax.swing.JLabel();
+        txtCreditoDisponible = new javax.swing.JTextField();
 
         setBackground(new java.awt.Color(88, 147, 191));
 
@@ -86,7 +91,7 @@ public class JPanelModAbonos extends javax.swing.JPanel {
         txtNombreCliente.setEnabled(false);
 
         BtnLimpiar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/limpiar32.png"))); // NOI18N
-        BtnLimpiar.setText("LIMPIAR");
+        BtnLimpiar.setText("HISTORIAL DE ABONOS");
         BtnLimpiar.setEnabled(false);
         BtnLimpiar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -134,9 +139,6 @@ public class JPanelModAbonos extends javax.swing.JPanel {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtNuevoAbonoKeyReleased(evt);
             }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtNuevoAbonoKeyTyped(evt);
-            }
         });
 
         jLabel16.setForeground(new java.awt.Color(255, 255, 255));
@@ -147,8 +149,8 @@ public class JPanelModAbonos extends javax.swing.JPanel {
         jLabel17.setForeground(new java.awt.Color(255, 255, 255));
         jLabel17.setText("FECHA ENTREGA:");
 
-        txtFechaEntrega.setDateFormatString("dd/MM/yyyy");
-        txtFechaEntrega.setEnabled(false);
+        DateChooser.setDateFormatString("dd/MM/yyyy");
+        DateChooser.setEnabled(false);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -160,48 +162,46 @@ public class JPanelModAbonos extends javax.swing.JPanel {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(10, 10, 10)
                         .addComponent(BtnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(38, 38, 38)
-                        .addComponent(BtnLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(BtnLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(BtnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(28, 28, 28))
+                        .addComponent(BtnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtAbonado, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtNuevoAbono, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtAbonado, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtNuevoAbono, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtDeuda))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel14)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(txtDeuda))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel14)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel8)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtNombreCliente)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel9)
-                                .addGap(2, 2, 2)
-                                .addComponent(txtNumerodeVenta, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtFechaEntrega, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(211, 211, 211)))
-                        .addContainerGap())))
+                                .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel8)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtNombreCliente)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel9)
+                        .addGap(2, 2, 2)
+                        .addComponent(txtNumerodeVenta, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(DateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(211, 211, 211)))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -235,13 +235,12 @@ public class JPanelModAbonos extends javax.swing.JPanel {
                         .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(11, 11, 11))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(txtFechaEntrega, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(DateChooser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(BtnCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE, false)
-                        .addComponent(BtnModificar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(BtnLimpiar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE, false)
+                    .addComponent(BtnModificar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(BtnLimpiar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(BtnCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -268,6 +267,8 @@ public class JPanelModAbonos extends javax.swing.JPanel {
                 "Numero Venta", "Abonado", "Total"
             }
         ));
+        tblistadoclientescredito.getTableHeader().setResizingAllowed(false);
+        tblistadoclientescredito.getTableHeader().setReorderingAllowed(false);
         tblistadoclientescredito.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblistadoclientescreditoMouseClicked(evt);
@@ -312,23 +313,28 @@ public class JPanelModAbonos extends javax.swing.JPanel {
         });
 
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel7.setText("CREDITO DISPONIBLE:");
+        jLabel7.setText("TOTAL CREDITO:");
 
-        txtCreditoDisponible.setEnabled(false);
+        txtTotalCredito.setEnabled(false);
 
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel10.setText("ABONADO TOTAL:");
+        jLabel10.setText("CREDITO USADO:");
 
         txtAbonadoCredito.setEnabled(false);
 
-        cbolimpiarrut.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/limpiar32.png"))); // NOI18N
-        cbolimpiarrut.setText("LIMPIAR");
-        cbolimpiarrut.setEnabled(false);
-        cbolimpiarrut.addActionListener(new java.awt.event.ActionListener() {
+        btnlimpiarrut.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/limpiar.png"))); // NOI18N
+        btnlimpiarrut.setText("LIMPIAR");
+        btnlimpiarrut.setEnabled(false);
+        btnlimpiarrut.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbolimpiarrutActionPerformed(evt);
+                btnlimpiarrutActionPerformed(evt);
             }
         });
+
+        jLabel12.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel12.setText("CREDITO DISPONIBLE:");
+
+        txtCreditoDisponible.setEnabled(false);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -342,17 +348,24 @@ public class JPanelModAbonos extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtRutCredito))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtCreditoDisponible, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtAbonadoCredito))
+                        .addComponent(txtTotalCredito))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtCreditoDisponible, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel11)
-                            .addComponent(cbolimpiarrut, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtAbonadoCredito, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGap(62, 62, 62)
+                                .addComponent(btnlimpiarrut, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -368,13 +381,17 @@ public class JPanelModAbonos extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtCreditoDisponible, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtTotalCredito, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtAbonadoCredito, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(cbolimpiarrut, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(3, 3, 3)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtCreditoDisponible, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnlimpiarrut)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -423,39 +440,37 @@ public class JPanelModAbonos extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtRutCreditoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtRutCreditoFocusLost
-//        try {
-//            if (sql.validarRut(txtRutCredito.getText())) {
-//                //cambiar formato rut 00.000.000-0
-//                String rut = txtRutCredito.getText();
-//                txtRutCredito.setText(sql.formatear(rut));
-//                //consulta existencia rut
-//                if (sql.ConsultarRutCliente(txtRutCredito.getText())) {
-//                    sql.CargarTablaCreditoCliente(txtRutCredito.getText(), 2);
-//                    int abonototal = 0;
-//                    int fila = tblistadoclientescredito.getRowCount();
-//                    for (int i = 0; i < fila; i++) {
-//                        abonototal = abonototal + Integer.parseInt(tblistadoclientescredito.getValueAt(i, 1).toString());
-//                    }
-//                    txtAbonadoCredito.setText(Integer.toString(abonototal));
-//                    sql.ConsultarCreditoDisponible(txtRutCredito.getText(), 2);
-//
-//                    sql.ConsultarNombreCliente(txtRutCredito.getText());
-//                    //mostrar campos
-//                    // sql.SetearCamposModCliente(txtRutMod.getText());
-//                    //  habilitar();
-//                } else {
-//                    JOptionPane.showMessageDialog(null, "El rut del cliente no se encuentra registrado");
-//                    // desabilitar();
-//                }
-//            } else {
-//                JOptionPane.showMessageDialog(null, "El Rut ingresado no es valido");
-//                txtRutCredito.setText("");
-//                //desabilitar();
-//
-//            }
-//        } catch (Exception e) {
-//            txtRutCredito.setText("");
-//        }
+        try {
+            if (sql2.ValidarRut(txtRutCredito.getText())) {
+                String rut = txtRutCredito.getText();
+                txtRutCredito.setText(sql2.formatear(rut));
+                //consulta existencia rut
+                if (sql2.ConsultarRutCliente(txtRutCredito.getText())) {
+                    sql.Tabla_Credito(2, txtRutCredito.getText());
+                    int total_disponible = 0;
+                    int total_credito = 500000; // Obtener por SQL
+                    txtTotalCredito.setText(Integer.toString(total_credito));
+                    btnlimpiarrut.setEnabled(true);
+                    int total_ocupado = 0;
+                    for (int i = 0; i < tblistadoclientescredito.getRowCount(); i++) {
+                        total_ocupado = Integer.parseInt(tblistadoclientescredito.getValueAt(i, 2).toString()) + total_ocupado;
+                    }
+                    total_disponible = total_credito - total_ocupado;
+                    txtCreditoDisponible.setText(Integer.toString(total_disponible));
+                    txtAbonadoCredito.setText(Integer.toString(total_ocupado));
+                } else {
+                    JOptionPane.showMessageDialog(null, "El rut del cliente no se encuentra registrado");
+                    // desabilitar();
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "El Rut ingresado no es valido");
+                txtRutCredito.setText("");
+                //desabilitar();
+
+            }
+        } catch (Exception e) {
+            txtRutCredito.setText("");
+        }
     }//GEN-LAST:event_txtRutCreditoFocusLost
 
     private void BtnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCancelarActionPerformed
@@ -463,62 +478,44 @@ public class JPanelModAbonos extends javax.swing.JPanel {
     }//GEN-LAST:event_BtnCancelarActionPerformed
 
     private void tblistadoclientescreditoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblistadoclientescreditoMouseClicked
-//        int fila = this.tblistadoclientescredito.getSelectedRow();
-//        //int numero = Integer.parseInt(tbproductosListado.getValueAt(fila, 3).toString());
-//        txtNumerodeVenta.setText(tblistadoclientescredito.getValueAt(fila, 0).toString());
-//        txtAbonado.setText(tblistadoclientescredito.getValueAt(fila, 1).toString());
-//        txtTotal.setText(tblistadoclientescredito.getValueAt(fila, 2).toString());
-//        txtNuevoAbono.setEnabled(true);
-//        cbolimpiarrut.setEnabled(true);
-//        sql.ConsultarFechaEntrega(tblistadoclientescredito.getValueAt(fila, 0).toString());
-//        BtnModificar.setEnabled(true);
-//        BtnLimpiar.setEnabled(true);
+        int fila = tblistadoclientescredito.getSelectedRow();
+        //int numero = Integer.parseInt(tbproductosListado.getValueAt(fila, 3).toString());
+        txtNumerodeVenta.setText(tblistadoclientescredito.getValueAt(fila, 0).toString());
+        txtNombreCliente.setText("LUCAS JARA ESPINOZA");
+        txtAbonado.setText(tblistadoclientescredito.getValueAt(fila, 1).toString());
+        txtTotal.setText(tblistadoclientescredito.getValueAt(fila, 2).toString());
+
+        txtNuevoAbono.setEnabled(true);
+        //sql.ConsultarFechaEntrega(tblistadoclientescredito.getValueAt(fila, 0).toString());
+        BtnModificar.setEnabled(true);
+        BtnLimpiar.setEnabled(true);
     }//GEN-LAST:event_tblistadoclientescreditoMouseClicked
 
     private void BtnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnModificarActionPerformed
-//        try {
-//            año = txtFechaEntrega.getCalendar().get(Calendar.YEAR);
-//            mes = txtFechaEntrega.getCalendar().get(Calendar.MONTH) + 1;
-//            dia = txtFechaEntrega.getCalendar().get(Calendar.DAY_OF_MONTH);
-//            fecha = Integer.toString(dia) + "/" + Integer.toString(mes) + "/" + Integer.toString(año);
-//            if (txtDeuda.getText().equals("0")) {
-//            JOptionPane.showMessageDialog(null, "La deuda se encuentra pagada");
-//            sql.ModCredito(Integer.parseInt(txtAbonado.getText()) + Integer.parseInt(txtNuevoAbono.getText()), Integer.parseInt(txtTotal.getText()), fecha, Integer.parseInt(txtNumerodeVenta.getText()));
-//            sql.eliminarcredito(Integer.parseInt(txtNumerodeVenta.getText()));
-//            sql.CargarTablaCreditoCliente(txtRutCredito.getText(), 2);
-//            Limpiar();
-//            BtnModificar.setEnabled(false);
-//            BtnLimpiar.setEnabled(false);
-//        } else if (txtFechaEntrega.isEnabled()) {
-//            sql.ModCredito(Integer.parseInt(txtAbonado.getText()) + Integer.parseInt(txtNuevoAbono.getText()), Integer.parseInt(txtTotal.getText()), fecha, Integer.parseInt(txtNumerodeVenta.getText()));
-//            sql.CargarTablaCreditoCliente(txtRutCredito.getText(), 2);
-//            BtnModificar.setEnabled(false);
-//            BtnLimpiar.setEnabled(false);
-//            Limpiar();
-//        } else {
-//            Object[] opciones = {"Si", "No"};
-//            int eleccion = JOptionPane.showOptionDialog(null, "¿Desea cambiar la fecha?", "Mensaje de Confirmacion", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, opciones, "Si");
-//            if (eleccion == JOptionPane.YES_OPTION) {
-//                txtFechaEntrega.setEnabled(true);
-//            } else {
-//                sql.ModCredito(Integer.parseInt(txtAbonado.getText()) + Integer.parseInt(txtNuevoAbono.getText()), Integer.parseInt(txtTotal.getText()), fecha, Integer.parseInt(txtNumerodeVenta.getText()));
-//                sql.CargarTablaCreditoCliente(txtRutCredito.getText(), 2);
-//                BtnModificar.setEnabled(false);
-//                BtnLimpiar.setEnabled(false);
-//                Limpiar();
-//            }
-//        }
-//        } catch (Exception e) {
-//            JOptionPane.showConfirmDialog(null, e);
-//        }
-//        
-
+        try {
+            if (txtDeuda.getText().equals("0")) {
+                JOptionPane.showMessageDialog(null, "La deuda se encuentra pagada");
+            } else if (DateChooser.getDate() == null) {
+                JOptionPane.showMessageDialog(null, "Debes seleccionar una fecha de termino");
+            } else if (Integer.parseInt(txtNuevoAbono.getText()) <= 0) {
+                JOptionPane.showMessageDialog(null, "El Abono debe ser mayor a 0");
+            } else if (Integer.parseInt(txtDeuda.getText()) < 0) {
+                JOptionPane.showMessageDialog(null, "La deuda no puede ser menor a 0");
+            } else {
+                int NuevoAbono = Integer.parseInt(txtNuevoAbono.getText());
+                int total_abonado = Integer.parseInt(txtAbonado.getText()) + NuevoAbono;
+                int numero_venta = Integer.parseInt(txtNumerodeVenta.getText());
+                NuevoAbono(NuevoAbono, numero_venta);
+                Date fecha = DateChooser.getDate();
+                LocalDate fecha_termino = fecha.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                ModificarCredito(total_abonado, fecha_termino);
+                sql.Tabla_Credito(2, txtRutCredito.getText());
+                Limpiar();
+            }
+        } catch (Exception e) {
+            JOptionPane.showConfirmDialog(null, e);
+        }
     }//GEN-LAST:event_BtnModificarActionPerformed
-
-    private void txtNuevoAbonoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNuevoAbonoKeyTyped
-
-
-    }//GEN-LAST:event_txtNuevoAbonoKeyTyped
 
     private void txtNuevoAbonoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNuevoAbonoKeyReleased
         try {
@@ -527,39 +524,71 @@ public class JPanelModAbonos extends javax.swing.JPanel {
             int Nuevo_Abono = Integer.parseInt(txtNuevoAbono.getText());
             int deuda = (total) - (Abonado + Nuevo_Abono);
             txtDeuda.setText(Integer.toString(deuda));
+            DateChooser.setEnabled(true);
         } catch (Exception e) {
         }
     }//GEN-LAST:event_txtNuevoAbonoKeyReleased
 
     private void BtnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnLimpiarActionPerformed
-        Limpiar();
+        //Historial de ese codigo cliente
+        HistorialAbonos ha = new HistorialAbonos();
+        ha.setLocationRelativeTo(null);
+        ha.setVisible(true);
+        sql.Tabla_HistorialAbonos(Integer.parseInt(txtNumerodeVenta.getText()));
+        //Limpiar();
+        
     }//GEN-LAST:event_BtnLimpiarActionPerformed
 
-    private void cbolimpiarrutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbolimpiarrutActionPerformed
-        txtCreditoDisponible.setText("");
+    private void btnlimpiarrutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnlimpiarrutActionPerformed
+        txtTotalCredito.setText("");
         txtAbonadoCredito.setText("");
         txtNombreCliente.setText("");
         txtNumerodeVenta.setText("");
         txtAbonado.setText("");
         txtNumerodeVenta.setText("");
         Limpiar();
-        BtnModificar.setEnabled(false);
-        BtnLimpiar.setEnabled(false);
-    }//GEN-LAST:event_cbolimpiarrutActionPerformed
+        btnlimpiarrut.setEnabled(false);
+        txtRutCredito.setText("");
+        txtCreditoDisponible.setText("");
+        LimpiarTabla();
+    }//GEN-LAST:event_btnlimpiarrutActionPerformed
+    private void NuevoAbono(int CantidadAbonada, int cod_venta) {
+        LocalDate fecha_actual = LocalDate.now();
+        int id_usuario = 4;
+        sql.NuevoAbono(CantidadAbonada, fecha_actual, cod_venta, id_usuario);
+
+    }
+
+    private void ModificarCredito(int abonoacumulado, LocalDate fecha_termino) {
+        sql.ModificarCredito(abonoacumulado, fecha_termino, Integer.parseInt(txtNumerodeVenta.getText()));
+    }
+
+    public void LimpiarTabla() {
+        DefaultTableModel modelo = (DefaultTableModel) tblistadoclientescredito.getModel();
+        int filas = tblistadoclientescredito.getRowCount();
+        for (int i = 0; filas > i; i++) {
+            modelo.removeRow(0);
+        }
+    }
+
     void Limpiar() {
         txtNuevoAbono.setText("");
         txtDeuda.setText("");
-
-        txtFechaEntrega.setEnabled(false);
+        DateChooser.setEnabled(false);
+        txtNuevoAbono.setEnabled(false);
+        BtnModificar.setEnabled(false);
+        BtnLimpiar.setEnabled(false);
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnCancelar;
     private javax.swing.JButton BtnLimpiar;
     private javax.swing.JButton BtnModificar;
+    public static com.toedter.calendar.JDateChooser DateChooser;
     public static javax.swing.JPanel JPanelNuevoCredito;
-    private javax.swing.JButton cbolimpiarrut;
+    private javax.swing.JButton btnlimpiarrut;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
@@ -578,13 +607,13 @@ public class JPanelModAbonos extends javax.swing.JPanel {
     public static javax.swing.JTable tblistadoclientescredito;
     private javax.swing.JTextField txtAbonado;
     private javax.swing.JTextField txtAbonadoCredito;
-    public static javax.swing.JTextField txtCreditoDisponible;
+    private javax.swing.JTextField txtCreditoDisponible;
     private javax.swing.JTextField txtDeuda;
-    public static com.toedter.calendar.JDateChooser txtFechaEntrega;
     public static javax.swing.JTextField txtNombreCliente;
     private javax.swing.JTextField txtNuevoAbono;
     private javax.swing.JTextField txtNumerodeVenta;
     private javax.swing.JTextField txtRutCredito;
     private javax.swing.JTextField txtTotal;
+    public static javax.swing.JTextField txtTotalCredito;
     // End of variables declaration//GEN-END:variables
 }

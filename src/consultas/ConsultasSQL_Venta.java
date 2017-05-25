@@ -74,7 +74,7 @@ public class ConsultasSQL_Venta {
                 CadSql = "SELECT p.nombre, p.descripcion, v.cantidad, p.valor_venta, v.precio FROM productos p, ventas v WHERE v.id_producto=p.id AND v.cod_venta='" + campo + "' AND v.estado='INACTIVO';";
                 break;
             case 2:
-                CadSql = "SELECT p.nombre, p.descripcion, v.cantidad, p.valor_venta, v.precio FROM productos p, ventas v WHERE v.id_producto=p.id AND v.cod_venta='" + campo + "' AND v.estado='INACTIVO';";
+                CadSql = "SELECT p.nombre, p.descripcion, v.cantidad, p.valor_venta, v.precio FROM productos p, ventas v WHERE v.id_producto=p.id AND v.cod_venta='" + campo + "';";
                 break;
         }
         try {
@@ -100,7 +100,7 @@ public class ConsultasSQL_Venta {
         }
     }
 
-    public void NuevaVenta(int cod_venta, int cantidad, Double precio, String estado,String tipo, int id_producto, int id_usuario, int cantidad2) {
+    public void NuevaVenta(int cod_venta, int cantidad, Double precio, String estado, String tipo, int id_producto, int id_usuario, int cantidad2) {
         try {
             /*
              cod venta|cantidad|precio|fecha|estado|id_producto|id_usuario
@@ -140,7 +140,8 @@ public class ConsultasSQL_Venta {
             JOptionPane.showMessageDialog(null, ex);
         }
     }
-    public void EliminarReservaCodigoVenta(int cod_venta){
+
+    public void EliminarReservaCodigoVenta(int cod_venta) {
         try {
             PreparedStatement pst = this.cn.prepareStatement("DELETE FROM ventas WHERE  cod_venta='" + cod_venta + "' AND id_producto=3");
             pst.executeUpdate();
@@ -148,6 +149,7 @@ public class ConsultasSQL_Venta {
             JOptionPane.showMessageDialog(null, e);
         }
     }
+
     public int ReservarCodigoVenta() {
         int cod_venta = 0;
         try {
@@ -198,7 +200,8 @@ public class ConsultasSQL_Venta {
             JOptionPane.showMessageDialog(null, ex);
         }
     }
-        public void DevolverStock_Parte1b() {
+
+    public void DevolverStock_Parte1b() {
         try {
             DefaultTableModel modelo = (DefaultTableModel) tblistado.getModel();
             int filas = tblistado.getRowCount();
@@ -241,6 +244,21 @@ public class ConsultasSQL_Venta {
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, ex);
         }
+    }
+
+    public boolean VerificarEstado(String codigo) {
+        boolean resp=false;
+        try {
+            CadSql = "SELECT estado FROM ventas where cod_venta='" + codigo + "' AND estado='VENDIDO';";
+            Statement st = this.cn.createStatement();
+            ResultSet rs = st.executeQuery(CadSql);
+            while (rs.next()) {
+                resp=true;
+                break;
+            }
+        } catch (Exception e) {
+        }
+        return resp;
     }
     conectar cc = new conectar();
     Connection cn = this.cc.conexion();
