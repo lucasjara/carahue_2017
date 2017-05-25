@@ -252,6 +252,11 @@ public class JPanelModAbonos extends javax.swing.JPanel {
         lblCredito.setForeground(new java.awt.Color(255, 255, 255));
         lblCredito.setText("CREDITO DEL CLIENTE");
 
+        tblistadoclientescredito = new javax.swing.JTable(){
+            public boolean isCellEditable(int rowIndex, int colIndex) {
+                return false; //Desabilitar Editable
+            }
+        };
         tblistadoclientescredito.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},

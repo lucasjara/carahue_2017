@@ -39,6 +39,11 @@ public class JPanelDiax extends javax.swing.JPanel {
 
         PanelCambianteUsuarios2.setBackground(new java.awt.Color(88, 147, 191));
 
+        tbVentasDiaX = new javax.swing.JTable(){
+            public boolean isCellEditable(int rowIndex, int colIndex) {
+                return false; //Desabilitar Editable
+            }
+        };
         tbVentasDiaX.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
@@ -66,6 +71,8 @@ public class JPanelDiax extends javax.swing.JPanel {
                 "CodigoVenta", "Fecha", "TOTAL"
             }
         ));
+        tbVentasDiaX.getTableHeader().setResizingAllowed(false);
+        tbVentasDiaX.getTableHeader().setReorderingAllowed(false);
         tbVentasDiaX.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tbVentasDiaXMouseClicked(evt);
@@ -73,6 +80,11 @@ public class JPanelDiax extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(tbVentasDiaX);
 
+        tbVentasDiaXDetalles = new javax.swing.JTable(){
+            public boolean isCellEditable(int rowIndex, int colIndex) {
+                return false; //Desabilitar Editable
+            }
+        };
         tbVentasDiaXDetalles.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -100,6 +112,8 @@ public class JPanelDiax extends javax.swing.JPanel {
                 "CodProducto", "Producto", "Cantidad", "Valor"
             }
         ));
+        tbVentasDiaXDetalles.getTableHeader().setResizingAllowed(false);
+        tbVentasDiaXDetalles.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setViewportView(tbVentasDiaXDetalles);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N

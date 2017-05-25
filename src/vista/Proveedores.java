@@ -71,6 +71,11 @@ public class Proveedores extends javax.swing.JFrame {
             }
         });
 
+        tbproveedores = new javax.swing.JTable(){
+            public boolean isCellEditable(int rowIndex, int colIndex) {
+                return false; //Desabilitar Editable
+            }
+        };
         tbproveedores.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -82,6 +87,7 @@ public class Proveedores extends javax.swing.JFrame {
                 "ID", "RUT", "NOMBRE", "TELEFONO"
             }
         ));
+        tbproveedores.getTableHeader().setReorderingAllowed(false);
         tbproveedores.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tbproveedoresMouseClicked(evt);

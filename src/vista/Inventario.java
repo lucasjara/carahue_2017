@@ -39,6 +39,11 @@ public class Inventario extends javax.swing.JInternalFrame {
         jPanel2.setBackground(new java.awt.Color(88, 147, 191));
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(255, 255, 255))); // NOI18N
 
+        tbproductos = new javax.swing.JTable(){
+            public boolean isCellEditable(int rowIndex, int colIndex) {
+                return false; //Desabilitar Editable
+            }
+        };
         tbproductos.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(255, 255, 255))); // NOI18N
         tbproductos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -51,6 +56,7 @@ public class Inventario extends javax.swing.JInternalFrame {
                 "Codigo", "Descripción", "Categoria", "Cantidad", "Valor producto", "Fecha llegada", "Num_factura"
             }
         ));
+        tbproductos.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(tbproductos);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);

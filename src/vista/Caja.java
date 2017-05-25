@@ -125,6 +125,11 @@ public class Caja extends javax.swing.JInternalFrame {
 
         tipo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "BOLETA", "FACTURA" }));
 
+        tblistado = new javax.swing.JTable(){
+            public boolean isCellEditable(int rowIndex, int colIndex) {
+                return false; //Desabilitar Editable
+            }
+        };
         tblistado.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -133,6 +138,8 @@ public class Caja extends javax.swing.JInternalFrame {
 
             }
         ));
+        tblistado.getTableHeader().setResizingAllowed(false);
+        tblistado.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(tblistado);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -253,21 +260,26 @@ public class Caja extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnEmitirActionPerformed
 
     private void txtNumVentaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNumVentaFocusLost
-        Desplegar_Compra(2, txtNumVenta.getText());
-        int filas = tblistado.getRowCount();
-        int total = 0;
-        for (int i = 0; i < filas; i++) {
-            total = total + Integer.parseInt(tblistado.getValueAt(i, 4).toString());
-        }
-        txtTotal.setText(Integer.toString(total));
-        if (txtTotal.getText().equals("0")) {
+        if (txtNumVenta.getText().equals("")) {
 
         } else {
-            txtPaga.setEnabled(true);
-            btnEmitir.setEnabled(true);
-            BtnCancelar.setEnabled(true);
-        }
+            sql.EliminarReservaCodigoVenta(Integer.parseInt(txtNumVenta.getText()));
+            Desplegar_Compra(2, txtNumVenta.getText());
 
+            int filas = tblistado.getRowCount();
+            int total = 0;
+            for (int i = 0; i < filas; i++) {
+                total = total + Integer.parseInt(tblistado.getValueAt(i, 4).toString());
+            }
+            txtTotal.setText(Integer.toString(total));
+            if (txtTotal.getText().equals("0")) {
+
+            } else {
+                txtPaga.setEnabled(true);
+                btnEmitir.setEnabled(true);
+                BtnCancelar.setEnabled(true);
+            }
+        }
     }//GEN-LAST:event_txtNumVentaFocusLost
 
     private void txtPagaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPagaFocusLost

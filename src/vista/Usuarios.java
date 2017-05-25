@@ -185,6 +185,11 @@ public class Usuarios extends javax.swing.JInternalFrame {
             .addGap(0, 259, Short.MAX_VALUE)
         );
 
+        tbUsuarios = new javax.swing.JTable(){
+            public boolean isCellEditable(int rowIndex, int colIndex) {
+                return false; //Desabilitar Editable
+            }
+        };
         tbUsuarios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
@@ -196,6 +201,7 @@ public class Usuarios extends javax.swing.JInternalFrame {
                 "Codigo", "Usuario", "Contraseña", "Nombre", "Tipo", "Estado"
             }
         ));
+        tbUsuarios.getTableHeader().setReorderingAllowed(false);
         tbUsuarios.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tbUsuariosMouseClicked(evt);

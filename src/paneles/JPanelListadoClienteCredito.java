@@ -39,6 +39,11 @@ public class JPanelListadoClienteCredito extends javax.swing.JPanel {
         jPanel1.setBackground(new java.awt.Color(88, 147, 191));
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(255, 255, 255))); // NOI18N
 
+        tblistadoclientescredito = new javax.swing.JTable(){
+            public boolean isCellEditable(int rowIndex, int colIndex) {
+                return false; //Desabilitar Editable
+            }
+        };
         tblistadoclientescredito.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
@@ -50,6 +55,8 @@ public class JPanelListadoClienteCredito extends javax.swing.JPanel {
                 "ID", "Nombre", "Rut", "Capacidad de Credito", "Credito Disponible"
             }
         ));
+        tblistadoclientescredito.getTableHeader().setResizingAllowed(false);
+        tblistadoclientescredito.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(tblistadoclientescredito);
 
         lblNombreTablaClientes.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N

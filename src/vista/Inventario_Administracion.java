@@ -554,6 +554,11 @@ public class Inventario_Administracion extends javax.swing.JInternalFrame {
                 .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        tbproductos_administracion = new javax.swing.JTable(){
+            public boolean isCellEditable(int rowIndex, int colIndex) {
+                return false; //Desabilitar Editable
+            }
+        };
         tbproductos_administracion.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null},
@@ -595,6 +600,7 @@ public class Inventario_Administracion extends javax.swing.JInternalFrame {
                 "Codigo", "Nombre", "Categoria", "Cantidad", "Valor Compra", "Valor Venta", "Dia llegada"
             }
         ));
+        tbproductos_administracion.getTableHeader().setReorderingAllowed(false);
         tbproductos_administracion.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tbproductos_administracionMouseClicked(evt);

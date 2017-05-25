@@ -461,6 +461,7 @@
                     <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tblistadoclientescreditoMouseClicked"/>
                   </Events>
                   <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="tblistadoclientescredito = new javax.swing.JTable(){&#xa;public boolean isCellEditable(int rowIndex, int colIndex) {&#xa;        return false; //Desabilitar Editable&#xa;}&#xa;};"/>
                     <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
                   </AuxValues>
                 </Component>

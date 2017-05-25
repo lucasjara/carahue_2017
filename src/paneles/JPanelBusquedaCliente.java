@@ -125,6 +125,11 @@ public class JPanelBusquedaCliente extends javax.swing.JPanel {
         jPanel3.setBackground(new java.awt.Color(88, 147, 191));
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(255, 255, 255)), "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(255, 255, 255))); // NOI18N
 
+        tbClientes = new javax.swing.JTable(){
+            public boolean isCellEditable(int rowIndex, int colIndex) {
+                return false; //Desabilitar Editable
+            }
+        };
         tbClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -136,6 +141,8 @@ public class JPanelBusquedaCliente extends javax.swing.JPanel {
                 "Nombre", "Rut", "Telefono", "Fecha Ingreso"
             }
         ));
+        tbClientes.getTableHeader().setResizingAllowed(false);
+        tbClientes.getTableHeader().setReorderingAllowed(false);
         tbClientes.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tbClientesMouseClicked(evt);

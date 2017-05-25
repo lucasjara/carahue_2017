@@ -139,7 +139,6 @@ public class Venta_b extends javax.swing.JInternalFrame {
                 "Nombre", "Descripcion", "Cantidad", "Precio", "Valor"
             }
         ));
-        tbventa.getTableHeader().setResizingAllowed(false);
         tbventa.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setViewportView(tbventa);
 
@@ -370,7 +369,6 @@ public class Venta_b extends javax.swing.JInternalFrame {
                 "Codigo", "Nombre", "Descripcion", "Stock", "Precio"
             }
         ));
-        tbproductosListado.getTableHeader().setResizingAllowed(false);
         tbproductosListado.getTableHeader().setReorderingAllowed(false);
         tbproductosListado.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {

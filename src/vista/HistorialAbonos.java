@@ -22,6 +22,11 @@ public class HistorialAbonos extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
+        tb_historial_abonos = new javax.swing.JTable(){
+            public boolean isCellEditable(int rowIndex, int colIndex) {
+                return false; //Desabilitar Editable
+            }
+        };
         tb_historial_abonos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -33,6 +38,8 @@ public class HistorialAbonos extends javax.swing.JFrame {
                 "ID", "Abonado", "fecha", "Registrado Por"
             }
         ));
+        tb_historial_abonos.getTableHeader().setResizingAllowed(false);
+        tb_historial_abonos.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(tb_historial_abonos);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

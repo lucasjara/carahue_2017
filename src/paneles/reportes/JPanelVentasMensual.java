@@ -46,6 +46,11 @@ public class JPanelVentasMensual extends javax.swing.JPanel {
 
         PanelCambianteUsuarios2.setBackground(new java.awt.Color(88, 147, 191));
 
+        tbVentasMes = new javax.swing.JTable(){
+            public boolean isCellEditable(int rowIndex, int colIndex) {
+                return false; //Desabilitar Editable
+            }
+        };
         tbVentasMes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
@@ -73,6 +78,8 @@ public class JPanelVentasMensual extends javax.swing.JPanel {
                 "CodigoVenta", "Fecha", "TOTAL"
             }
         ));
+        tbVentasMes.getTableHeader().setResizingAllowed(false);
+        tbVentasMes.getTableHeader().setReorderingAllowed(false);
         tbVentasMes.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tbVentasMesMouseClicked(evt);
@@ -80,6 +87,11 @@ public class JPanelVentasMensual extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(tbVentasMes);
 
+        tbVentasMesDetalles = new javax.swing.JTable(){
+            public boolean isCellEditable(int rowIndex, int colIndex) {
+                return false; //Desabilitar Editable
+            }
+        };
         tbVentasMesDetalles.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -107,6 +119,8 @@ public class JPanelVentasMensual extends javax.swing.JPanel {
                 "CodProducto", "Producto", "Cantidad", "Valor"
             }
         ));
+        tbVentasMesDetalles.getTableHeader().setResizingAllowed(false);
+        tbVentasMesDetalles.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setViewportView(tbVentasMesDetalles);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -157,16 +171,15 @@ public class JPanelVentasMensual extends javax.swing.JPanel {
             .addGroup(PanelCambianteUsuarios2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(PanelCambianteUsuarios2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(PanelCambianteUsuarios2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(PanelCambianteUsuarios2Layout.createSequentialGroup()
-                            .addComponent(jLabel1)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGroup(PanelCambianteUsuarios2Layout.createSequentialGroup()
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(0, 0, Short.MAX_VALUE)))
+                    .addGroup(PanelCambianteUsuarios2Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(PanelCambianteUsuarios2Layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelCambianteUsuarios2Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -217,28 +230,20 @@ public class JPanelVentasMensual extends javax.swing.JPanel {
     }//GEN-LAST:event_tbVentasMesMouseClicked
     private void DetalleVenta(int codigo_venta) {
         int total = sql.DetalleVenta(3, codigo_venta);
-        txtTOTAL.setText(Integer.toString(total));
+        txtTOTAL2.setText(Integer.toString(total));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PanelCambianteUsuarios2;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     public static javax.swing.JTable tbVentasMes;
     public static javax.swing.JTable tbVentasMesDetalles;
-    private javax.swing.JLabel txtTOTAL;
-    private javax.swing.JLabel txtTOTAL1;
     private javax.swing.JLabel txtTOTAL2;
     // End of variables declaration//GEN-END:variables
 }

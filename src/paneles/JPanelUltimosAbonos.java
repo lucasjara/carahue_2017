@@ -31,7 +31,7 @@ public class JPanelUltimosAbonos extends javax.swing.JPanel {
 
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblistadoclientescredito = new javax.swing.JTable();
+        tbultimosAbonos = new javax.swing.JTable();
         lblNombreTablaClientes = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(88, 147, 191));
@@ -39,12 +39,12 @@ public class JPanelUltimosAbonos extends javax.swing.JPanel {
         jPanel1.setBackground(new java.awt.Color(88, 147, 191));
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(255, 255, 255))); // NOI18N
 
-        tblistadoclientescredito = new javax.swing.JTable(){
+        tbultimosAbonos = new javax.swing.JTable(){
             public boolean isCellEditable(int rowIndex, int colIndex) {
                 return false; //Desabilitar Editable
             }
         };
-        tblistadoclientescredito.setModel(new javax.swing.table.DefaultTableModel(
+        tbultimosAbonos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
@@ -55,9 +55,7 @@ public class JPanelUltimosAbonos extends javax.swing.JPanel {
                 "Cod_Venta", "Abonado", "Total", "Fecha Termino", "Cliente", "Registrador"
             }
         ));
-        tblistadoclientescredito.getTableHeader().setResizingAllowed(false);
-        tblistadoclientescredito.getTableHeader().setReorderingAllowed(false);
-        jScrollPane1.setViewportView(tblistadoclientescredito);
+        jScrollPane1.setViewportView(tbultimosAbonos);
 
         lblNombreTablaClientes.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         lblNombreTablaClientes.setForeground(new java.awt.Color(255, 255, 255));
@@ -108,6 +106,6 @@ public class JPanelUltimosAbonos extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     public static javax.swing.JLabel lblNombreTablaClientes;
-    public static javax.swing.JTable tblistadoclientescredito;
+    public static javax.swing.JTable tbultimosAbonos;
     // End of variables declaration//GEN-END:variables
 }
