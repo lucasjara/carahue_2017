@@ -265,7 +265,6 @@ public class Caja extends javax.swing.JInternalFrame {
         } else {
             sql.EliminarReservaCodigoVenta(Integer.parseInt(txtNumVenta.getText()));
             Desplegar_Compra(2, txtNumVenta.getText());
-
             int filas = tblistado.getRowCount();
             int total = 0;
             for (int i = 0; i < filas; i++) {

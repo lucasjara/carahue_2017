@@ -6,6 +6,7 @@
 package paneles;
 
 //import interfaces.Main;
+import consultas.ConsultasSQL_Abonos;
 import java.awt.AWTException;
 import java.awt.Robot;
 import java.awt.event.KeyEvent;
@@ -20,9 +21,11 @@ import javax.swing.JOptionPane;
  */
 public class JPanelUltimosAbonos extends javax.swing.JPanel {
 
-  //  ConsultasSQL sql = new ConsultasSQL();
+    ConsultasSQL_Abonos sql = new ConsultasSQL_Abonos();
+    
     public JPanelUltimosAbonos() {
         initComponents();
+        sql.Tabla_Ultimos_Abonos();
     }
 
     @SuppressWarnings("unchecked")

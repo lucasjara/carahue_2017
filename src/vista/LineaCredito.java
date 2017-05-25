@@ -300,6 +300,7 @@ public class LineaCredito extends javax.swing.JInternalFrame {
 
     private void BtnUltimosPagosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnUltimosPagosActionPerformed
                 JPanelUltimosAbonos nu=new JPanelUltimosAbonos();
+                
                // sql.CargarTablaClientes(4, "");
                 nu.setSize(800,600);
                 nu.setLocation(5,5);

@@ -12,6 +12,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import static paneles.JPanelIngresoAbonos.tbIngresoAbonos;
 import static paneles.JPanelModAbonos.tblistadoclientescredito;
+import static paneles.JPanelUltimosAbonos.tbultimosAbonos;
 import static vista.HistorialAbonos.tb_historial_abonos;
 
 public class ConsultasSQL_Abonos {
@@ -61,7 +62,6 @@ public class ConsultasSQL_Abonos {
         String[] cabeceras = new String[]{"ID","Abonado", "Fecha Abono", "Registrado por"};
         modelo.setColumnIdentifiers(cabeceras);
         CadSql = "SELECT a.id,a.abono,a.fecha,(SELECT nombre from usuarios u WHERE u.id=a.id_usuario) from abonos a WHERE a.id_credito=(SELECT id from credito where cod_venta='" + cod_venta + "');";
-        JOptionPane.showMessageDialog(null, CadSql);
         try {
             String[] datos = new String[4];
             Statement st = this.cn.createStatement();
@@ -74,6 +74,28 @@ public class ConsultasSQL_Abonos {
                 modelo.addRow(datos);
             }
             tb_historial_abonos.setModel(modelo);
+        } catch (Exception ex) {
+            //JOptionPane.showMessageDialog(null, ex);
+        }
+    }
+    public void Tabla_Ultimos_Abonos() {
+        DefaultTableModel modelo = new DefaultTableModel();
+        String[] cabeceras = new String[]{"Numero Venta","Abonado","Fecha Abono","Fecha Termino","Registrado por"};
+        modelo.setColumnIdentifiers(cabeceras);
+        CadSql = "SELECT c.cod_venta, a.abono, a.fecha,c.fecha_termino,(SELECT DISTINCT nombre from usuarios u, abonos a where u.id=a.id_usuario ) from credito c, abonos a;";
+        try {
+            String[] datos = new String[5];
+            Statement st = this.cn.createStatement();
+            ResultSet rs = st.executeQuery(CadSql);
+            while (rs.next()) {
+                datos[0] = rs.getString(1);
+                datos[1] = rs.getString(2);
+                datos[2] = rs.getString(3);
+                datos[3] = rs.getString(4);
+                datos[4] = rs.getString(5);
+                modelo.addRow(datos);
+            }
+            tbultimosAbonos.setModel(modelo);
         } catch (Exception ex) {
             //JOptionPane.showMessageDialog(null, ex);
         }
