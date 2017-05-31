@@ -6,6 +6,7 @@ public class Marco extends javax.swing.JFrame {
 
     public Marco() {
         initComponents();
+        Login();
     }
 
     @SuppressWarnings("unchecked")
@@ -194,6 +195,7 @@ public class Marco extends javax.swing.JFrame {
         jMenuBar1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         Slider1.setText("Ventas");
+        Slider1.setEnabled(false);
 
         llama_interfaz_principal.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_V, java.awt.event.InputEvent.CTRL_MASK));
         llama_interfaz_principal.setText("Generar Venta Boleta");
@@ -207,6 +209,7 @@ public class Marco extends javax.swing.JFrame {
         jMenuBar1.add(Slider1);
 
         Slider2.setText("Inventario");
+        Slider2.setEnabled(false);
 
         llamaLibreria.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_1, java.awt.event.InputEvent.CTRL_MASK));
         llamaLibreria.setText("Inventario Libreria");
@@ -247,6 +250,7 @@ public class Marco extends javax.swing.JFrame {
         jMenuBar1.add(Slider2);
 
         Slider3.setText("Usuarios");
+        Slider3.setEnabled(false);
 
         llamaUsuarios.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.CTRL_MASK));
         llamaUsuarios.setText("Usuario");
@@ -260,6 +264,7 @@ public class Marco extends javax.swing.JFrame {
         jMenuBar1.add(Slider3);
 
         Slider4.setText("Reportes");
+        Slider4.setEnabled(false);
 
         llama_interfaz_informes.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.CTRL_MASK));
         llama_interfaz_informes.setText("Reportes Venta");
@@ -273,6 +278,7 @@ public class Marco extends javax.swing.JFrame {
         jMenuBar1.add(Slider4);
 
         Slider5.setText("Linea de Credito");
+        Slider5.setEnabled(false);
 
         llama_interfaz_linea_credito.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_1, java.awt.event.InputEvent.ALT_MASK));
         llama_interfaz_linea_credito.setText("Linea de Credito");
@@ -286,6 +292,7 @@ public class Marco extends javax.swing.JFrame {
         jMenuBar1.add(Slider5);
 
         Slider6.setText("CAJA");
+        Slider6.setEnabled(false);
 
         jMenuItem3.setText("CAJA");
         jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
@@ -565,7 +572,18 @@ public class Marco extends javax.swing.JFrame {
         Contenedor.updateUI();
         Contenedor.add(Form);
     }//GEN-LAST:event_llama_interfaz_linea_creditoActionPerformed
-
+    private void Login(){
+        Login Form = new Login();
+        Form.setVisible(true);
+        this.add(Form);
+        Dimension desktopSize = this.getSize();
+        Dimension FrameSize = Form.getSize();
+        Form.setLocation(450, 190);
+        //Form.setLocation((desktopSize.width - FrameSize.width) / 2, ((desktopSize.height - FrameSize.height) / 2) - 50);
+        Contenedor.removeAll();
+        Contenedor.updateUI();
+        Contenedor.add(Form);
+    }
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

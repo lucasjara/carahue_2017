@@ -68,7 +68,7 @@ public class JPanelModUsuarios extends javax.swing.JPanel {
 
         jPanel1.setBackground(new java.awt.Color(88, 147, 191));
 
-        cboTipo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "ADMINISTRADOR", "GERENTE", "VENDEDOR", "LIBRERIA", "VESTUARIO", "CASA Y PESCA" }));
+        cboTipo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "ADMINISTRADOR", "GERENTE", "VENDEDOR", "LIBRERIA", "VESTUARIO", "CASA Y PESCA", "CAJA" }));
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));

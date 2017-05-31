@@ -82,7 +82,21 @@ public class ConsultasSQL_Usuarios {
         }
         return nombre;
     }
-
+    public String Login(String usuario,String password) {
+        String nombre = "";
+        try {
+            CadSql = "SELECT p.nombre from perfiles p, usuarios u WHERE p.id=u.id_perfil && u.usuario='"+usuario+"' && u.password='"+password+"';";
+            Statement st = this.cn.createStatement();
+            ResultSet rs = st.executeQuery(CadSql);
+            while (rs.next()) {
+                nombre = rs.getString(1);
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, ex);
+            nombre = "";
+        }
+        return nombre;
+    }
     public void ModificarUsuarios(int id, String nombre, String usuario, String contrasena, int id_perfil) {
         try {
             PreparedStatement pst = this.cn.prepareStatement("UPDATE usuarios SET id=?, nombre=?, usuario=?, password=?, id_perfil=? WHERE id=?;");
