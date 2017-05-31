@@ -13,6 +13,23 @@ public class Venta_b extends javax.swing.JInternalFrame {
         initComponents();
         ReservarCodigo();
         DesplegarTablas(1,"");
+        switch (Marco.tipo) {
+            case "LIBRERIA":
+                cboCategoria.setSelectedIndex(0);
+                cboCategoria.setEnabled(false);
+                break;
+            case "VESTUARIO":
+                cboCategoria.setSelectedIndex(1);
+                cboCategoria.setEnabled(false);
+                break;
+            case "CASA Y PESCA":
+                cboCategoria.setSelectedIndex(2);
+                cboCategoria.setEnabled(false);
+                break;
+            default:
+                cboCategoria.setEnabled(true);
+                break;
+        }
     }
     ConsultasSQL_Venta sql = new ConsultasSQL_Venta();
 

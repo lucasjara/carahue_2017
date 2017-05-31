@@ -189,29 +189,41 @@ public class Login extends javax.swing.JInternalFrame {
                         Marco.Slider4.setEnabled(true);
                         Marco.Slider5.setEnabled(true);
                         Marco.Slider6.setEnabled(true);
+                        Marco.HabilitarModuloLibreria();
                         break;
                     case "GERENTE":
                         Marco.Slider4.setEnabled(true);
                         break;
                     case "VENDEDOR":
                         Marco.Slider1.setEnabled(true);
+                        Marco.Slider2.setEnabled(true);
+                        Marco.HabilitarModuloLibreria();
                         break;
                     case "LIBRERIA":
                         Marco.Slider1.setEnabled(true);
+                        Marco.Slider2.setEnabled(true);
+                        Marco.llamaLibreria.setEnabled(true);
                         break;
                     case "VESTUARIO":
                         Marco.Slider1.setEnabled(true);
+                        Marco.Slider2.setEnabled(true);
+                        Marco.llamaVestuario.setEnabled(true);
                         break;
                     case "CASA Y PESCA":
                         Marco.Slider1.setEnabled(true);
+                        Marco.Slider2.setEnabled(true);
+                        Marco.llamaCasayPesca.setEnabled(true);
                         break;
                     case "CAJA":
                         Marco.Slider6.setEnabled(true);
                         break;
                 }
+                Marco.tipo=resultado;
                 dispose();
             }
         } else {
+            txtUsuario.setText("");
+            txtContrasena.setText("");
             txtUsuario.requestFocus();
         }
     }//GEN-LAST:event_btnIngresarActionPerformed

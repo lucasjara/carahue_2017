@@ -3,7 +3,7 @@ package vista;
 import java.awt.Dimension;
 
 public class Marco extends javax.swing.JFrame {
-
+    public static String tipo="";
     public Marco() {
         initComponents();
         Login();
@@ -213,6 +213,7 @@ public class Marco extends javax.swing.JFrame {
 
         llamaLibreria.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_1, java.awt.event.InputEvent.CTRL_MASK));
         llamaLibreria.setText("Inventario Libreria");
+        llamaLibreria.setEnabled(false);
         llamaLibreria.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 llamaLibreriaActionPerformed(evt);
@@ -222,6 +223,7 @@ public class Marco extends javax.swing.JFrame {
 
         llamaVestuario.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_2, java.awt.event.InputEvent.CTRL_MASK));
         llamaVestuario.setText("Inventario Vestuario");
+        llamaVestuario.setEnabled(false);
         llamaVestuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 llamaVestuarioActionPerformed(evt);
@@ -231,6 +233,7 @@ public class Marco extends javax.swing.JFrame {
 
         llamaCasayPesca.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_3, java.awt.event.InputEvent.CTRL_MASK));
         llamaCasayPesca.setText("Inventario Casa y Pesca");
+        llamaCasayPesca.setEnabled(false);
         llamaCasayPesca.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 llamaCasayPescaActionPerformed(evt);
@@ -240,6 +243,7 @@ public class Marco extends javax.swing.JFrame {
 
         jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_4, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItem2.setText("Administracion Inventario");
+        jMenuItem2.setEnabled(false);
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem2ActionPerformed(evt);
@@ -353,6 +357,7 @@ public class Marco extends javax.swing.JFrame {
     }//GEN-LAST:event_llama_interfaz_principalActionPerformed
 
     private void menu_salirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menu_salirMouseClicked
+            Login();
 //        interfaz_login il = new interfaz_login();
 //        lb_user.setText("NOMBRE USUARIO");
 //        lbCARGO.setText("CARGO");
@@ -573,6 +578,7 @@ public class Marco extends javax.swing.JFrame {
         Contenedor.add(Form);
     }//GEN-LAST:event_llama_interfaz_linea_creditoActionPerformed
     private void Login(){
+        DesabilitarModulos();
         Login Form = new Login();
         Form.setVisible(true);
         this.add(Form);
@@ -583,6 +589,27 @@ public class Marco extends javax.swing.JFrame {
         Contenedor.removeAll();
         Contenedor.updateUI();
         Contenedor.add(Form);
+    }
+    private void DesabilitarModulos(){
+        Slider1.setEnabled(false);
+        Slider2.setEnabled(false);
+        Slider3.setEnabled(false);
+        Slider4.setEnabled(false);
+        Slider5.setEnabled(false);
+        Slider6.setEnabled(false);
+        DesabilitarModuloLibreria();
+    }
+    private void DesabilitarModuloLibreria(){
+        llamaLibreria.setEnabled(false);
+        llamaCasayPesca.setEnabled(false);
+        llamaVestuario.setEnabled(false);
+        jMenuItem2.setEnabled(false);
+    }
+    public static void HabilitarModuloLibreria(){
+        llamaLibreria.setEnabled(true);
+        llamaCasayPesca.setEnabled(true);
+        llamaVestuario.setEnabled(true);
+        jMenuItem2.setEnabled(true);
     }
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -633,17 +660,17 @@ public class Marco extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem2;
+    public static javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     public static javax.swing.JLabel lbCARGO;
     public static javax.swing.JLabel lb_user;
-    private javax.swing.JMenuItem llamaCasayPesca;
-    private javax.swing.JMenuItem llamaLibreria;
+    public static javax.swing.JMenuItem llamaCasayPesca;
+    public static javax.swing.JMenuItem llamaLibreria;
     private javax.swing.JMenuItem llamaUsuarios;
-    private javax.swing.JMenuItem llamaVestuario;
+    public static javax.swing.JMenuItem llamaVestuario;
     private javax.swing.JMenuItem llama_interfaz_informes;
     public static javax.swing.JMenuItem llama_interfaz_linea_credito;
     private javax.swing.JMenuItem llama_interfaz_principal;
