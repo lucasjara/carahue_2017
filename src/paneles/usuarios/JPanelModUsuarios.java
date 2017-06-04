@@ -11,6 +11,7 @@ import java.awt.Robot;
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 import vista.Usuarios;
+import static vista.Usuarios.tbUsuarios;
 
 /**
  *
@@ -190,7 +191,7 @@ public class JPanelModUsuarios extends javax.swing.JPanel {
                 int fila = Usuarios.tbUsuarios.getSelectedRow();
                 String cod = Usuarios.tbUsuarios.getValueAt(fila, 0).toString();
                 if (fila != -1) {
-                    Modificar_Usuarios(Integer.parseInt(cod),nombre,usuario,contrasena);
+                    Modificar_Usuarios(Integer.parseInt(cod), nombre, usuario, contrasena);
                     Desplegar_Tabla(1, "");
                     JOptionPane.showMessageDialog(null, "Usuario Modificado Correctamente");
                 }
@@ -218,12 +219,14 @@ public class JPanelModUsuarios extends javax.swing.JPanel {
         txtUsuario.setText("");
         txtpass.setText("");
         txtNombres.isFocusable();
+        tbUsuarios.clearSelection();
     }//GEN-LAST:event_btnAceptar1ActionPerformed
     private void Desplegar_Tabla(int numero, String campo) {
         sql.Tabla_Usuarios(numero, campo);
     }
-    private void Modificar_Usuarios(int id,String nombre, String usuario,String contrasena){
-        sql.ModificarUsuarios(id, nombre, usuario, contrasena, cboTipo.getSelectedIndex()+1);
+
+    private void Modificar_Usuarios(int id, String nombre, String usuario, String contrasena) {
+        sql.ModificarUsuarios(id, nombre, usuario, contrasena, cboTipo.getSelectedIndex() + 1);
         Desplegar_Tabla(1, "");
     }
 

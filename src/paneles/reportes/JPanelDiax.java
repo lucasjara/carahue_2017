@@ -112,7 +112,6 @@ public class JPanelDiax extends javax.swing.JPanel {
                 "CodProducto", "Producto", "Cantidad", "Valor"
             }
         ));
-        tbVentasDiaXDetalles.getTableHeader().setResizingAllowed(false);
         tbVentasDiaXDetalles.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setViewportView(tbVentasDiaXDetalles);
 

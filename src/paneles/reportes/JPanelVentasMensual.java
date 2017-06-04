@@ -119,7 +119,6 @@ public class JPanelVentasMensual extends javax.swing.JPanel {
                 "CodProducto", "Producto", "Cantidad", "Valor"
             }
         ));
-        tbVentasMesDetalles.getTableHeader().setResizingAllowed(false);
         tbVentasMesDetalles.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setViewportView(tbVentasMesDetalles);
 

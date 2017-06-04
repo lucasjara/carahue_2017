@@ -211,7 +211,7 @@ public class JPanelNuevoUsuarios extends javax.swing.JPanel {
                     GuardarUsuario(nombre, usuario, contraseña, cboTipo.getSelectedIndex() + 1);
                     Desplegar_Tabla(1, "");
                 } else {
-                    JOptionPane.showMessageDialog(null, "EL NOMBRE DE USUARIO SE ENCUENTRA OCUPADO");
+                    JOptionPane.showMessageDialog(null, "El nombre de usuario se encuentra ocupado");
                     LimpiarNombre();
                 }
             } catch (Exception e) {

@@ -369,6 +369,9 @@ public class Usuarios extends javax.swing.JInternalFrame {
                 case "CASA Y PESCA":
                     JPanelModUsuarios.cboTipo.setSelectedIndex(5);
                     break;
+                case "CAJA":
+                    JPanelModUsuarios.cboTipo.setSelectedIndex(6);
+                    break;
             }
         } catch (Exception ex) {
 

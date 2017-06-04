@@ -115,7 +115,6 @@ public class JPanelVentasHoy extends javax.swing.JPanel {
                 "CodProducto", "Producto", "Cantidad", "Valor"
             }
         ));
-        tbVentasHoyDetalles.getTableHeader().setResizingAllowed(false);
         tbVentasHoyDetalles.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setViewportView(tbVentasHoyDetalles);
 
