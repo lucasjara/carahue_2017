@@ -8,6 +8,14 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import paneles.JPanelBusquedaCliente;
+import static paneles.JPanelBusquedaCliente.tbClientesListado;
+import static paneles.JPanelBusquedaCliente.txtCreditoCliente;
+import static paneles.JPanelBusquedaCliente.txtFechaIngresoCliente;
+import static paneles.JPanelBusquedaCliente.txtNombreCliente;
+import static paneles.JPanelBusquedaCliente.txtRegistrador;
+import static paneles.JPanelBusquedaCliente.txtRutCliente;
+import static paneles.JPanelBusquedaCliente.txtTelefonoCliente;
 import static paneles.JPanelListadoClienteCredito.tbUltimosClientesRegistrados;
 
 public class ConsultasSQL_Clientes {
@@ -126,6 +134,74 @@ public class ConsultasSQL_Clientes {
                 modelo.addRow(datos);
             }
             tbUltimosClientesRegistrados.setModel(modelo);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, ex);
+        }
+    }
+    public void ListadoClientes() {
+        
+        DefaultTableModel modelo = new DefaultTableModel();
+        String[] cabeceras = new String[]{"Id", "Nombre", "Rut"};
+        modelo.setColumnIdentifiers(cabeceras);
+        String CadSql = "SELECT c.id, c.nombre, c.rut FROM clientes c ORDER BY c.id DESC;";
+        try {
+            String[] datos = new String[3];
+            Statement st = this.cn.createStatement();
+            ResultSet rs = st.executeQuery(CadSql);
+            while (rs.next()) {
+                datos[0] = rs.getString(1);
+                datos[1] = rs.getString(2);
+                datos[2] = rs.getString(3);
+                modelo.addRow(datos);
+            }
+            tbClientesListado.setModel(modelo);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, ex);
+        }
+    }
+    public void ListadoClientesFiltrado(int numero,String valor) {
+
+        DefaultTableModel modelo = new DefaultTableModel();
+        String[] cabeceras = new String[]{"Id", "Nombre", "Rut"};
+        modelo.setColumnIdentifiers(cabeceras);
+        // numero 1 nombre | numero 2 rut
+        String CadSql = "";
+        switch(numero){
+            case 1:CadSql = "SELECT c.id, c.nombre, c.rut FROM clientes c WHERE c.nombre like'%" + valor + "%' ORDER BY c.id DESC;";
+                break;
+            case 2:CadSql = "SELECT c.id, c.nombre, c.rut FROM clientes c WHERE c.rut like'%" + valor + "%' ORDER BY c.id DESC;";
+                break;
+        }
+        try {
+            String[] datos = new String[3];
+            Statement st = this.cn.createStatement();
+            ResultSet rs = st.executeQuery(CadSql);
+            while (rs.next()) {
+                datos[0] = rs.getString(1);
+                datos[1] = rs.getString(2);
+                datos[2] = rs.getString(3);
+                modelo.addRow(datos);
+            }
+            tbClientesListado.setModel(modelo);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, ex);
+        }
+    }
+    public void SetearDatosClientes(String valor) {
+        try {
+            //nombre|rut|telefono|cantidad credito|fecha ingreso|registrador
+            String CadSql = "SELECT c.nombre, c.rut,c.telefono,c.fecha_ingreso,c.fecha_ingreso,u.nombre FROM clientes c, usuarios u WHERE c.id='"+valor+"';";
+            Statement st = this.cn.createStatement();
+            ResultSet rs = st.executeQuery(CadSql);
+            while (rs.next()) {
+                txtNombreCliente.setText(rs.getString(1));
+                txtRutCliente.setText(rs.getString(2));
+                txtTelefonoCliente.setText(rs.getString(3));
+                txtCreditoCliente.setText(rs.getString(4));
+                txtFechaIngresoCliente.setText(rs.getString(5));
+                txtRegistrador.setText(rs.getString(6));
+                break;
+            }
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, ex);
         }

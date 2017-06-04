@@ -5,6 +5,7 @@
  */
 package paneles;
 
+import consultas.ConsultasSQL_Clientes;
 import java.awt.AWTException;
 import java.awt.Robot;
 import java.awt.event.KeyEvent;
@@ -17,12 +18,11 @@ import javax.swing.JOptionPane;
  */
 public class JPanelBusquedaCliente extends javax.swing.JPanel {
 
-    //ConsultasSQL sql = new ConsultasSQL();
-    public int tipo = 1; //Solamente busqueda y detalle
+    ConsultasSQL_Clientes sql = new ConsultasSQL_Clientes();
 
     public JPanelBusquedaCliente() {
         initComponents();
-
+        TablaClientes();
     }
 
     @SuppressWarnings("unchecked")
@@ -37,7 +37,7 @@ public class JPanelBusquedaCliente extends javax.swing.JPanel {
         jLabel12 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tbClientes = new javax.swing.JTable();
+        tbClientesListado = new javax.swing.JTable();
         jLabel11 = new javax.swing.JLabel();
         panelcambiantebusqueda = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
@@ -52,9 +52,7 @@ public class JPanelBusquedaCliente extends javax.swing.JPanel {
         jLabel9 = new javax.swing.JLabel();
         txtFechaIngresoCliente = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
-        txtAbonadoCliente = new javax.swing.JTextField();
-        jLabel13 = new javax.swing.JLabel();
-        txtCreditoCliente1 = new javax.swing.JTextField();
+        txtRegistrador = new javax.swing.JTextField();
 
         setBackground(new java.awt.Color(88, 147, 191));
 
@@ -67,22 +65,14 @@ public class JPanelBusquedaCliente extends javax.swing.JPanel {
         jLabel1.setText("NOMBRE:");
 
         txtNombre.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtNombreKeyTyped(evt);
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtNombreKeyReleased(evt);
             }
         });
 
-        txtRutBusqueda.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtRutBusquedaFocusLost(evt);
-            }
-        });
         txtRutBusqueda.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtRutBusquedaKeyReleased(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtRutBusquedaKeyTyped(evt);
             }
         });
 
@@ -125,12 +115,12 @@ public class JPanelBusquedaCliente extends javax.swing.JPanel {
         jPanel3.setBackground(new java.awt.Color(88, 147, 191));
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(255, 255, 255)), "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(255, 255, 255))); // NOI18N
 
-        tbClientes = new javax.swing.JTable(){
+        tbClientesListado = new javax.swing.JTable(){
             public boolean isCellEditable(int rowIndex, int colIndex) {
                 return false; //Desabilitar Editable
             }
         };
-        tbClientes.setModel(new javax.swing.table.DefaultTableModel(
+        tbClientesListado.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -141,14 +131,14 @@ public class JPanelBusquedaCliente extends javax.swing.JPanel {
                 "Nombre", "Rut", "Telefono", "Fecha Ingreso"
             }
         ));
-        tbClientes.getTableHeader().setResizingAllowed(false);
-        tbClientes.getTableHeader().setReorderingAllowed(false);
-        tbClientes.addMouseListener(new java.awt.event.MouseAdapter() {
+        tbClientesListado.getTableHeader().setResizingAllowed(false);
+        tbClientesListado.getTableHeader().setReorderingAllowed(false);
+        tbClientesListado.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tbClientesMouseClicked(evt);
+                tbClientesListadoMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(tbClientes);
+        jScrollPane1.setViewportView(tbClientesListado);
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(255, 255, 255));
@@ -215,13 +205,7 @@ public class JPanelBusquedaCliente extends javax.swing.JPanel {
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
         jLabel10.setText("REGISTRADOR:");
 
-        txtAbonadoCliente.setEnabled(false);
-
-        jLabel13.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel13.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel13.setText("CANTIDAD DISPONIBLE:");
-
-        txtCreditoCliente1.setEnabled(false);
+        txtRegistrador.setEnabled(false);
 
         javax.swing.GroupLayout panelcambiantebusquedaLayout = new javax.swing.GroupLayout(panelcambiantebusqueda);
         panelcambiantebusqueda.setLayout(panelcambiantebusquedaLayout);
@@ -229,40 +213,33 @@ public class JPanelBusquedaCliente extends javax.swing.JPanel {
             panelcambiantebusquedaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelcambiantebusquedaLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(panelcambiantebusquedaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(panelcambiantebusquedaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(panelcambiantebusquedaLayout.createSequentialGroup()
-                        .addGroup(panelcambiantebusquedaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(panelcambiantebusquedaLayout.createSequentialGroup()
-                                .addComponent(jLabel10)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtAbonadoCliente))
-                            .addGroup(panelcambiantebusquedaLayout.createSequentialGroup()
-                                .addComponent(jLabel6)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtRutCliente))
-                            .addGroup(panelcambiantebusquedaLayout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtNombreCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(panelcambiantebusquedaLayout.createSequentialGroup()
-                                .addComponent(jLabel9)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtFechaIngresoCliente))
-                            .addGroup(panelcambiantebusquedaLayout.createSequentialGroup()
-                                .addComponent(jLabel8)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtCreditoCliente))
-                            .addGroup(panelcambiantebusquedaLayout.createSequentialGroup()
-                                .addComponent(jLabel7)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtTelefonoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(panelcambiantebusquedaLayout.createSequentialGroup()
-                        .addComponent(jLabel13)
+                        .addComponent(jLabel10)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtCreditoCliente1)))
-                .addGap(10, 10, 10))
+                        .addComponent(txtRegistrador))
+                    .addGroup(panelcambiantebusquedaLayout.createSequentialGroup()
+                        .addComponent(jLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtRutCliente))
+                    .addGroup(panelcambiantebusquedaLayout.createSequentialGroup()
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtNombreCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(panelcambiantebusquedaLayout.createSequentialGroup()
+                        .addComponent(jLabel9)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtFechaIngresoCliente))
+                    .addGroup(panelcambiantebusquedaLayout.createSequentialGroup()
+                        .addComponent(jLabel8)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtCreditoCliente))
+                    .addGroup(panelcambiantebusquedaLayout.createSequentialGroup()
+                        .addComponent(jLabel7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtTelefonoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelcambiantebusquedaLayout.setVerticalGroup(
             panelcambiantebusquedaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -285,19 +262,15 @@ public class JPanelBusquedaCliente extends javax.swing.JPanel {
                 .addGroup(panelcambiantebusquedaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtCreditoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(panelcambiantebusquedaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtCreditoCliente1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelcambiantebusquedaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtFechaIngresoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(panelcambiantebusquedaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtAbonadoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                    .addComponent(txtRegistrador, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -320,58 +293,58 @@ public class JPanelBusquedaCliente extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(panelcambiantebusqueda, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(panelcambiantebusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
-//        txtRutBusqueda.setText("");
-//        sql.CargarTablaClientes(3, txtNombre.getText());
-    }//GEN-LAST:event_txtNombreKeyTyped
+    private void tbClientesListadoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbClientesListadoMouseClicked
+        try {
+            int fila = tbClientesListado.getSelectedRow();
+            String id = tbClientesListado.getValueAt(fila, 0).toString();
+            if (fila != -1) {
+                SetearDatos(id);
+            } else {
 
-    private void txtRutBusquedaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRutBusquedaKeyTyped
-//        try {
-//            txtNombre.setText("");
-//            sql.CargarTablaClientes(2, txtRutBusqueda.getText());
-//            
-//        } catch (Exception e) {
-//        }
+            }
+        } catch (Exception ex) {
 
-    }//GEN-LAST:event_txtRutBusquedaKeyTyped
-
-    private void tbClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbClientesMouseClicked
-//        try {
-//            int fila = tbClientes.getSelectedRow();
-//            String rut = tbClientes.getValueAt(fila, 1).toString();
-//            if (fila != -1) {
-//                //llega el rut
-//                sql.SetearCampos(rut);
-//
-//            } else {
-//
-//            }
-//        } catch (Exception ex) {
-//
-//        }
-    }//GEN-LAST:event_tbClientesMouseClicked
+        }
+    }//GEN-LAST:event_tbClientesListadoMouseClicked
 
     private void txtRutBusquedaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRutBusquedaKeyReleased
-        
+     txtNombre.setText("");
+     if(txtRutBusqueda.getText().equals("")){
+         TablaClientes();
+     }else{
+         TablaFiltrados(2, txtRutBusqueda.getText());
+     }
     }//GEN-LAST:event_txtRutBusquedaKeyReleased
 
-    private void txtRutBusquedaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtRutBusquedaFocusLost
-
-    }//GEN-LAST:event_txtRutBusquedaFocusLost
-
+    private void txtNombreKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyReleased
+        txtRutBusqueda.setText("");
+        if(txtNombre.getText().equals("")){
+            TablaClientes();
+        }else{
+            TablaFiltrados(1, txtNombre.getText());
+        }
+    }//GEN-LAST:event_txtNombreKeyReleased
+    private void TablaClientes(){
+        sql.ListadoClientes();
+    }
+    private void TablaFiltrados(int numero, String valor){
+        sql.ListadoClientesFiltrado(numero,valor);
+    }
+    private void SetearDatos(String valor){
+        sql.SetearDatosClientes(valor);
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -383,13 +356,12 @@ public class JPanelBusquedaCliente extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     public static javax.swing.JPanel panelcambiantebusqueda;
-    public static javax.swing.JTable tbClientes;
-    public static javax.swing.JTextField txtAbonadoCliente;
+    public static javax.swing.JTable tbClientesListado;
     public static javax.swing.JTextField txtCreditoCliente;
-    public static javax.swing.JTextField txtCreditoCliente1;
     public static javax.swing.JTextField txtFechaIngresoCliente;
     private javax.swing.JTextField txtNombre;
     public static javax.swing.JTextField txtNombreCliente;
+    public static javax.swing.JTextField txtRegistrador;
     private javax.swing.JTextField txtRutBusqueda;
     public static javax.swing.JTextField txtRutCliente;
     public static javax.swing.JTextField txtTelefonoCliente;

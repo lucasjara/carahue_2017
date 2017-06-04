@@ -29,7 +29,7 @@ public class ConsultasSQL_Usuarios {
                 CadSql = "SELECT * FROM usuarios where categoria=" + campo + ";";
                 break;
             case 3:
-                CadSql = "SELECT usuarios.id, usuarios.usuario, usuarios.password, usuarios.nombre, perfiles.nombre, usuarios.estado FROM usuarios, perfiles where usuarios.nombre like'%" + campo + "%' AND usuarios.id_perfil=perfiles.id;;";
+                CadSql = "SELECT usuarios.id, usuarios.usuario, usuarios.password, usuarios.nombre, perfiles.nombre, usuarios.estado FROM usuarios, perfiles where usuarios.nombre like'%" + campo + "%' AND usuarios.id_perfil=perfiles.id;";
                 break;
         }
         try {
