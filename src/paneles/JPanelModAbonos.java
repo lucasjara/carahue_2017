@@ -21,6 +21,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import vista.HistorialAbonos;
+import vista.Marco;
 //import metodos.ConsultasSQL;
 
 /**
@@ -559,7 +560,7 @@ public class JPanelModAbonos extends javax.swing.JPanel {
     }//GEN-LAST:event_btnlimpiarrutActionPerformed
     private void NuevoAbono(int CantidadAbonada, int cod_venta) {
         LocalDate fecha_actual = LocalDate.now();
-        int id_usuario = 4;
+        int id_usuario = Marco.Id_Usuario;
         sql.NuevoAbono(CantidadAbonada, fecha_actual, cod_venta, id_usuario);
 
     }

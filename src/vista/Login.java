@@ -176,10 +176,12 @@ public class Login extends javax.swing.JInternalFrame {
 
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
         if (ValidarCampos()) {
-            //entrar();
             String resultado = Login();
             if(resultado.equals("") || resultado.isEmpty()){
-                
+                JOptionPane.showMessageDialog(null, "Credenciales Incorrectas");
+                txtUsuario.setText("");
+                txtContrasena.setText("");
+                txtUsuario.requestFocus();
             }else{
                 switch(resultado){
                     case "ADMINISTRADOR":
@@ -219,6 +221,8 @@ public class Login extends javax.swing.JInternalFrame {
                         break;
                 }
                 Marco.tipo=resultado;
+                Marco.usuario_login=txtUsuario.getText();
+                Marco.Id_Usuario = sql.IdUsuario(Marco.usuario_login);
                 dispose();
             }
         } else {

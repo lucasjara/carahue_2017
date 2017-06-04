@@ -69,14 +69,17 @@ public class ConsultasSQL_Reportes {
 
     public int DetalleVenta(int numero,int cod_venta) {
         int total = 0;
+        int precio_individual=0;
+        int valor=0;
         DefaultTableModel modelo = new DefaultTableModel();
         modelo.addColumn("IdProducto");
         modelo.addColumn("Producto");
         modelo.addColumn("Cantidad");
-        modelo.addColumn("Precio");
+        modelo.addColumn("Precio/Unitario");
+        modelo.addColumn("Valor");
         CadSql = "SELECT p.id, p.nombre,v.cantidad, v.precio from ventas v, productos p WHERE cod_venta='" + cod_venta + "' AND estado='VENDIDO' AND v.id_producto=p.id and id_producto!=3;";
         try {
-            String[] datos = new String[4];
+            String[] datos = new String[5];
             Statement st = this.cn.createStatement();
             ResultSet rs = st.executeQuery(CadSql);
             while (rs.next()) {
@@ -84,9 +87,11 @@ public class ConsultasSQL_Reportes {
                 datos[1] = rs.getString(2);
                 datos[2] = rs.getString(3);
                 int cantidad = Integer.parseInt(rs.getString(3));
-                int precio = Integer.parseInt(rs.getString(4));
-                total = (cantidad*precio)+ total;
-                datos[3] = rs.getString(4);
+                precio_individual=Integer.parseInt(rs.getString(4))/cantidad;
+                total = (cantidad*precio_individual)+ total;
+                datos[3] = Integer.toString(precio_individual);
+                valor=precio_individual*cantidad;
+                datos[4] = Integer.toString(valor);
                 modelo.addRow(datos);
             }
             switch(numero){

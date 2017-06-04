@@ -16,7 +16,6 @@ public class Inventario_Administracion extends javax.swing.JInternalFrame {
         SetearCbo();
     }
     ConsultasSQL_Inventario_Administracion sql = new ConsultasSQL_Inventario_Administracion();
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -806,7 +805,7 @@ public class Inventario_Administracion extends javax.swing.JInternalFrame {
             int descuento = Integer.parseInt(txtDescuento.getText());
             java.sql.Date sqldate = new java.sql.Date(DateChooser.getDate().getTime());
             //cod_inventario|nombre|descripcion|categoria|cantidad|descuento|valor_C|valor_v|dia_llegada|n*factura|id_proveedor
-            sql.GuardarProductos(codigo, nombre, descripcion, categoria, cantidad,descuento, nombre_proveedor, valor_compra, valor_venta, sqldate, numero_factura);
+            sql.GuardarProductos(codigo, nombre, descripcion, categoria, cantidad, descuento, nombre_proveedor, valor_compra, valor_venta, sqldate, numero_factura);
             sql.Tabla_Inventario(1, "", "");
             JOptionPane.showMessageDialog(null, "Producto Ingresado Correctamente");
         }
@@ -830,9 +829,9 @@ public class Inventario_Administracion extends javax.swing.JInternalFrame {
             int valor_compra = Integer.parseInt(txtPrecioCompra.getText());
             int valor_venta = Integer.parseInt(txtPrecioIndividual.getText());
             int numero_factura = Integer.parseInt(txtNumFactura.getText());
-            int descuento= Integer.parseInt(txtDescuento.getText());
+            int descuento = Integer.parseInt(txtDescuento.getText());
             java.sql.Date sqldate = new java.sql.Date(DateChooser.getDate().getTime());
-            sql.ModificarProductos(codigo, nombre, descripcion, categoria, cantidad,descuento, nombre_proveedor, valor_compra, valor_venta, sqldate, numero_factura);
+            sql.ModificarProductos(codigo, nombre, descripcion, categoria, cantidad, descuento, nombre_proveedor, valor_compra, valor_venta, sqldate, numero_factura);
             sql.Tabla_Inventario(1, "", "");
             JOptionPane.showMessageDialog(null, "Producto Modificado Correctamente");
         }
@@ -843,12 +842,10 @@ public class Inventario_Administracion extends javax.swing.JInternalFrame {
             int fila = this.tbproductos_administracion.getSelectedRow();
             String codigo = this.tbproductos_administracion.getValueAt(fila, 0).toString();
             String categoria = this.tbproductos_administracion.getValueAt(fila, 3).toString();
-            
             if (fila != -1) {
                 int resp = JOptionPane.showConfirmDialog(null, "Esta seguro que desea eliminar el producto?");
                 if (JOptionPane.OK_OPTION == resp) {
                     sql.EliminarProducto(codigo, categoria);
-                    JOptionPane.showMessageDialog(null, "Producto eliminado Correctamente");
                     sql.Tabla_Inventario(1, "", "");
                     Limpiar();
                     cboCategoria.setEnabled(true);
@@ -921,10 +918,10 @@ public class Inventario_Administracion extends javax.swing.JInternalFrame {
         txtCantidad.setText("");
         txtPrecioCompra.setText("0");
         txtPrecioIndividual.setText("0");
-        //txtNombreProveedor.setText("");
         txtDescripcion.setText("");
         txtCodigoProducto.setText("");
         txtNumFactura.setText("");
+        tbproductos_administracion.clearSelection();
     }
 
     private boolean CompararPrecios() {
@@ -951,9 +948,11 @@ public class Inventario_Administracion extends javax.swing.JInternalFrame {
         }
         return respuesta;
     }
-    private void SetearCbo(){
-            sql.SetearProveedores();
+
+    private void SetearCbo() {
+        sql.SetearProveedores();
     }
+
     private void SetearCampos(String codigo, String categoria) {
         String datos[] = sql.SetearCampos(codigo, categoria);
         /*
@@ -972,15 +971,18 @@ public class Inventario_Administracion extends javax.swing.JInternalFrame {
         txtNombre.setText(datos[1]);
         txtDescripcion.setText(datos[2]);
         switch (datos[3]) {
-            case "LIBRERIA": cboCategoria.setSelectedIndex(0);
+            case "LIBRERIA":
+                cboCategoria.setSelectedIndex(0);
                 break;
-            case "VESTUARIO": cboCategoria.setSelectedIndex(1);
+            case "VESTUARIO":
+                cboCategoria.setSelectedIndex(1);
                 break;
-            case "CASA Y PESCA":cboCategoria.setSelectedIndex(2);
+            case "CASA Y PESCA":
+                cboCategoria.setSelectedIndex(2);
                 break;
         }
         txtCantidad.setText(datos[4]);
-        String variable =datos[5];
+        String variable = datos[5];
         CboNombreProveedor.setSelectedItem(variable);
         //txtNombreProveedor.setText(datos[5]);
         txtPrecioCompra.setText(datos[6]);
@@ -988,7 +990,7 @@ public class Inventario_Administracion extends javax.swing.JInternalFrame {
         DateChooser.setDate(Date.valueOf(datos[8]));
         txtNumFactura.setText(datos[9]);
     }
-    
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JComboBox CboNombreProveedor;

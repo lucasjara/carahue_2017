@@ -35,7 +35,7 @@ public class Proveedores extends javax.swing.JFrame {
         txtTelefono = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("PROVEEDORES");
+        setTitle("LISTADO PROVEEDORES");
 
         jLabel1.setText("RUT:");
 

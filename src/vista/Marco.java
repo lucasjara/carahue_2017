@@ -4,6 +4,8 @@ import java.awt.Dimension;
 
 public class Marco extends javax.swing.JFrame {
     public static String tipo="";
+    public static String usuario_login="";
+    public static int Id_Usuario=0;
     public Marco() {
         initComponents();
         Login();

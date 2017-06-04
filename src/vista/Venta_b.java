@@ -631,11 +631,21 @@ public class Venta_b extends javax.swing.JInternalFrame {
             getToolkit().beep();
             evt.consume();
         }
+        if(txtNombre.getText().equals("")){
+            cbocantidad.setEnabled(false);
+        }else{
+            cbocantidad.setEnabled(true);
+        }
     }//GEN-LAST:event_txtNombreKeyReleased
 
     private void txtCodigoBusquedaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoBusquedaKeyReleased
         txtNombre.setText("");
         DesplegarTablas(4, txtCodigoBusqueda.getText());
+        if(txtCodigoBusqueda.getText().equals("")){
+            cbocantidad.setEnabled(false);
+        }else{
+            cbocantidad.setEnabled(true);
+        }
     }//GEN-LAST:event_txtCodigoBusquedaKeyReleased
      private void Devolver() {
         sql.DevolverStock_Parte1();
@@ -662,7 +672,7 @@ public class Venta_b extends javax.swing.JInternalFrame {
     private void NuevaVenta(String codigo,int cantidad, double precio,int cantidad2){
         int cod_venta = Integer.parseInt(txtcodigo.getText());
         int id_producto=sql.Id_producto(codigo);
-        int id_usuario=4;
+        int id_usuario=Marco.Id_Usuario;
         sql.NuevaVenta(cod_venta,cantidad,precio,"INACTIVO","BOLETA",id_producto,id_usuario,cantidad2);
         
     }

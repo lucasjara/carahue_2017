@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package paneles;
 
 //import interfaces.Main;
@@ -22,6 +17,7 @@ import java.util.Date;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import jdk.nashorn.internal.objects.NativeFunction;
+import vista.Marco;
 //import metodos.ConsultasSQL;
 
 /**
@@ -397,7 +393,7 @@ public class JPanelIngresoAbonos extends javax.swing.JPanel {
             int total = Integer.parseInt(txtMontoVenta.getText());
             int cod_venta = Integer.parseInt(txtNumeroVenta.getText());
             int id_cliente = 1;//retornar basado en el rut
-            int id_usuario = 4;//usuario logeado por mientras administrador
+            int id_usuario = Marco.Id_Usuario;//usuario logeado por mientras administrador
             Date fecha = Date_fecha_plazo.getDate();
             LocalDate date = fecha.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
             sql.NuevoCredito(abono, total, date, cod_venta, id_cliente, id_usuario);

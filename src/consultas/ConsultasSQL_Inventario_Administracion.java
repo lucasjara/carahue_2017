@@ -162,7 +162,7 @@ public class ConsultasSQL_Inventario_Administracion {
             PreparedStatement pst = this.cn.prepareStatement("DELETE FROM productos WHERE  cod_inventario='" + codigo + "' AND categoria='"+categoria+"'");
             pst.executeUpdate();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
+            JOptionPane.showMessageDialog(null, "Lo sentimos el producto que intenta Eliminar se encuentra vinculado a una venta");
         }
     }
     public String[] SetearCampos(String codigo, String categoria) {

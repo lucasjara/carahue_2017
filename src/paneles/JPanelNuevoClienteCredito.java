@@ -4,6 +4,7 @@ import consultas.ConsultasSQL_Clientes;
 import java.sql.Date;
 import java.time.LocalDate;
 import javax.swing.JOptionPane;
+import vista.Marco;
 
 public class JPanelNuevoClienteCredito extends javax.swing.JPanel {
 
@@ -230,7 +231,8 @@ public class JPanelNuevoClienteCredito extends javax.swing.JPanel {
                 String telefono=txtTelefono.getText();
                 int cantidad_credito=Integer.parseInt(txtCredito.getText());
                 Date fechas = java.sql.Date.valueOf(fecha);
-                sql.CrearClientes(rut, nombre, telefono, fechas, cantidad_credito, 4);
+                int id_usuario=Marco.Id_Usuario;
+                sql.CrearClientes(rut, nombre, telefono, fechas, cantidad_credito, id_usuario);
                 JOptionPane.showMessageDialog(null, "Cliente Creado Correctamente");
             }
         } else {

@@ -85,7 +85,7 @@ public class ConsultasSQL_Usuarios {
     public String Login(String usuario,String password) {
         String nombre = "";
         try {
-            CadSql = "SELECT p.nombre from perfiles p, usuarios u WHERE p.id=u.id_perfil && u.usuario='"+usuario+"' && u.password='"+password+"';";
+            CadSql = "SELECT p.nombre from perfiles p, usuarios u WHERE p.id=u.id_perfil && u.usuario='"+usuario+"' && u.password='"+password+"' AND u.estado='ACTIVO';";
             Statement st = this.cn.createStatement();
             ResultSet rs = st.executeQuery(CadSql);
             while (rs.next()) {
@@ -96,6 +96,21 @@ public class ConsultasSQL_Usuarios {
             nombre = "";
         }
         return nombre;
+    }
+    public int IdUsuario(String usuario) {
+        int id_user = 0;
+        try {
+            CadSql = "SELECT id from usuarios WHERE usuario='"+usuario+"';";
+            Statement st = this.cn.createStatement();
+            ResultSet rs = st.executeQuery(CadSql);
+            while (rs.next()) {
+                id_user = Integer.parseInt(rs.getString(1));
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, ex);
+            id_user=0;
+        }
+        return id_user;
     }
     public void ModificarUsuarios(int id, String nombre, String usuario, String contrasena, int id_perfil) {
         try {
