@@ -82,7 +82,7 @@ public class ConsultasSQL_Abonos {
         DefaultTableModel modelo = new DefaultTableModel();
         String[] cabeceras = new String[]{"Numero Venta","Abonado","Fecha Abono","Fecha Termino","Registrado por"};
         modelo.setColumnIdentifiers(cabeceras);
-        CadSql = "SELECT c.cod_venta, a.abono, a.fecha,c.fecha_termino,(SELECT DISTINCT nombre from usuarios u, abonos a where u.id=a.id_usuario ) from credito c, abonos a;";
+        CadSql = "SELECT c.cod_venta, a.abono, a.fecha, c.fecha_termino, u.nombre from credito c, abonos a, usuarios u where u.id=a.id_usuario AND a.id_credito=c.id ORDER BY a.fecha DESC";
         try {
             String[] datos = new String[5];
             Statement st = this.cn.createStatement();

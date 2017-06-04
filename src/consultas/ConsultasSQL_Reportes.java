@@ -72,8 +72,8 @@ public class ConsultasSQL_Reportes {
         int precio_individual=0;
         int valor=0;
         DefaultTableModel modelo = new DefaultTableModel();
-        modelo.addColumn("IdProducto");
-        modelo.addColumn("Producto");
+        modelo.addColumn("Cod.Producto");
+        modelo.addColumn("Nombre");
         modelo.addColumn("Cantidad");
         modelo.addColumn("Precio/Unitario");
         modelo.addColumn("Valor");

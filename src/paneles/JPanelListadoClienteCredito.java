@@ -1,28 +1,18 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package paneles;
-
-//import interfaces.Main;
+import consultas.ConsultasSQL_Clientes;
 import java.awt.AWTException;
 import java.awt.Robot;
 import java.awt.event.KeyEvent;
 import java.sql.SQLXML;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-//import metodos.ConsultasSQL;
 
-/**
- *
- * @author Zoidiano
- */
 public class JPanelListadoClienteCredito extends javax.swing.JPanel {
 
-  //  ConsultasSQL sql = new ConsultasSQL();
+    ConsultasSQL_Clientes sql = new ConsultasSQL_Clientes();
     public JPanelListadoClienteCredito() {
         initComponents();
+        sql.UltimosClientes();
     }
 
     @SuppressWarnings("unchecked")
@@ -31,7 +21,7 @@ public class JPanelListadoClienteCredito extends javax.swing.JPanel {
 
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblistadoclientescredito = new javax.swing.JTable();
+        tbUltimosClientesRegistrados = new javax.swing.JTable();
         lblNombreTablaClientes = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(88, 147, 191));
@@ -39,12 +29,12 @@ public class JPanelListadoClienteCredito extends javax.swing.JPanel {
         jPanel1.setBackground(new java.awt.Color(88, 147, 191));
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(255, 255, 255))); // NOI18N
 
-        tblistadoclientescredito = new javax.swing.JTable(){
+        tbUltimosClientesRegistrados = new javax.swing.JTable(){
             public boolean isCellEditable(int rowIndex, int colIndex) {
                 return false; //Desabilitar Editable
             }
         };
-        tblistadoclientescredito.setModel(new javax.swing.table.DefaultTableModel(
+        tbUltimosClientesRegistrados.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -55,9 +45,8 @@ public class JPanelListadoClienteCredito extends javax.swing.JPanel {
                 "ID", "Nombre", "Rut", "Capacidad de Credito", "Credito Disponible"
             }
         ));
-        tblistadoclientescredito.getTableHeader().setResizingAllowed(false);
-        tblistadoclientescredito.getTableHeader().setReorderingAllowed(false);
-        jScrollPane1.setViewportView(tblistadoclientescredito);
+        tbUltimosClientesRegistrados.getTableHeader().setReorderingAllowed(false);
+        jScrollPane1.setViewportView(tbUltimosClientesRegistrados);
 
         lblNombreTablaClientes.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         lblNombreTablaClientes.setForeground(new java.awt.Color(255, 255, 255));
@@ -108,6 +97,6 @@ public class JPanelListadoClienteCredito extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     public static javax.swing.JLabel lblNombreTablaClientes;
-    public static javax.swing.JTable tblistadoclientescredito;
+    public static javax.swing.JTable tbUltimosClientesRegistrados;
     // End of variables declaration//GEN-END:variables
 }

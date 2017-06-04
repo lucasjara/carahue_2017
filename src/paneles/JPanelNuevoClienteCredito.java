@@ -226,14 +226,22 @@ public class JPanelNuevoClienteCredito extends javax.swing.JPanel {
                 txtRutCliente.setText("");
                 txtRutCliente.setFocusable(true);
             } else {
-                String rut=txtRutCliente.getText();
-                String nombre=txtNombreCliente.getText();
-                String telefono=txtTelefono.getText();
-                int cantidad_credito=Integer.parseInt(txtCredito.getText());
-                Date fechas = java.sql.Date.valueOf(fecha);
-                int id_usuario=Marco.Id_Usuario;
-                sql.CrearClientes(rut, nombre, telefono, fechas, cantidad_credito, id_usuario);
-                JOptionPane.showMessageDialog(null, "Cliente Creado Correctamente");
+                if (Integer.parseInt(txtCredito.getText()) > 300000) {
+                    int resp = JOptionPane.showConfirmDialog(null, "La cantidad de credito es Mayor a $300.000 Desea continuar?");
+                    if (JOptionPane.OK_OPTION == resp) {
+                        String rut = txtRutCliente.getText();
+                        String nombre = txtNombreCliente.getText();
+                        String telefono = txtTelefono.getText();
+                        int cantidad_credito = Integer.parseInt(txtCredito.getText());
+                        Date fechas = java.sql.Date.valueOf(fecha);
+                        int id_usuario = Marco.Id_Usuario;
+                        sql.CrearClientes(rut, nombre, telefono, fechas, cantidad_credito, id_usuario);
+                        JOptionPane.showMessageDialog(null, "Cliente Creado Correctamente");
+                        Limpiar();
+                    }else{
+                        txtCredito.requestFocus();
+                    }
+                }
             }
         } else {
             JOptionPane.showMessageDialog(null, "Alguno de los campos se encuentra vacio");
